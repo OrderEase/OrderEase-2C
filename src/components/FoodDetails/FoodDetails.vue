@@ -15,6 +15,7 @@
           <div class="price">
             <span class="unit">¥</span>{{ price }}
           </div>
+          <rater class="score" v-model="score" disabled></rater>
           <div class="cart-wrapper">
             <div class="cart">
               加入购物车
@@ -27,15 +28,16 @@
         </div>
         <div class="comment-area">
           <div class="title">菜品评价 (好评度<span class="positive-ratio">{{ positiveRatio }}%</span>)</div>
-          <div class="content">{{ comment }}</div>
-        </div>
-        <div class="comment-area">
-          <div class="title">菜品评价 (好评度<span class="positive-ratio">{{ positiveRatio }}%</span>)</div>
-          <div class="content">{{ comment }}</div>
-        </div>
-        <div class="comment-area">
-          <div class="title">菜品评价 (好评度<span class="positive-ratio">{{ positiveRatio }}%</span>)</div>
-          <div class="content">{{ comment }}</div>
+          <div class="comment-list" v-for="comment in comments">
+            <div class="comment">
+              {{ comment.content }}
+              <span class="comment-date">{{ comment.date }}</span>
+              <div class="image-list" >
+                <img v-for="img in comment.imgs" :src="img">
+              </div>
+              
+            </div>
+          </div>
         </div>
       </div>      
     </div>
@@ -52,9 +54,35 @@ export default {
       price: 10,
       sales: 222,
       queue: 20,
+      score: 4,
       description: '香浓软滑，饱腹暖心，皮蛋的Q弹与瘦肉的滑嫩伴着粥香溢于满口，让人喝这样的一碗粥也觉得心满意足。',
-      comment: '很舒服~',
-      positiveRatio: 100
+      positiveRatio: 100,
+      comments: [
+        {
+          content: '很舒服~',
+          date: '2018.4.23',
+          imgs: [
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750'
+          ]
+        },
+        {
+          content: '好吃',
+          date: '2018.4.22',
+          imgs: [
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750'
+          ]
+        },
+        {
+          content: '一般般',
+          date: '2018.4.21',
+          imgs: [
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+            'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750'
+          ]
+        }
+      ]
     }
   },
   components: {
@@ -159,6 +187,12 @@ export default {
         }
       }
       
+      .score {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+      }
+      
       .cart-wrapper {
         position: absolute;
         right: 18px;
@@ -208,7 +242,9 @@ export default {
       margin-top: 10px;
       
       .title {
-        padding-left: 18px;
+        border-bottom:  1px solid rgba(7,17,27,0.1);
+        padding-left: 10px;
+        padding-bottom: 5px;
         font-size: 14px;
         font-weight: 500;
         color: #07111b;
@@ -218,9 +254,24 @@ export default {
         }
       }
       
-      .content {
+      .comment {
+        padding: 18px;
+        border-bottom: 1px solid rgba(7,17,27,0.1);
+        position: relative;
         font-size: 14px;
-        padding-left: 18px;
+        .comment-date {
+          position: absolute;
+          right: 18px;
+          top: 10px;
+          color: rgb(77, 85, 93);
+          font-size: 5px;
+        }
+        
+        img {
+          height: 100px;
+          width: 100px;
+          margin: 2px;
+        }
       }
     }
   }
