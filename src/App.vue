@@ -2,15 +2,18 @@
   <div id="app">
     <router-view></router-view>
     <tabbar>
-        <tabbar-item>
-            <span slot="label">菜单</span>
-        </tabbar-item>
-        <tabbar-item>
-            <span slot="label">购物车</span>
-        </tabbar-item>
-        <tabbar-item>
-            <span slot="label">订单</span>
-        </tabbar-item>
+      <tabbar-item>
+            <!-- <span slot="label">菜单</span> -->
+        <router-link slot="label" to="/menu">菜单</router-link>
+      </tabbar-item>
+      <tabbar-item>
+            <!-- <span slot="label">购物车</span> -->
+        <router-link slot="label" to="/cart">购物车</router-link>
+      </tabbar-item>
+      <tabbar-item>
+            <!-- <span slot="label">订单</span> -->
+        <router-link slot="label" to="/order">订单</router-link>
+      </tabbar-item>
     </tabbar>
   </div>
 </template>
