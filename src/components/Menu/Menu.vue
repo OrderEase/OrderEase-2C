@@ -15,6 +15,9 @@
 
       <div class="foods-wrapper" ref="foodsWrapper">
         <ul>
+          <li class="shake">
+            <x-button link="/shake">摇一摇随机点菜</x-button>
+          </li>
           <li v-for="category in menus" class="food-list food-list-hook" :key="category.id">
             <h1 class="title">{{category.name}}</h1>
             <ul>
@@ -30,11 +33,11 @@
                       <span class="price"><span class="unit">￥</span>{{food.price}}</span>
                     </div>
                     <div class="rank-wrapper">
-                      <img class="rank-icon" src="../../assets/account.png">
+                      <img class="rank-icon" src="../../assets/menu/account.png">
                       <span class="rank">{{food.rank}}</span>
                     </div>
                     <div class="time-wrapper">
-                      <img class="time-icon" src="../../assets/clock.png">
+                      <img class="time-icon" src="../../assets/menu/clock.png">
                       <span class="rank">{{food.time}}</span>
                     </div>
                   </div>
@@ -42,7 +45,7 @@
                 <div class="bottom">
                   <rater class="rater" v-model="food.rater" disabled :font-size="15"></rater>
                   <div class="like-wrapper">
-                    <img class="like-icon" src="../../assets/good.png">
+                    <img class="like-icon" src="../../assets/menu/good.png">
                     <span class="like">{{food.like}}</span>
                   </div>
                   <div class="quantity">
@@ -61,7 +64,7 @@
 
 <script>
 import BScroll from 'better-scroll'
-import { Swiper, Rater, InlineXNumber } from 'vux'
+import { Swiper, Rater, InlineXNumber, XButton } from 'vux'
 import menusData from './data.json'
 
 const swiperList = [{
@@ -82,7 +85,8 @@ export default {
   components: {
     Swiper,
     Rater,
-    InlineXNumber
+    InlineXNumber,
+    XButton
   },
   data () {
     return {

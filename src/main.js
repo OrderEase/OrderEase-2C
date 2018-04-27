@@ -16,4 +16,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-router.push('food-details')
+router.push('menu')
