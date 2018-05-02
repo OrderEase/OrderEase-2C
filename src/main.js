@@ -16,4 +16,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-router.push('pay')
+router.push('menu')
