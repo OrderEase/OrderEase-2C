@@ -1,0 +1,318 @@
+[{
+    "id": 0,
+    "name": "川菜",
+    "foods": [{
+        "id": 0,
+        "name": "宫保鸡丁",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 1,
+        "name": "小炒肉",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 2,
+        "name": "麻婆豆腐",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 3,
+        "name": "水煮鱼",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 4,
+        "name": "串串",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 5,
+        "name": "夫妻肺片",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  },
+  {
+    "name": "粤菜",
+    "foods": [{
+        "id": 6,
+        "name": "烧肉",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 7,
+        "name": "烧鸭",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 8,
+        "name": "白切鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 9,
+        "name": "酱油鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 10,
+        "name": "虫草花乌鸡汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 11,
+        "name": "茶树菇排骨汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  },
+  {
+    "name": "湘菜",
+    "foods": [{
+        "id": 6,
+        "name": "烧肉",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 7,
+        "name": "烧鸭",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 8,
+        "name": "白切鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 9,
+        "name": "酱油鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 10,
+        "name": "虫草花乌鸡汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 11,
+        "name": "茶树菇排骨汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  },
+  {
+    "name": "鲁菜",
+    "foods": [{
+        "id": 6,
+        "name": "烧肉",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 7,
+        "name": "烧鸭",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 8,
+        "name": "白切鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 9,
+        "name": "酱油鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 10,
+        "name": "虫草花乌鸡汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 11,
+        "name": "茶树菇排骨汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 12,
+        "name": "烧肉",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 13,
+        "name": "烧鸭",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 14,
+        "name": "白切鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 15,
+        "name": "酱油鸡",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 16,
+        "name": "虫草花乌鸡汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "id": 17,
+        "name": "茶树菇排骨汤",
+        "price": 12,
+        "rater": 3,
+        "like": 4,
+        "rank": 5,
+        "time": 36,
+        "discription": "asddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  }
+]
