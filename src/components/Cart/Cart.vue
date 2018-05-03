@@ -1,23 +1,29 @@
 
 <template>
-  <div>
+  <div class="cart-wrapper" ref="cartWrapper">
+    <div class="top-components">
+        <div class="sum"><span>总价格:</span>{{getSum}}<span>￥</span></div>
+        <x-button class="submit">下单</x-button>        
+    </div>
     <ul>
-      <li v-for="food in orders" class="food-item" :key="food.id">
-        <div class="top">
-          <div class="food-img">
-            <img :src="food.icon"/>
+      <li v-for="cart in orders" class="cart-item" :key="cart.id">
+        <div class="cart-top">
+          <div class="cart-img">
+            <img :src="cart.icon"/>
           </div>
-          <div class="food-info">
-            <h2>{{food.name}}</h2>
-            <div class="price-wrapper">
-              <span class="price"><span class="unit">￥</span>{{food.price}}</span>
+          <div class="cart-info">
+            <h2>{{cart.name}}</h2>
+            <div class="cart-price-wrapper">
+              <span class="cart_price"><span>￥</span>{{cart.price}}</span>
             </div>
           </div>
-          <div>{{food.price * food.num}}</div>
-        </div>
-        <div class="bottom">
-          <div class="quantity">
-            <inline-x-number width="50px" :min="0"></inline-x-number>
+          <div class="third">
+            <div class="total-price">
+              <span>￥</span>{{cart.price * cart.num}}
+            </div>
+            <div class="add">
+              <inline-x-number width="50px" :min="0" v-model="cart.num"></inline-x-number>
+            </div>
           </div>
         </div>
       </li>
@@ -27,6 +33,7 @@
 
 <script>
 import {XButton, InlineXNumber} from 'vux'
+// import BScroll from 'better-scroll'
 import orderdata from './data.json'
 export default {
   components: {
@@ -35,69 +42,90 @@ export default {
   },
   data () {
     return {
-      orders: orderdata
+      orders: orderdata,
+      listHeight: [],
+      cartsScrollY: 0
     }
   },
   created () {
-    {
-      console.log(this.orders.length)
-      let i = 0
-      for (; i < this.orders.length; i = i + 1) {
-        console.log(i)
+  },
+  computed: {
+    getSum: function () {
+      let sum = 0
+      for (let i = 0; i < this.orders.length; i = i + 1) {
+        sum = sum + this.orders[i].price * this.orders[i].num
       }
+      console.log(sum)
+      return sum
     }
   }
 }
 </script>
 
-<style>
-.food-item {
-  padding: 10px;
-  border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-  overflow: hidden;
+<style lang="scss">
 
-  .top {
-    // height: 100px;
+
+
+.cart-wrapper {
+  .top-components {
     display: flex;
-
-    .food-img {
-      width: 100px;
-      float: left;
+    flex-direction: row;
+    margin-top: 10px;
+    background: ;
+    border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    padding-bottom: 5px;
+    .sum {
+      text-align: center;
       flex: 0 0 100px;
-
-      img {
-        width: 80px;
-        height: 62px;
-      }
+      padding-top: 5px;
+      margin-left: 10px;
+      border: 2px solid rgba(7, 17, 27, 0.1);
     }
-
-    .food-info {
-      float: left;
-      flex: 1;
-
-      h2 {
-        font-size: 14px;
-      }
-
-      .price-wrapper {
-        margin-top: 3px;
-        float: left;
-
-        .price {
-          color: #f01414;
-        }
-      }
-
+    .submit {
+      margin-right: 10px;
+      width: 150px;
     }
   }
 
-  .bottom {
-    .quantity {
-      display: inline-block;
-      margin-left: 5px;
 
-      .vux-inline-x-number {
-        height: 20px !important;
+
+  .cart-item {
+    padding: 10px;
+    border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    
+
+    .cart-top {
+      justify-content: space-around;
+      display: flex;
+      flex-direction: row;
+      .cart-img {
+        flex: 0 0 100px;
+        width: 100px;
+        img {
+          width: 80px;
+          height: 62px;
+        }
+      }
+
+      .cart-info {
+        flex: 1;
+        width: 100px;
+        h2 {
+          font-size: 14px;
+        }
+
+        .cart-price-wrapper {
+          margin-top: 20px;
+        }
+
+      }
+
+      .third {
+        flex: 1 0;
+        
+        .add {
+          margin-top: 10px;
+        }
       }
     }
   }
