@@ -3,10 +3,10 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Menu from '@/components/Menu/Menu'
 import Cart from '@/components/Cart/Cart'
-import Order from '@/components/Order/Order'
+import MyOrder from '@/components/MyOrder/MyOrder'
 import Pay from '@/components/Pay/Pay'
 import Shake from '@/components/Shake/Shake'
-import FoodDetails from '@/components/FoodDetails/FoodDetails'
+import OrderDetails from '@/components/OrderDetails/OrderDetails'
 
 Vue.use(Router)
 
@@ -33,9 +33,9 @@ export default new Router({
       component: Cart
     },
     {
-      path: '/order',
-      name: 'Order',
-      component: Order
+      path: '/my-order',
+      name: 'MyOrder',
+      component: MyOrder
     },
     {
       path: '/shake',
@@ -48,9 +48,9 @@ export default new Router({
       component: Pay
     },
     {
-      path: '/food-details',
-      name: 'FoodDetails',
-      component: FoodDetails
+      path: '/order-details',
+      name: 'OrderDetails',
+      component: OrderDetails
     }
   ]
 })

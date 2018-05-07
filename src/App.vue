@@ -12,7 +12,7 @@
       </tabbar-item>
       <tabbar-item>
             <!-- <span slot="label">订单</span> -->
-        <router-link slot="label" to="/order">订单</router-link>
+        <router-link slot="label" to="/my-order">订单</router-link>
       </tabbar-item>
     </tabbar>
   </div>

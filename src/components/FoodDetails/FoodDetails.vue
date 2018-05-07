@@ -34,8 +34,7 @@
               <span class="comment-date">{{ comment.date }}</span>
               <div class="image-list" >
                 <img v-for="img in comment.imgs" :src="img">
-              </div>
-              
+              </div>              
             </div>
           </div>
         </div>
@@ -43,6 +42,7 @@
     </div>
   </transition>
 </template>
+
 <script>
 import { Rater } from 'vux'
 import BScroll from 'better-scroll'
