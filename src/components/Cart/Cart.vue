@@ -1,10 +1,7 @@
 
 <template>
   <div class="cart-wrapper" ref="cartWrapper">
-    <div class="top-components">
-        <div class="sum"><span>总价格:</span>{{getSum}}<span>￥</span></div>
-        <x-button class="submit">下单</x-button>        
-    </div>
+    
     <ul>
       <li v-for="cart in orders" class="cart-item" :key="cart.id">
         <div class="cart-top">
@@ -28,6 +25,10 @@
         </div>
       </li>
     </ul>
+    <div class="top-components">
+        <div class="sum"><span>总价格:</span>{{getSum}}<span>￥</span></div>
+        <x-button class="submit">下单</x-button>        
+    </div>
   </div>
 </template>
 
@@ -71,7 +72,6 @@ export default {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
-    background: ;
     border-bottom: 1px solid rgba(7, 17, 27, 0.1);
     padding-bottom: 5px;
     .sum {
