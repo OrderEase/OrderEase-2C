@@ -1,45 +1,48 @@
 
 <template>
-  <div class="cart-wrapper" ref="cartWrapper">
-    
-    <ul>
-      <li v-for="cart in orders" class="cart-item" :key="cart.id">
-        <div class="cart-top">
-          <div class="cart-img">
-            <img :src="cart.icon"/>
-          </div>
-          <div class="cart-info">
-            <h2>{{cart.name}}</h2>
-            <div class="cart-price-wrapper">
-              <span class="cart_price"><span>￥</span>{{cart.price}}</span>
+  <div>
+    <x-header title="购物车" :left-options="{showBack: false}"></x-header>
+    <div class="cart-wrapper" ref="cartWrapper">
+      <ul>
+        <li v-for="cart in orders" class="cart-item" :key="cart.id">
+          <div class="cart-top">
+            <div class="cart-img">
+              <img :src="cart.icon"/>
+            </div>
+            <div class="cart-info">
+              <h2>{{cart.name}}</h2>
+              <div class="cart-price-wrapper">
+                <span class="cart_price"><span>￥</span>{{cart.price}}</span>
+              </div>
+            </div>
+            <div class="third">
+              <div class="total-price">
+                <span>￥</span>{{cart.price * cart.num}}
+              </div>
+              <div class="add" v-on:click="check">
+                <inline-x-number width="50px" :min="0" v-model="cart.num"></inline-x-number>
+              </div>
             </div>
           </div>
-          <div class="third">
-            <div class="total-price">
-              <span>￥</span>{{cart.price * cart.num}}
-            </div>
-            <div class="add">
-              <inline-x-number width="50px" :min="0" v-model="cart.num"></inline-x-number>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div> 
     <div class="top-components">
-        <div class="sum"><span>总价格:</span>{{getSum}}<span>￥</span></div>
+        <div class="sum"><span>总价格:  {{getSum}}</span><span>￥</span></div>
         <x-button class="submit">下单</x-button>        
     </div>
   </div>
 </template>
 
 <script>
-import {XButton, InlineXNumber} from 'vux'
-// import BScroll from 'better-scroll'
+import {XButton, InlineXNumber, XHeader} from 'vux'
+import BScroll from 'better-scroll'
 import orderdata from './data.json'
 export default {
   components: {
     XButton,
-    InlineXNumber
+    InlineXNumber,
+    XHeader
   },
   data () {
     return {
@@ -49,6 +52,9 @@ export default {
     }
   },
   created () {
+    this.$nextTick(() => {
+      this._initScroll()
+    })
   },
   computed: {
     getSum: function () {
@@ -59,6 +65,29 @@ export default {
       console.log(sum)
       return sum
     }
+  },
+  methods: {
+    _initScroll () {
+      this.boxScroll = new BScroll(this.$refs.cartWrapper, {
+        click: true
+
+      })
+    },
+    check () {
+      this.$nextTick(function () {
+        let i = 0
+        for (; i < this.orders.length; ++i) {
+          if (this.orders[i].num === 0) {
+            while (i < this.orders.length - 1) {
+              this.orders[i] = this.orders[i + 1]
+              i = i + 1
+            }
+            this.orders.pop()
+          }
+        }
+      })
+      console.log('success')
+    }
   }
 }
 </script>
@@ -66,29 +95,35 @@ export default {
 <style lang="scss">
 
 
+.top-components {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  bottom: 0px;
+  border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+  padding-bottom: 5px;
+  margin-bottom: 50px;
+  .sum {
+    text-align: center;
+    flex: 0 0 100px;
+    padding-top: 5px;
+    margin-left: 10px;
+  }
+  .submit {
+    margin-top: 5px;
+    background: gray;
+    margin-right: 10px;
+    width: 150px;
+  }
+}
 
 .cart-wrapper {
-  .top-components {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-    padding-bottom: 5px;
-    .sum {
-      text-align: center;
-      flex: 0 0 100px;
-      padding-top: 5px;
-      margin-left: 10px;
-      border: 2px solid rgba(7, 17, 27, 0.1);
-    }
-    .submit {
-      margin-right: 10px;
-      width: 150px;
-    }
-  }
-
-
-
+  overflow: hidden;
+  position: absolute;
+  bottom: 110px;
+  top: 50px;
+  width: 100%;
   .cart-item {
     padding: 10px;
     border-bottom: 1px solid rgba(7, 17, 27, 0.1);
