@@ -29,7 +29,7 @@
     </div> 
     <div class="top-components">
         <div class="sum"><span>总价格:  {{getSum}}</span><span>￥</span></div>
-        <x-button class="submit">下单</x-button>        
+        <x-button class="submit" @click.native="submit" :disabled="getSum === 0 ? true : false" type="primary">下单</x-button>        
     </div>
   </div>
 </template>
@@ -87,6 +87,10 @@ export default {
         }
       })
       console.log('success')
+    },
+    submit () {
+      console.log('submit sucess')
+      this.$router.push({name: 'Pay', params: {money: this.getSum}})
     }
   }
 }
@@ -101,19 +105,18 @@ export default {
   flex-direction: row;
   width: 100%;
   bottom: 0px;
-  border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+  border-top: 1px solid rgba(7, 17, 27, 0.1);
   padding-bottom: 5px;
   margin-bottom: 50px;
   .sum {
     text-align: center;
     flex: 0 0 100px;
-    padding-top: 5px;
-    margin-left: 10px;
+    padding-top: 15px;
+    margin-left: 30px;
   }
   .submit {
     margin-top: 5px;
-    background: gray;
-    margin-right: 10px;
+    margin-right: 30px;
     width: 150px;
   }
 }
@@ -127,8 +130,9 @@ export default {
   .cart-item {
     padding: 10px;
     border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-    
-
+    margin-left: 20px;
+    margin-right: 20px;
+    list-style-type: none;
     .cart-top {
       justify-content: space-around;
       display: flex;

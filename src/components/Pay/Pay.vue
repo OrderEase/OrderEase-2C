@@ -1,15 +1,17 @@
 <template lang="html">
     <div>
-        <XHeader title="支付订单"></XHeader>
-        <Swiper :list="activity_list" direction="horizontal" auto loop></Swiper>
-        <Group>
-          <cell-box>支付金额：{{payment}}</cell-box>
-          <cell-box>订单号：{{order}}</cell-box>
-        </Group>
-        <toast text="支付成功" is-show-mask v-model="show_toast"></toast>
-        <Divider>-</Divider>
-        <checklist :title="请选择支付方式" @on-change="change" :options="inlineDescList" :max=1></checklist>
-        <XButton :text="button_text" :disabled="isClicked" @click.native="submit" type="primary"></XButton>
+        <XHeader class="head" title="支付订单"></XHeader>
+        <div class="wrapper">
+          <Swiper :list="activity_list" direction="horizontal" auto loop></Swiper>
+          <Group>
+            <cell-box>支付金额：{{payment}}</cell-box>
+            <cell-box>订单号：{{order}}</cell-box>
+          </Group>
+          <toast text="支付成功" is-show-mask v-model="show_toast"></toast>
+          <Divider>-</Divider>
+        </div>
+        <checklist class="ways" :title="请选择支付方式" @on-change="change" :options="inlineDescList" :max=1></checklist>
+        <XButton class="payment" :text="button_text" :disabled="isClicked" @click.native="submit" type="primary"></XButton>
     </div>
 </template>
 
@@ -41,13 +43,17 @@
       XButton,
       Toast
     },
+    created () {
+      console.log(this.$route.params.money)
+      this.payment = this.$route.params.money
+    },
     methods: {
       submit () {
         this.show_toast = true
       },
       change (val, label) {
         this.isClicked = val.length === 0
-        console.log('change', val, label, this.isClicked)
+        // console.log('change', val, label, this.isClicked)
       }
     },
     data () {
@@ -70,5 +76,20 @@
 </script>
 
 <style>
-  
+.payment {
+  float: left;
+}
+
+.ways {
+  float: left;
+}
+
+.wrapper {
+  float: left;
+}
+
+.head {
+  float: left;
+  width: 100%;
+}
 </style>
