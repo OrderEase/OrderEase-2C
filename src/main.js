@@ -16,4 +16,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-router.push('order-details')
+router.push('menu')

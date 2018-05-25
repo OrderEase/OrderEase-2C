@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <tabbar>
+    <tabbar class="footer">
       <tabbar-item>
             <!-- <span slot="label">菜单</span> -->
         <router-link slot="label" to="/menu">菜单</router-link>
@@ -35,5 +35,9 @@ export default {
 
 body {
   background-color: #fbf9fe;
+}
+
+#app .footer {
+  position: fixed;
 }
 </style>
