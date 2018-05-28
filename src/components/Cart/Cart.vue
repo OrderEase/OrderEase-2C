@@ -1,10 +1,9 @@
 
 <template>
   <div>
-    <x-header title="购物车" :left-options="{showBack: false}"></x-header>
     <div class="cart-wrapper" ref="cartWrapper">
-      <ul>
-        <li v-for="cart in orders" class="cart-item" :key="cart.id">
+      <transition-group tag="ul" name="food-order">
+        <li v-for="cart in orders" class="cart-item" :key="cart.id" v-if="cart.num >= 0">
           <div class="cart-top">
             <div class="cart-img">
               <img :src="cart.icon"/>
@@ -12,23 +11,25 @@
             <div class="cart-info">
               <h2>{{cart.name}}</h2>
               <div class="cart-price-wrapper">
-                <span class="cart_price"><span>￥</span>{{cart.price}}</span>
+                <span>单价:</span>
+                <span class="cart_price price">￥{{cart.price}}</span>
               </div>
             </div>
             <div class="third">
               <div class="total-price">
-                <span>￥</span>{{cart.price * cart.num}}
+                <span>总价:</span>
+                <span class="price" >￥{{cart.price * cart.num}}</span>
               </div>
               <div class="add" v-on:click="check">
-                <inline-x-number width="50px" :min="0" v-model="cart.num"></inline-x-number>
+                <inline-x-number class="add-inline-number" width="25px" :min="-1" v-model="cart.num"></inline-x-number>
               </div>
             </div>
           </div>
         </li>
-      </ul>
+      </transition-group>
     </div> 
     <div class="top-components">
-        <div class="sum"><span>总价格:  {{getSum}}</span><span>￥</span></div>
+        <div class="sum"><span>总价格:</span><span class="price">￥{{getSum}}</span></div>
         <x-button class="submit" @click.native="submit" :disabled="getSum === 0 ? true : false" type="primary">下单</x-button>        
     </div>
   </div>
@@ -77,7 +78,7 @@ export default {
       this.$nextTick(function () {
         let i = 0
         for (; i < this.orders.length; ++i) {
-          if (this.orders[i].num === 0) {
+          if (this.orders[i].num === -1) {
             while (i < this.orders.length - 1) {
               this.orders[i] = this.orders[i + 1]
               i = i + 1
@@ -85,6 +86,7 @@ export default {
             this.orders.pop()
           }
         }
+        console.log(this.orders)
       })
       console.log('success')
     },
@@ -98,6 +100,26 @@ export default {
 
 <style lang="scss">
 
+.food-order-enter-active {
+  transition: all .3s ease;
+}
+
+.food-order-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.food-order-enter, .food-order-leave-to {
+  opacity: 0;
+  transform: translateX(150px);
+}
+
+.total-price, .cart-price-wrapper {
+  font-size: 14px;
+}
+
+.price {
+  color: red;
+}
 
 .top-components {
   position: absolute;
@@ -121,11 +143,13 @@ export default {
   }
 }
 
+
+
 .cart-wrapper {
   overflow: hidden;
   position: absolute;
   bottom: 110px;
-  top: 50px;
+  top: 10px;
   width: 100%;
   .cart-item {
     padding: 10px;
@@ -139,9 +163,10 @@ export default {
       flex-direction: row;
       .cart-img {
         flex: 0 0 100px;
-        width: 100px;
+        width: 120px;
+        padding: 10px 20px 0px 0px;
         img {
-          width: 80px;
+          width: 100px;
           height: 62px;
         }
       }
@@ -149,6 +174,8 @@ export default {
       .cart-info {
         flex: 1;
         width: 100px;
+        padding: 10px 0px 0px 0px;
+        margin-right: -20px;
         h2 {
           font-size: 14px;
         }
@@ -161,9 +188,10 @@ export default {
 
       .third {
         flex: 1 0;
-        
+        padding: 10px 0px 0px 0px;
         .add {
-          margin-top: 10px;
+          margin-top: 20px;
+          
         }
       }
     }

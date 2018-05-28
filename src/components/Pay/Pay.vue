@@ -81,12 +81,14 @@
 }
 
 .ways {
+  width: 100%;
   float: left;
 }
 
 .wrapper {
   float: left;
 }
+
 
 .head {
   float: left;
