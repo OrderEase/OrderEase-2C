@@ -15,43 +15,12 @@
 
       <div class="foods-wrapper" ref="foodsWrapper">
         <ul>
-          <li class="shake">
-            <x-button link="/shake">摇一摇随机点菜</x-button>
-          </li>
           <li v-for="category in menus" class="food-list food-list-hook" :key="category.id">
             <h1 class="title">{{category.name}}</h1>
+
             <ul>
               <li v-for="food in category.foods" class="food-item" :key="food.id">
-                <div class="top">
-                  <div class="food-img">
-                    <img :src="food.icon"/>
-                  </div>
-                  <div class="food-info">
-                    <h2>{{food.name}}</h2>
-                    <p class="discription">{{food.discription}}</p>
-                    <div class="price-wrapper">
-                      <span class="price"><span class="unit">￥</span>{{food.price}}</span>
-                    </div>
-                    <div class="rank-wrapper">
-                      <img class="rank-icon" src="../../assets/menu/account.png">
-                      <span class="rank">{{food.rank}}</span>
-                    </div>
-                    <div class="time-wrapper">
-                      <img class="time-icon" src="../../assets/menu/clock.png">
-                      <span class="rank">{{food.time}}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="bottom">
-                  <rater class="rater" v-model="food.rater" disabled :font-size="15"></rater>
-                  <div class="like-wrapper">
-                    <img class="like-icon" src="../../assets/menu/good.png">
-                    <span class="like">{{food.like}}</span>
-                  </div>
-                  <div class="quantity">
-                    <inline-x-number width="50px" :min="0"></inline-x-number>
-                  </div>
-                </div>
+                <food-item :food="food" @update="showCart"></food-item>
               </li>
             </ul>
           </li>
@@ -64,8 +33,9 @@
 
 <script>
 import BScroll from 'better-scroll'
-import { Swiper, Rater, InlineXNumber, XButton } from 'vux'
+import { Swiper } from 'vux'
 import menusData from './data.json'
+import FoodItem from '../food-item/food-item'
 
 const swiperList = [{
   url: 'javascript:',
@@ -84,9 +54,7 @@ const swiperList = [{
 export default {
   components: {
     Swiper,
-    Rater,
-    InlineXNumber,
-    XButton
+    FoodItem
   },
   data () {
     return {
@@ -143,6 +111,9 @@ export default {
         return
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+    },
+    showCart (target) {
+      console.log(this.menus)
     }
   }
 }
@@ -169,10 +140,11 @@ export default {
     }
 
     .category-wrapper {
-      flex: 0, 0, 80px;
       width: 80px;
+      flex: 0 0 80px;
       background: #f3f5f7;
       margin-top: 1px;
+      overflow: hidden;
 
       .category-item {
         height: 40px;
@@ -182,7 +154,7 @@ export default {
 
         .text {
           font-size: 14px;
-          font-weight: 200;
+          font-weight: 400;
           padding: 8px;
         }
         
@@ -209,102 +181,17 @@ export default {
         height: 26px;
         line-height: 26px;
         padding-left: 12px;
-        font-size: 14px;
+        font-size: 15px;
         color: rgb(147, 153, 159);
         background: #f3f5f7;
         border-left: 2px solid #d9dde1;
       }
 
       .food-item {
-        padding: 10px;
+        padding: 10px 8px 6px 10px;
         border-bottom: 1px solid rgba(7, 17, 27, 0.1);
         overflow: hidden;
-
-        .top {
-          // height: 100px;
-          display: flex;
-
-          .food-img {
-            width: 100px;
-            float: left;
-            flex: 0 0 100px;
-
-            img {
-              width: 80px;
-              height: 62px;
-            }
-          }
-
-          .food-info {
-            float: left;
-            flex: 1;
-
-            h2 {
-              font-size: 14px;
-            }
-
-            .discription {
-              font-size: 14px;
-              color: rgb(147, 153, 159);
-              line-height: 14px;
-              margin-top: 2px;
-              width: 160px;
-              text-overflow: ellipsis;
-              overflow: hidden;
-            }
-
-            .price-wrapper {
-              margin-top: 3px;
-              float: left;
-
-              .price {
-                color: #f01414;
-              }
-            }
-
-            .rank-wrapper {
-              margin-top: 3px;
-              margin-left: 20px;
-              float: left;
-              
-              .rank-icon {
-                height: 14px;
-                width: 14px;
-              }
-            }
-
-            .time-wrapper {
-              margin-top: 3px;
-              margin-left: 20px;
-              float: left;
-
-              .time-icon {
-                height: 14px;
-                width: 14px;
-              }
-            }
-          }
-        }
-
-        .bottom {
-          .like-wrapper {
-            display: inline-block;
-            margin-left: 18px;
-
-            .like-icon {
-              height: 14px;
-              width: 14px;
-            }
-          }
-          .quantity {
-            display: inline-block;
-            margin-left: 5px;
-
-            .vux-inline-x-number {
-              height: 20px !important;
-            }
-          }
-        }
+        display: flex;
       }
     }
   }

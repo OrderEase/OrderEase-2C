@@ -8,6 +8,10 @@
       </tabbar-item>
       <tabbar-item>
             <!-- <span slot="label">购物车</span> -->
+        <router-link slot="label" to="/shake">摇一摇</router-link>
+      </tabbar-item>
+      <tabbar-item>
+            <!-- <span slot="label">购物车</span> -->
         <router-link slot="label" to="/cart">购物车</router-link>
       </tabbar-item>
       <tabbar-item>
