@@ -1,48 +1,40 @@
 <template>
-    <transition name="move">
-      <div class="order-wrapper" ref="myOrderWrapper">
-        <div class="my-order">
-          <tab>
-            <tab-item selected @on-item-click="onItemClick">未完成订单</tab-item>
-            <tab-item @on-item-click="onItemClick">历史订单</tab-item>
-          </tab>
+  <transition name="move">
+    <div class="my-order-wrapper">
+      <tab>
+        <tab-item selected @on-item-click="toggleOrderType">未完成订单</tab-item>
+        <tab-item @on-item-click="toggleOrderType">历史订单</tab-item>
+      </tab>
+      <div class="order-list-wrapper" ref="orderListWrapper">
+        <div class="order-list">
           <div class="unfinished-orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
-            <div class="unfinished-order-item">
-              <img class="order-image" :src="order.img">
-              <div class="order-info">
-                <div class="order-number">订单号: {{ order.number }}</div>
-                <div class="order-price">总价: {{ order.price }}</div>
+            <router-link to="/order-details">
+              <div class="unfinished-order-item">
+                <img class="order-image" :src="order.img">
+                <div class="order-info">
+                  <div class="order-number">订单号: {{ order.number }}</div>
+                  <div class="order-price">总价: ¥{{ order.price }}</div>
+                </div>
+                <div class="order-state">有{{ order.unfishedFoodsNumber }}个菜未上</div>
               </div>
-              <div class="order-state">仍有3个菜未上</div>
-            </div>
+            </router-link>
           </div>
           <div class="history-orders" v-show="showHistoryOrder" v-for="order in historyOrders">
-            <div class="history-order-item">
-              <img class="order-image" :src="order.img">
-              <div class="order-info">
-                <div class="order-number">订单号: {{ order.number }}</div>
-                <div class="order-date">日期: {{ order.date }}</div>
+            <router-link to="/order-details">
+              <div class="history-order-item">
+                <img class="order-image" :src="order.img">
+                <div class="order-info">
+                  <div class="order-number">订单号: {{ order.number }}</div>
+                  <div class="order-date">日期: {{ order.date }}</div>
+                </div>
+                <div class="order-price">消费金额: {{ order.price }}¥</div>
               </div>
-              <div class="order-price">消费金额: {{ order.price }}¥</div>
-            </div>
+            </router-link>
           </div>
-          <!-- <div class="food-list" v-for="food in foods">
-            <div class="food-item">
-              <img class="food-image" :src="food.img">
-              <span class="food-name">{{ food.name }}</span>
-              <span class="food-price">{{ food.price }}</span>
-              <span class="food-amount">{{ food.amount }}</span>
-              <span class="food-total-price"> {{ calculateTotalPriceForThisFood(food.price, food.amount) }}</span>
-              <x-button mini>催单</x-button>
-            </div>
-          </div> -->
-          <!-- <div class="pay-bar">
-            <span class="total-price">{{ totalPrice }}</span>
-            <x-button mini type="primary">马上支付</x-button>
-          </div> -->
         </div>
-      </div>
-    </transition>
+      </div>    
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -81,47 +73,56 @@ export default {
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
-          price: 100
+          price: 100,
+          unfishedFoodsNumber: 3
         }
       ],
 
@@ -170,7 +171,7 @@ export default {
       // totalPrice += priceForThisFood
       return priceForThisFood
     },
-    onItemClick (index) {
+    toggleOrderType (index) {
       // console.log('on item click:', index)
       this.showUnfinishedOrder = !this.showUnfinishedOrder
       this.showHistoryOrder = !this.showHistoryOrder
@@ -180,7 +181,7 @@ export default {
   mounted () {
     this.$nextTick(() => {
       if (!this.scroll) {
-        this.scroll = new BScroll(this.$refs.myOrderWrapper, {
+        this.scroll = new BScroll(this.$refs.orderListWrapper, {
           scrollY: true,
           click: true
         })
@@ -195,17 +196,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.order-wrapper {
+.order-list-wrapper {
   width: 100%;
   // height: 100%;
   background-color: #f3f5f7;
   position: fixed;
   left: 0;
-  top: 0;
-  bottom: 50px;
+  top: 44px;
+  bottom: 50px;  
   overflow: hidden;
+  font-size: 15px;
   
-  .my-order {
+  .order-list {
+    
     .order-image {
       height: 100px;
       width: 100px;
@@ -218,6 +221,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        color: black;
         
         .order-image {
           margin: 5px;
@@ -227,8 +231,8 @@ export default {
           // height: 100px;
           flex-grow: 1;
           text-align: center;
-          margin-left: 10px;
-          margin-right: 15px;
+          margin-left: 5px;
+          margin-right: 10px;
           
           .order-number {
             height: 50px;
@@ -277,6 +281,7 @@ export default {
         align-items: center;
         justify-content: space-between;
         text-align: center;
+        color: black;
         
         .order-image {
           margin: 5px;
@@ -285,8 +290,8 @@ export default {
         .order-info {
           // height: 100px;
           flex-grow: 1;
-          margin-left: 10px;
-          margin-right: 15px;
+          margin-left: 5px;
+          margin-right: 10px;
           
           .order-number {
             height: 50px;
