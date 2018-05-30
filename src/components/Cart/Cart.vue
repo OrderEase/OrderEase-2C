@@ -20,7 +20,7 @@
                 <span>总价:</span>
                 <span class="price" >￥{{cart.price * cart.num}}</span>
               </div>
-              <div class="add" v-on:click="check">
+              <div class="add" v-on:click="check(cart.id)">
                 <inline-x-number class="add-inline-number" width="25px" :min="-1" v-model="cart.num"></inline-x-number>
               </div>
             </div>
@@ -38,7 +38,7 @@
 <script>
 import {XButton, InlineXNumber, XHeader} from 'vux'
 import BScroll from 'better-scroll'
-import orderdata from './data.json'
+// import orderdata from './data.json'
 export default {
   components: {
     XButton,
@@ -47,12 +47,14 @@ export default {
   },
   data () {
     return {
-      orders: orderdata,
+      orders: [],
       listHeight: [],
       cartsScrollY: 0
     }
   },
   created () {
+    this.orders = this.$store.state.orders
+    console.log('create', this.$store.state.orders)
     this.$nextTick(() => {
       this._initScroll()
     })
@@ -60,6 +62,9 @@ export default {
   computed: {
     getSum: function () {
       let sum = 0
+      if (typeof this.orders === 'undefined') {
+        return 0
+      }
       for (let i = 0; i < this.orders.length; i = i + 1) {
         sum = sum + this.orders[i].price * this.orders[i].num
       }
@@ -74,9 +79,12 @@ export default {
 
       })
     },
-    check () {
+    check (id) {
       this.$nextTick(function () {
         let i = 0
+        if (typeof this.orders === 'undefined') {
+          return 0
+        }
         for (; i < this.orders.length; ++i) {
           if (this.orders[i].num === -1) {
             while (i < this.orders.length - 1) {
@@ -87,6 +95,9 @@ export default {
           }
         }
         console.log(this.orders)
+      })
+      this.$store.commit('check', {
+        id: id
       })
       console.log('success')
     },

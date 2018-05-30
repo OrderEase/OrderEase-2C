@@ -20,7 +20,7 @@
 
             <ul>
               <li v-for="food in category.foods" class="food-item" :key="food.id">
-                <food-item :food="food" @update="showCart"></food-item>
+                <food-item :food="food" @update="showCart(food, category.id)"></food-item>
               </li>
             </ul>
           </li>
@@ -112,8 +112,17 @@ export default {
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
-    showCart (target) {
-      console.log(this.menus)
+    showCart (food, cid) {
+      let temp = this.menus.filter(menu => menu.id === cid)
+      console.log('t', temp)
+      this.$store.commit('check', {
+        id: food.id,
+        name: food.name,
+        price: food.price,
+        count: temp[0].foods.filter(f => f.id === food.id)[0].count
+      })
+      let temp2 = temp[0].foods.filter(f => f.id === food.id)
+      console.log('count', temp2, temp2[0].name)
     }
   }
 }

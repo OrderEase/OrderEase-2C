@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import Menu from '@/components/Menu/Menu'
@@ -9,7 +10,7 @@ import Shake from '@/components/Shake/Shake'
 import OrderDetails from '@/components/OrderDetails/OrderDetails'
 
 Vue.use(Router)
-
+Vue.use(Vuex)
 // export default new Router({
 //   routes: [
 //     {
@@ -43,7 +44,7 @@ export default new Router({
       component: Shake
     },
     {
-      path: '/pay',
+      path: '/pay:money',
       name: 'Pay',
       component: Pay
     },
