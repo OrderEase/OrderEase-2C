@@ -1,7 +1,7 @@
+
 <template>
   <div class="menu">
-    <swiper class="banner" :list="swiper_list" auto dots-class="custom-bottom" dots-position="center"></swiper>
-
+    <bussiness :bussiness='bs'></bussiness>
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
@@ -20,7 +20,7 @@
 
             <ul>
               <li v-for="food in category.foods" class="food-item" :key="food.id">
-                <food-item :food="food" @update="showCart"></food-item>
+                <food-item :food="food" @update="showCart(food, category.id)"></food-item>
               </li>
             </ul>
           </li>
@@ -35,8 +35,8 @@
 import BScroll from 'better-scroll'
 import { Swiper } from 'vux'
 import menusData from './data.json'
+import Bussiness from './bussiness/bussiness'
 import FoodItem from '../food-item/food-item'
-
 const swiperList = [{
   url: 'javascript:',
   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
@@ -50,25 +50,40 @@ const swiperList = [{
   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg', // 404
   title: '送你一次旅行'
 }]
-
 export default {
   components: {
     Swiper,
-    FoodItem
+    FoodItem,
+    Bussiness
   },
   data () {
     return {
       swiper_list: swiperList,
       menus: menusData,
       listHeight: [],
-      foodsScrollY: 0
+      foodsScrollY: 0,
+      image: '',
+      bs: {
+        name: '肥宅快乐餐',
+        description: '我知道这样不好，但这样真爽。',
+        introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！',
+        num: 2
+      }
     }
   },
   created () {
+    this.$ajax.get('/rstr')
+      .then(function (responce) {
+        console.log(responce)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
     this.$nextTick(() => {
       this._initScroll()
       this._calculateHeight()
     })
+    this.synatic()
   },
   computed: {
     categoryCurrentIndex () {
@@ -112,8 +127,30 @@ export default {
       }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
-    showCart (target) {
-      console.log(this.menus)
+    showCart (food, cid) {
+      let temp = this.menus.filter(menu => menu.id === cid)
+      console.log('t', temp)
+      this.$nextTick(() => {
+        this.$store.commit('check', {
+          id: food.id,
+          name: food.name,
+          price: food.price,
+          count: temp[0].foods.filter(f => f.id === food.id)[0].count,
+          cid: cid
+        })
+        let temp2 = temp[0].foods.filter(f => f.id === food.id)
+        console.log('count', temp2, temp2[0].name)
+      })
+    },
+    synatic () {
+      console.log('synatic start')
+      for (let i = 0; i < this.$store.state.orders.length; ++i) {
+        let temp = this.$store.state.orders[i]
+        let tempMenu = this.menus.filter(menu => menu.id === temp.cid)[0].foods
+        console.log('synatic', tempMenu)
+        tempMenu.filter(food => food.id === temp.id)[0].count = temp.num
+        console.log('synatic food', tempMenu.filter(food => food.id === temp.id)[0])
+      }
     }
   }
 }
@@ -122,36 +159,31 @@ export default {
 <style lang="scss">
 .menu {
   bottom: 46px;
-
   .banner {
     height: 180px;
   }
-
   .content {
     position: absolute;
     overflow: hidden;
     display: flex;
-    top: 180px;
+    top: 140px;
     bottom: 46px;
     width: 100%;
     
     ul, li {
       list-style-type: none;
     }
-
     .category-wrapper {
       width: 80px;
       flex: 0 0 80px;
       background: #f3f5f7;
       margin-top: 1px;
       overflow: hidden;
-
       .category-item {
         height: 40px;
         line-height: 40px;
         text-align: center;
         position: relative;
-
         .text {
           font-size: 14px;
           font-weight: 400;
@@ -167,16 +199,13 @@ export default {
           border-bottom: 1px solid rgba(7, 17, 27, 0.1);
         }
       }
-
       .category-item-selected {
         background: white;
       }
     }
-
     .foods-wrapper {
       flex: 1;
       margin-top: 2px;
-
       .title {
         height: 26px;
         line-height: 26px;
@@ -186,7 +215,6 @@ export default {
         background: #f3f5f7;
         border-left: 2px solid #d9dde1;
       }
-
       .food-item {
         padding: 10px 8px 6px 10px;
         border-bottom: 1px solid rgba(7, 17, 27, 0.1);
@@ -196,5 +224,4 @@ export default {
     }
   }
 }
-
 </style>

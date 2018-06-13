@@ -47,13 +47,12 @@ export default {
   },
   data () {
     return {
-      orders: [],
+      orders: this.$store.state.orders,
       listHeight: [],
       cartsScrollY: 0
     }
   },
   created () {
-    this.orders = this.$store.state.orders
     console.log('create', this.$store.state.orders)
     this.$nextTick(() => {
       this._initScroll()
@@ -62,7 +61,7 @@ export default {
   computed: {
     getSum: function () {
       let sum = 0
-      if (typeof this.orders === 'undefined') {''
+      if (typeof this.orders === 'undefined') {
         return 0
       }
       for (let i = 0; i < this.orders.length; i = i + 1) {
@@ -76,7 +75,6 @@ export default {
     _initScroll () {
       this.boxScroll = new BScroll(this.$refs.cartWrapper, {
         click: true
-
       })
     },
     check (id) {

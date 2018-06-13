@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Vuex from 'vuex'
 // import HelloWorld from '@/components/HelloWorld'
 import Menu from '@/components/Menu/Menu'
 import Cart from '@/components/Cart/Cart'
@@ -7,8 +8,10 @@ import MyOrder from '@/components/MyOrder/MyOrder'
 import Pay from '@/components/Pay/Pay'
 import Shake from '@/components/Shake/Shake'
 import OrderDetails from '@/components/OrderDetails/OrderDetails'
+import bussiness from '@/components/Menu/bussiness/bussiness'
 
 Vue.use(Router)
+Vue.use(Vuex)
 
 // export default new Router({
 //   routes: [
@@ -51,6 +54,11 @@ export default new Router({
       path: '/order-details',
       name: 'OrderDetails',
       component: OrderDetails
+    },
+    {
+      path: '/menu-bussiness',
+      name: 'bussiness',
+      component: bussiness
     }
   ]
 })
