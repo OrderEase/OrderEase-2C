@@ -14,10 +14,10 @@
         <span class="price"><span class="unit">￥</span>{{food.price}}</span>
       </div>
 
-      <div class="like-wrapper">
+      <!-- <div class="like-wrapper">
         <img class="like-icon" src="../../assets/menu/good.png">
         <span class="like">{{food.like}}</span>
-      </div>
+      </div> -->
 
       <div class="cart-control-wrapper">
         <cart-control :food="food" @update="update"></cart-control>
@@ -52,15 +52,22 @@ export default {
   overflow: hidden;
   display: flex;
   flex: auto;
-
+  background-color: white;
+  border-radius: 5px;
   .left {
     flex: 0 0 100px;
 
     .food-img {
+      margin-top: 14px;
+      margin-left: 14px;
       img {
-        width: 100px;
-        height: 80px;
+        width: 100%;
+        height: 100%;
+        border-radius: 5%;
+        border-color: white;
       }
+      width: 84px;
+      height: 70px;
     }
   }
 
@@ -71,46 +78,47 @@ export default {
     flex: 1;
 
     .food-name {
-      font-size: 15px;
+      margin-top: 14px;
+      font-size: 13px;
     }
 
     .food-discription {
-      font-size: 14px;
+      font-size: 13px;
       color: rgb(147, 153, 159);
       line-height: 14px;
       margin-top: 2px;
-      width: 160px;
+      margin-right: 3px;
+      width: 150px;
       text-overflow: ellipsis;
       overflow: hidden;
     }
 
     .price-wrapper {
-      margin-top: 10px;
       position: absolute;
-      bottom: 4px;
+      bottom: 12px;
       left: 10px;
-
+      font-size: 12px;
       .price {
-        color: #f01414;
+        color:rgba(116, 177, 249, 1);
       }
     }
 
-    .like-wrapper {
-      display: inline-block;
-      position: absolute;
-      bottom: 4px;
-      left: 60px;
+    // .like-wrapper {
+    //   display: inline-block;
+    //   position: absolute;
+    //   bottom: 4px;
+    //   left: 60px;
       
-      .like-icon {
-        height: 14px;
-        width: 14px;
-      }
-    }
+    //   .like-icon {
+    //     height: 14px;
+    //     width: 14px;
+    //   }
+    // }
 
     .cart-control-wrapper {
       position: absolute;
-      right: 0;
-      bottom: 4px;
+      right: 14px;
+      bottom: 10px;
     }
   }
 }

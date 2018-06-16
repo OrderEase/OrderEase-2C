@@ -80,15 +80,14 @@ export default {
     }
     .description {
       font-size: 10px;
+      color: rgba(206, 209, 220, 1);
     }
   }
   img {
     height: 60px;
     width: 60px;
-    border-style: solid;
-    border-width: 1px;
     border-color: white;
-    border-radius: 4px;
+    border-radius: 6%;
   }
   .line {
     height: 1px;

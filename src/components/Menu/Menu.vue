@@ -9,6 +9,9 @@
             <span class="text">
               {{category.name}}
             </span>
+            <span class="num">
+              {{category.foods.length}}
+            </span>
           </li>
         </ul>
       </div>
@@ -16,7 +19,7 @@
       <div class="foods-wrapper" ref="foodsWrapper">
         <ul>
           <li v-for="category in menus" class="food-list food-list-hook" :key="category.id">
-            <h1 class="title">{{category.name}}</h1>
+            <!-- <h1 class="title">{{category.name}}</h1> -->
 
             <ul>
               <li v-for="food in category.foods" class="food-item" :key="food.id">
@@ -159,9 +162,6 @@ export default {
 <style lang="scss">
 .menu {
   bottom: 46px;
-  .banner {
-    height: 180px;
-  }
   .content {
     position: absolute;
     overflow: hidden;
@@ -173,6 +173,18 @@ export default {
     ul, li {
       list-style-type: none;
     }
+
+    ul {
+      background: #f3f5f7;
+    }
+
+    // li {
+    //   background-color: white;
+    //   border-radius: 5px;
+    //   border-color: white;
+    //   border-style: solid;
+    // }
+
     .category-wrapper {
       width: 80px;
       flex: 0 0 80px;
@@ -180,32 +192,45 @@ export default {
       margin-top: 1px;
       overflow: hidden;
       .category-item {
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        position: relative;
-        .text {
-          font-size: 14px;
-          font-weight: 400;
-          padding: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        // background-color: rgba(83, 158, 249, 1);
+        background-color: rgba(236, 240, 249, 1);
+        color: rgba(119, 122, 131, 1);
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+        border-width: 1px;
+        margin-top: 15px;
+        margin-left: 10px;
+        .num {
+          width: 55px;
+          font-size: 25px;
+          text-align: right;
+          color: rgba(206, 209, 220, 1);
         }
-        
+        .text {
+          width: 45px;
+          margin-left: 6px;
+          font-size: 14px;
+        }
         &:after {
           position: absolute;
           content: '';
           left: 12px;
           width: 56px;
           bottom: 0;
-          border-bottom: 1px solid rgba(7, 17, 27, 0.1);
         }
       }
       .category-item-selected {
-        background: white;
+        background: rgba(83, 158, 249, 1);
+        color: rgba(255, 255, 255, 1);
       }
     }
     .foods-wrapper {
       flex: 1;
-      margin-top: 2px;
+      margin-top: 6px;
       .title {
         height: 26px;
         line-height: 26px;
@@ -216,8 +241,9 @@ export default {
         border-left: 2px solid #d9dde1;
       }
       .food-item {
-        padding: 10px 8px 6px 10px;
-        border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+        height: 100px;
+        width: 275px;
+        padding: 15px 8px 6px 6px;
         overflow: hidden;
         display: flex;
       }

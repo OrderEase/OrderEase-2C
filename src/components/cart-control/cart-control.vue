@@ -64,17 +64,17 @@
 
     .cart-plus {
       color: white;
-      background-color: rgba(18, 124, 245, 0.5);
+      background-color: rgba(83, 158, 249, 1);
     }
 
     .cart-minus, .cart-plus {
       display: inline-block;
-      height: 20px;
-      width: 20px;
+      height: 14px;
+      width: 14px;
       border-radius: 50%;
       text-align: center;
-      font-size: 20px;
-      line-height: 18px;
+      font-size: 15px;
+      line-height: 13px;
 
       &.fade-enter-active, &.fade-leave-active {
         transition: all 0.4s linear;
