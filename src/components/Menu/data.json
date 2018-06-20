@@ -9,7 +9,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {
@@ -20,7 +20,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {
@@ -31,7 +31,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {
@@ -42,7 +42,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {
@@ -53,7 +53,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {
@@ -64,7 +64,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       }
     ]
@@ -80,7 +80,7 @@
         "like": 4,
         "rank": 5,
         "time": 36,
-        "icon": "./src/test.jpeg",
+        "icon": "./src/assets/test.jpeg",
         "discription": "asddddddddddddddddddddddddddddddddddd"
       },
       {

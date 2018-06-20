@@ -22,7 +22,7 @@
             <!-- <h1 class="title">{{category.name}}</h1> -->
 
             <ul>
-              <li v-for="food in category.foods" class="food-item" :key="food.id">
+              <li v-for="food in category.foods" class="food-item" :key="food.id" @click="showDialog(food)">
                 <food-item :food="food" @update="showCart(food, category.id)"></food-item>
               </li>
             </ul>
@@ -30,16 +30,20 @@
         </ul>
       </div>
     </div>
-
+    <shop-cart class="cart"></shop-cart>
+    <food-detail :food="foodInfo" />
   </div>
 </template>
 
 <script>
 import BScroll from 'better-scroll'
 import { Swiper } from 'vux'
-import menusData from './data.json'
+import { mapState } from 'vuex'
+// import menusData from './data.json'
 import Bussiness from './bussiness/bussiness'
 import FoodItem from '../food-item/food-item'
+import FoodDetail from '../food-item/FoodDetail/food-detail'
+import ShopCart from '../Cart/shopCart'
 const swiperList = [{
   url: 'javascript:',
   img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
@@ -57,12 +61,14 @@ export default {
   components: {
     Swiper,
     FoodItem,
-    Bussiness
+    Bussiness,
+    FoodDetail,
+    ShopCart
   },
   data () {
     return {
       swiper_list: swiperList,
-      menus: menusData,
+      // menus: menusData,
       listHeight: [],
       foodsScrollY: 0,
       image: '',
@@ -71,6 +77,15 @@ export default {
         description: '我知道这样不好，但这样真爽。',
         introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！',
         num: 2
+      },
+      foodInfo: {
+        name: '宫保鸡丁',
+        price: 12,
+        like: 4,
+        icon: './src/assets/test.jpeg',
+        discription: 'asddddddddddddddddddddddddddddddddddd',
+        count: 0,
+        show: false
       }
     }
   },
@@ -86,7 +101,7 @@ export default {
       this._initScroll()
       this._calculateHeight()
     })
-    this.synatic()
+    // this.synatic()
   },
   computed: {
     categoryCurrentIndex () {
@@ -98,7 +113,10 @@ export default {
         }
       }
       return 0
-    }
+    },
+    ...mapState({
+      menus: 'menus'
+    })
   },
   methods: {
     _initScroll () {
@@ -131,19 +149,19 @@ export default {
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
     showCart (food, cid) {
-      let temp = this.menus.filter(menu => menu.id === cid)
-      console.log('t', temp)
-      this.$nextTick(() => {
-        this.$store.commit('check', {
-          id: food.id,
-          name: food.name,
-          price: food.price,
-          count: temp[0].foods.filter(f => f.id === food.id)[0].count,
-          cid: cid
-        })
-        let temp2 = temp[0].foods.filter(f => f.id === food.id)
-        console.log('count', temp2, temp2[0].name)
-      })
+      // let temp = this.menus.filter(menu => menu.id === cid)
+      console.log('food', food)
+      // this.$nextTick(() => {
+      //   this.$store.commit('check', {
+      //     id: food.id,
+      //     name: food.name,
+      //     price: food.price,
+      //     count: temp[0].foods.filter(f => f.id === food.id)[0].count,
+      //     cid: cid
+      //   })
+      // let temp2 = temp[0].foods.filter(f => f.id === food.id)
+      // console.log('count', temp2, temp2[0].name)
+      // })
     },
     synatic () {
       console.log('synatic start')
@@ -154,6 +172,16 @@ export default {
         tempMenu.filter(food => food.id === temp.id)[0].count = temp.num
         console.log('synatic food', tempMenu.filter(food => food.id === temp.id)[0])
       }
+    },
+    showDialog (food) {
+      this.foodInfo.name = food.name
+      this.foodInfo.price = food.price
+      this.foodInfo.icon = food.icon
+      this.foodInfo.show = true
+      this.foodInfo.description = food.description
+      this.foodInfo.like = food.like
+      this.foodInfo.count = food.count
+      console.log('showDialog', this.foodInfo)
     }
   }
 }
@@ -162,6 +190,10 @@ export default {
 <style lang="scss">
 .menu {
   bottom: 46px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 640px;
   .content {
     position: absolute;
     overflow: hidden;
@@ -169,13 +201,15 @@ export default {
     top: 140px;
     bottom: 46px;
     width: 100%;
-    
+    height: 450px;
     ul, li {
+      margin-top: -5px;
       list-style-type: none;
     }
 
     ul {
       background: #f3f5f7;
+      margin-top: 1px;
     }
 
     // li {
@@ -250,4 +284,11 @@ export default {
     }
   }
 }
+.cart {
+    height: 50px;
+    width: 100%;
+    position: absolute;
+    // top: 483px;
+    bottom: 0px;
+  }
 </style>

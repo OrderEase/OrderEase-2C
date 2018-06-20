@@ -6,6 +6,8 @@ import FastClick from 'fastclick'
 import axios from 'axios'
 // import VueRouter from 'vue-router'
 import App from './App'
+import menuData from './components/Menu/data.json'
+// import selectData from './components/Cart/data.json'
 import router from './router/index.js'
 
 FastClick.attach(document.body)
@@ -17,42 +19,79 @@ Vue.prototype.$ajax = axios.create({
 
 const store = new Vuex.Store({
   state: {
-    orders: new Array(0)
+    // menus: new Array(0),
+    menus: menuData,
+    selectFoods: new Array(0)
   },
   getters: {
   },
   mutations: {
-    check (state, payload) {
-      let exist = false
-      for (let i = 0; i < state.orders.length; i = i + 1) {
-        if (state.orders[i].id === payload.id) {
-          state.orders[i].count = payload.count
-          exist = true
+    // check (state, payload) {
+    //   let exist = false
+    //   for (let i = 0; i < state.menus.length; i = i + 1) {
+    //     if (state.menus[i].id === payload.id) {
+    //       state.menus[i].count = payload.count
+    //       exist = true
+    //       break
+    //     }
+    //   }
+    //   if (exist === false) {
+    //     state.menus.push({
+    //       id: payload.id,
+    //       name: payload.name,
+    //       price: payload.price,
+    //       num: payload.count
+    //     })
+    //   } else {
+    //     for (let i = 0; i < state.menus.length; i = i + 1) {
+    //       if (state.menus[i].num === -1) {
+    //         while (i < state.menus.length - 1) {
+    //           state.menus[i] = state.menus[i + 1]
+    //         }
+    //         state.menus.pop()
+    //       }
+    //     }
+    //   }
+    //   console.log('check', state.menus)
+    // },
+    increaseCart (state, payload) {
+      if (!payload.food.count) {
+        state.selectFoods.push(payload.food)
+        for (let i = 0; i < state.menus.length; ++i) {
+          if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
+            Vue.set(state.menus[i].foods.filter(food => food.id === payload.food.id)[0], 'count', 1)
+            break
+          }
+        }
+        console.log('selected foods add 1', state.selectFoods)
+        return payload.food
+      }
+      let count = payload.food.count
+      state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count + 1
+      for (let i = 0; i < state.menus.length; ++i) {
+        if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
+          console.log('add 2', state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count)
+          state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count = count + 1
           break
         }
       }
-      if (exist === false) {
-        state.orders.push({
-          id: payload.id,
-          name: payload.name,
-          price: payload.price,
-          num: payload.count
-        })
-      } else {
-        for (let i = 0; i < state.orders.length; i = i + 1) {
-          if (state.orders[i].num === -1) {
-            while (i < state.orders.length - 1) {
-              state.orders[i] = state.orders[i + 1]
-            }
-            state.orders.pop()
-          }
+      console.log('selected foods add 2', state.selectFoods)
+      return payload.food
+    },
+    decreaseCart (state, payload) {
+      let count = payload.food.count
+      state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count - 1
+      for (let i = 0; i < state.menus.length; ++i) {
+        if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
+          state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count = count - 1
+          break
         }
       }
-      console.log('check', state.orders)
+      console.log('selected foods delete', state.selectFoods)
+      return payload.food
     }
   },
   actions: {
-
   }
 })
 

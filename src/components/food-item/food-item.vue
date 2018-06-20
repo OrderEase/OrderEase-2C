@@ -23,15 +23,23 @@
         <cart-control :food="food" @update="update"></cart-control>
       </div>
     </div>
+    <!-- <food-detail :food="food" :show="show" /> -->
   </div>
 </template>
 
 <script>
 import CartControl from '../cart-control/cart-control'
+// import FoodDetail from './FoodDetail/food-detail'
 
 export default {
   components: {
     CartControl
+    // FoodDetail
+  },
+  data () {
+    return {
+      show: false
+    }
   },
   props: {
     food: {
@@ -42,6 +50,10 @@ export default {
     update (target) {
       // console.log(1)
       this.$emit('update', target)
+    },
+    showDialog () {
+      console.log('show dialog')
+      this.show = true
     }
   }
 }

@@ -10,7 +10,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Vue from 'vue'
+  // import Vue from 'vue'
 
   export default {
     props: {
@@ -20,26 +20,32 @@
     },
     methods: {
       increaseCart (event) {
-        if (!event._constructed) {
-          // 去掉自带click事件的点击
-          return
-        }
-
-        if (!this.food.count) {
-          Vue.set(this.food, 'count', 1)
-        } else {
-          this.food.count++
-        }
-
+        console.log('asdasd')
+        // if (!event._constructed) {
+        //   // 去掉自带click事件的点击
+        //   return
+        // }
+        this.$store.commit('increaseCart', {
+          food: this.food
+        })
+        // if (!this.food.count) {
+        //   Vue.set(this.food, 'count', 1)
+        // } else {
+        //   this.food.count++
+        // }
+        console.log('"add"')
         this.$emit('update', event.target)
       },
       decreaseCart (event) {
-        if (!event._constructed) {
-          // 去掉自带click事件的点击
-          return
-        }
-        this.food.count--
-
+        // if (!event._constructed) {
+        //   // 去掉自带click事件的点击
+        //   return
+        // }
+        this.$store.commit('decreaseCart', {
+          food: this.food
+        })
+        // this.food.count--
+        console.log('"delete"')
         this.$emit('update', event.target)
       }
     }
