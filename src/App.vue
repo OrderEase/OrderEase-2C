@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <tabbar class="footer">
+    <!-- <tabbar class="footer">
       <tabbar-item>
         <router-link slot="label" to="/menu">菜单</router-link>
       </tabbar-item>
@@ -14,7 +14,7 @@
       <tabbar-item>
         <router-link slot="label" to="/my-order">订单</router-link>
       </tabbar-item>
-    </tabbar>
+    </tabbar> -->
   </div>
 </template>
 

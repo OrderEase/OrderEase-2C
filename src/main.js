@@ -24,6 +24,13 @@ const store = new Vuex.Store({
     selectFoods: new Array(0)
   },
   getters: {
+    totalPrice: (state, getters) => {
+      let sum = 0
+      for (let i = 0; i < state.selectFoods.length; ++i) {
+        sum += state.selectFoods[i].price * state.selectFoods[i].count
+      }
+      return sum
+    }
   },
   mutations: {
     // check (state, payload) {

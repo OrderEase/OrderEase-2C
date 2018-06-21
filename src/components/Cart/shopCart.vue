@@ -2,12 +2,12 @@
   <div>
     <div class="cart-shop">
       <transition name="fold">
-        <div v-show="show" class="shop-list" >
+        <div v-show="show" class="shop-list">
           <div class="list-header">
             <div class="title">已选菜品</div>
-            <div class="empty">清空</div>
+            <div class="empty" @click.stop.prevent="empty">清空</div>
           </div>
-          <div class="list-content">
+          <div class="list-content" ref="shopWrapper">
             <ul>
               <li v-show="food.count > 0" class="food" v-for="food in foodsSelect" :key="food.id">
                 <div class="left-section">{{food.name}}</div>
@@ -30,54 +30,113 @@
           <div class="price">￥{{totalPrice}}</div>
         </div>
         <div class="content-right">
-          <button>下单</button>
+          <button @click.stop.prevent="toPayment">下单</button>
         </div>
       </div>
     </div>
     <transition name="fade">
-      <div v-show="show" class="list-mask" @click.stop.prevent="closeList">
+      <div v-show="listshow" class="list-mask" @click.stop.prevent="closeList">
       </div>
     </transition>
+    <toast v-model="showToast" type="text" :time="1000" position="middle">请先点餐~</toast>
   </div>
 </template>
 
 <script>
 import CartControl from '../cart-control/cart-control'
 // import data from './data.json'
+import BScroll from 'better-scroll'
+import { Toast } from 'vux'
 import { mapState } from 'vuex'
 export default {
   components: {
-    CartControl
+    CartControl,
+    Toast
   },
+  // created () {
+  //   this.$nextTick(() => {
+  //     this._initScroll()
+  //   })
+  // },
   data () {
     return {
       // foodsSelect: data,
-      show: true
+      show: false,
+      showToast: false
     }
   },
   computed: {
     totalPrice () {
-      let sum = 0
-      for (let i = 0; i < this.foodsSelect.length; ++i) {
-        sum += this.foodsSelect[i].price * this.foodsSelect[i].count
+      return this.$store.getters.totalPrice
+    },
+    listshow () {
+      if (this.show) {
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            this.scroll = new BScroll(this.$refs.shopWrapper, {
+              // stopPropagation: true,
+              startY: 0,
+              click: true
+            })
+            this.scroll.minScrollY = 0
+            this.scroll.on('scrollEnd', (payload) => {
+              console.log(payload)
+              // if (payload.y < 0) {
+              //   this.scroll.minScrollY = 0
+              //   this.scroll.y = 0
+              //   console.log(this.scroll)
+              // }
+            })
+            console.log('asdasd')
+          } else {
+            // this.scroll.refresh()
+            // this.scroll.scrollTo(0, 0)
+            // this.scroll.minScrollY = 0
+          }
+        })
       }
-      return sum
+      return this.show
     },
     ...mapState({
       foodsSelect: 'selectFoods'
     })
   },
   methods: {
+    // _initScroll () {
+    //   this.boxScroll = new BScroll(this.$refs.shopWrapper, {
+    //     click: true
+    //   })
+    // },
     shows (target) {
       console.log(target)
     },
     showList () {
-      this.show = !this.show
+      if (this.totalPrice > 0) {
+        this.show = !this.show
+      }
       console.log('"show list"')
+      console.log(this.scroll)
     },
     closeList () {
       this.show = false
       console.log('"close list"')
+    },
+    toPayment () {
+      if (this.totalPrice > 0) {
+        this.$router.push('/pay')
+      } else {
+        this.showToast = true
+      }
+    },
+    empty () {
+      for (let i = 0; i < this.foodsSelect.length; ++i) {
+        while (this.foodsSelect[i].count > 0) {
+          this.$store.commit('decreaseCart', {
+            food: this.foodsSelect[i]
+          })
+        }
+      }
+      this.show = false
     }
   }
 }
@@ -137,6 +196,8 @@ export default {
       background-color: rgba(83, 158, 249, 1);
       border-width: 0px;
     }
+    // .disable {
+    // }
   }
 }
 
@@ -167,23 +228,23 @@ export default {
   position: absolute;
   width: 100%;
   left: 0;
-  margin: 0px;
-  bottom: 43px;
+  // max-height: 300px;
+  top: 0px;
   z-index: -1;
   line-height: 20px;
   padding-bottom: 10px;
   background-color: rgba(246, 249, 255, 1);
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0);
+  transform: translate3d(0, -100%, 0);
   &.fold-enter-active, &.fold-leave-active {
     transition: all 0.5s linear;
   }
   &.fold-enter, &.fold-leave-active {
     transform: translate3d(0, 0, 0);
   }
-  &.fold-leave {
-    transform: translate3d(0, -100%, 0);
-  }
+  // &.fold-leave {
+  // }
   .list-header {
     display: flex;
     flex-direction: row;
@@ -213,6 +274,8 @@ export default {
   }
   .list-content {
     width: 375px;
+    max-height: 217px;
+    overflow: hidden;
     .food {
       display: flex;
       flex-direction: row;

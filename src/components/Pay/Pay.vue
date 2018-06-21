@@ -44,8 +44,6 @@
       Toast
     },
     created () {
-      console.log(this.$route.params.money)
-      this.payment = this.$route.params.money
     },
     methods: {
       submit () {
@@ -59,7 +57,7 @@
     data () {
       return {
         activity_list: baseList,
-        payment: 0,
+        // payment: 0,
         order: 1,
         button_text: '确认支付',
         isClicked: true,
@@ -70,6 +68,11 @@
           {key: '3', value: '支付宝', inlineDesc: '满剑'},
           {key: '4', value: '现金支付', inlineDesc: '点击付款后，请等待服务员过来结账'}
         ]
+      }
+    },
+    computed: {
+      payment () {
+        return this.$store.getters.totalPrice
       }
     }
   }

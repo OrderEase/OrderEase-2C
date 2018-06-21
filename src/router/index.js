@@ -45,7 +45,7 @@ export default new Router({
       component: Shake
     },
     {
-      path: '/pay:money',
+      path: '/pay',
       name: 'Pay',
       component: Pay
     },

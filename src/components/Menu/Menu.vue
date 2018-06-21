@@ -1,7 +1,7 @@
 
 <template>
   <div class="menu">
-    <bussiness :bussiness='bs'></bussiness>
+    <bussiness class="bussiness" :bussiness='bs'></bussiness>
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
@@ -76,6 +76,8 @@ export default {
         name: '肥宅快乐餐',
         description: '我知道这样不好，但这样真爽。',
         introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！',
+        image: './src/assets/image.jpeg',
+        bg: 'url(\'/src/assets/bs.jpeg\')',
         num: 2
       },
       foodInfo: {
@@ -192,16 +194,17 @@ export default {
   bottom: 46px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  // justify-content: space-around;
   height: 640px;
   .content {
     position: absolute;
+    top: 140px;
     overflow: hidden;
     display: flex;
-    top: 140px;
-    bottom: 46px;
+    // bottom: 46px;
+    justify-content: space-around;
     width: 100%;
-    height: 450px;
+    height: 75%;
     ul, li {
       margin-top: -5px;
       list-style-type: none;
@@ -221,7 +224,7 @@ export default {
 
     .category-wrapper {
       width: 80px;
-      flex: 0 0 80px;
+      // flex: 0 0 80px;
       background: #f3f5f7;
       margin-top: 1px;
       overflow: hidden;
@@ -263,17 +266,18 @@ export default {
       }
     }
     .foods-wrapper {
-      flex: 1;
+      // flex: 1;
       margin-top: 6px;
-      .title {
-        height: 26px;
-        line-height: 26px;
-        padding-left: 12px;
-        font-size: 15px;
-        color: rgb(147, 153, 159);
-        background: #f3f5f7;
-        border-left: 2px solid #d9dde1;
-      }
+      overflow: hidden;
+      // .title {
+      //   height: 26px;
+      //   line-height: 26px;
+      //   padding-left: 12px;
+      //   font-size: 15px;
+      //   color: rgb(147, 153, 159);
+      //   background: #f3f5f7;
+      //   border-left: 2px solid #d9dde1;
+      // }
       .food-item {
         height: 100px;
         width: 275px;
