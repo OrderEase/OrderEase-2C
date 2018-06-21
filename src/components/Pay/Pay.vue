@@ -1,40 +1,25 @@
 <template lang="html">
-    <div>
-        <XHeader class="head" title="支付订单"></XHeader>
-        <div class="wrapper">
-          <Swiper :list="activity_list" direction="horizontal" auto loop></Swiper>
-          <Group>
-            <cell-box>支付金额：{{payment}}</cell-box>
-            <cell-box>订单号：{{order}}</cell-box>
-          </Group>
-          <toast text="支付成功" is-show-mask v-model="show_toast"></toast>
-          <Divider>-</Divider>
-        </div>
-        <checklist class="ways" :title="请选择支付方式" @on-change="change" :options="inlineDescList" :max=1></checklist>
-        <XButton class="payment" :text="button_text" :disabled="isClicked" @click.native="submit" type="primary"></XButton>
+    <div class="pay-wrapper">
+      <XHeader class="head" title="支付"></XHeader>
+      <div class="wrapper">
+        <Group>
+          <cell-box>支付金额：{{payment}}</cell-box>
+          <cell-box>订单号：{{order}}</cell-box>
+        </Group>
+        <toast text="支付成功" is-show-mask v-model="show_toast"></toast>
+        <Divider>-</Divider>
+      </div>
+      <checklist class="ways" :title="请选择支付方式" @on-change="change" :options="inlineDescList" :max=1></checklist>
+      <XButton class="payment" :text="button_text" :disabled="isClicked" @click.native="submit" type="primary"></XButton>
     </div>
 </template>
 
 <script>
-  import {Swiper, Divider, Toast, XHeader, CellBox, Group, Checklist, XButton} from 'vux'
-  const baseList = [{
-    url: 'javascript:',
-    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
-    title: '送你一朵fua'
-  }, {
-    url: 'javascript:',
-    img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
-    title: '送你一辆车'
-  }, {
-    url: 'javascript:',
-    img: 'https://static.vux.li/demo/5.jpg', // 404
-    title: '送你一次旅行',
-    fallbackImg: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'
-  }]
+  import {Divider, Toast, XHeader, CellBox, Group, Checklist, XButton} from 'vux'
 
   export default {
     components: {
-      Swiper,
+      // Swiper,
       Divider,
       XHeader,
       CellBox,
@@ -56,7 +41,7 @@
     },
     data () {
       return {
-        activity_list: baseList,
+        // activity_list: baseList,
         // payment: 0,
         order: 1,
         button_text: '确认支付',
@@ -79,6 +64,13 @@
 </script>
 
 <style>
+.pay-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+}
 .payment {
   float: left;
 }

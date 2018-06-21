@@ -195,7 +195,7 @@ export default {
   display: flex;
   flex-direction: column;
   // justify-content: space-around;
-  height: 640px;
+  height: 100%;
   .content {
     position: absolute;
     top: 140px;
