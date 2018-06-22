@@ -20,7 +20,7 @@ Vue.prototype.$ajax = axios.create({
 const store = new Vuex.Store({
   state: {
     // menus: new Array(0),
-    menus: menuData,
+    menus: [],
     selectFoods: new Array(0)
   },
   getters: {
@@ -65,8 +65,8 @@ const store = new Vuex.Store({
       if (!payload.food.count) {
         state.selectFoods.push(payload.food)
         for (let i = 0; i < state.menus.length; ++i) {
-          if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
-            Vue.set(state.menus[i].foods.filter(food => food.id === payload.food.id)[0], 'count', 1)
+          if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
+            Vue.set(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0], 'count', 1)
             break
           }
         }
@@ -76,9 +76,9 @@ const store = new Vuex.Store({
       let count = payload.food.count
       state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count + 1
       for (let i = 0; i < state.menus.length; ++i) {
-        if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
-          console.log('add 2', state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count)
-          state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count = count + 1
+        if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
+          console.log('add 2', state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count)
+          state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count = count + 1
           break
         }
       }
@@ -89,8 +89,8 @@ const store = new Vuex.Store({
       let count = payload.food.count
       state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count - 1
       for (let i = 0; i < state.menus.length; ++i) {
-        if (state.menus[i].foods.filter(food => food.id === payload.food.id).length > 0) {
-          state.menus[i].foods.filter(food => food.id === payload.food.id)[0].count = count - 1
+        if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
+          state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count = count - 1
           break
         }
       }
@@ -99,6 +99,11 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    getMenus ({state}) {
+      let responce = menuData
+      state.menus = responce.content
+      console.log('"menus:"', state.menus)
+    }
   }
 })
 
