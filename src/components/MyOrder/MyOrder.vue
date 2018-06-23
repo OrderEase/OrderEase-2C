@@ -1,33 +1,43 @@
 <template>
   <transition name="move">
     <div class="my-order-wrapper">
-      <tab>
-        <tab-item selected @on-item-click="toggleOrderType">未完成订单</tab-item>
-        <tab-item @on-item-click="toggleOrderType">历史订单</tab-item>
-      </tab>
+      <div class="my-order-header">
+        <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
+        <span>订单</span>
+      </div>
+      <div class="order-tab-wrapper">
+        <span class="order-tab" :class="showUnfinishedOrder ? 'order-tab-active' : ''" @click="unfinishedOrderTabClick">未完成订单</span>
+        <span class="order-tab" :class="showFinishedOrder ? 'order-tab-active' : ''" @click="finishedOrderTabClick">已完成订单</span>
+      </div>
       <div class="order-list-wrapper" ref="orderListWrapper">
         <div class="order-list">
-          <div class="unfinished-orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
+          <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
             <router-link to="/order-details">
-              <div class="unfinished-order-item">
+              <div class="order-item">
                 <img class="order-image" :src="order.img">
                 <div class="order-info">
-                  <div class="order-number">订单号: {{ order.number }}</div>
-                  <div class="order-price">总价: ¥{{ order.price }}</div>
+                  <div class="resturant-name">{{ resturantName }}</div>
+                  <div class="order-date">下单时间: {{ order.date }}</div>
+                  <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
                 </div>
-                <div class="order-state">有{{ order.unfishedFoodsNumber }}个菜未上</div>
+                <div class="order-price">
+                  实付<span>¥{{ order.price }}</span>
+                </div>
               </div>
             </router-link>
           </div>
-          <div class="history-orders" v-show="showHistoryOrder" v-for="order in historyOrders">
+          <div class="orders" v-show="showFinishedOrder" v-for="order in finishedOrders">
             <router-link to="/order-details">
-              <div class="history-order-item">
+              <div class="order-item">
                 <img class="order-image" :src="order.img">
                 <div class="order-info">
-                  <div class="order-number">订单号: {{ order.number }}</div>
-                  <div class="order-date">日期: {{ order.date }}</div>
+                  <div class="resturant-name">{{ resturantName }}</div>
+                  <div class="order-date">下单时间: {{ order.date }}</div>
+                  <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
                 </div>
-                <div class="order-price">消费金额: {{ order.price }}¥</div>
+                <div class="order-price">
+                  实付<span>¥{{ order.price }}</span>
+                </div>
               </div>
             </router-link>
           </div>
@@ -39,111 +49,105 @@
 
 <script>
 import BScroll from 'better-scroll'
-import { Tab, TabItem, XButton } from 'vux'
+import { Tab, ButtonTab, ButtonTabItem, XButton } from 'vux'
 
 // let totalPrice = 0
 
 export default {
   data () {
     return {
-      // foods: [
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋瘦肉粥',
-      //     price: 10,
-      //     amount: 3
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋粥',
-      //     price: 5,
-      //     amount: 5
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '瘦肉粥',
-      //     price: 8,
-      //     amount: 4
-      //   }
-      // ],
+      chosedTabItem: 0,
       showUnfinishedOrder: true,
-      showHistoryOrder: false,
+      showFinishedOrder: false,
+      resturantName: '肥宅快乐餐',
 
       unfinishedOrders: [
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
           number: '123456',
           price: 100,
-          unfishedFoodsNumber: 3
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         }
       ],
 
-      historyOrders: [
+      finishedOrders: [
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          date: '2018-5-6',
           number: '123456',
-          price: 10
+          price: 100,
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          date: '2018-5-6',
           number: '123456',
-          price: 10
+          price: 100,
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          date: '2018-5-6',
           number: '123456',
-          price: 10
+          price: 100,
+          date: '2018-5-6 11:00',
+          dishesAmount: 3
         }
       ]
     }
@@ -152,29 +156,21 @@ export default {
   components: {
     XButton,
     Tab,
-    TabItem
-  },
-
-  computed: {
-    totalPrice: function () {
-      let total = 0
-      for (let food in this.foods) {
-        total += food.price * food.amount
-      }
-      return total
-    }
+    ButtonTab,
+    ButtonTabItem
   },
 
   methods: {
-    calculateTotalPriceForThisFood (price, amount) {
-      let priceForThisFood = price * amount
-      // totalPrice += priceForThisFood
-      return priceForThisFood
+    unfinishedOrderTabClick () {
+      this.showUnfinishedOrder = true
+      this.showFinishedOrder = false
     },
-    toggleOrderType (index) {
-      // console.log('on item click:', index)
-      this.showUnfinishedOrder = !this.showUnfinishedOrder
-      this.showHistoryOrder = !this.showHistoryOrder
+    finishedOrderTabClick () {
+      this.showFinishedOrder = true
+      this.showUnfinishedOrder = false
+    },
+    back () {
+      this.$router.back(-1)
     }
   },
 
@@ -186,7 +182,7 @@ export default {
           click: true
         })
         // console.log(this.scroll)
-        // console.log(this.$refs.orderWrapper)
+        // console.log(this.$refs)
       } else {
         this.scroll.refresh()
       }
@@ -196,137 +192,120 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.order-list-wrapper {
-  width: 100%;
-  // height: 100%;
-  background-color: #f3f5f7;
-  position: fixed;
-  left: 0;
-  top: 44px;
-  bottom: 50px;  
-  overflow: hidden;
-  font-size: 15px;
+.my-order-wrapper {
+  background-color: #F6F9FF;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   
-  .order-list {
+  .my-order-header {
+    height: 50px;
+    display: flex;
+    flex-shrink: 0;    
+    font-size: 18px;
+    text-align: center;
+    position: relative;
+    background-color: white;
+    display: flex;
+    justify-content: center;
     
-    .order-image {
-      height: 100px;
-      width: 100px;
+    .back {
+      align-self: center;
+      position: absolute;
+      left: 2%;
+      padding-bottom: 2px;
+    }
+    span {
+      align-self: center;      
+    }
+  }
+  
+  .order-tab-wrapper {
+    flex-shrink: 0;
+    height: 40px;
+    line-height: 40px;
+    margin: 20px 20px 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    text-align: center;
+    
+    .order-tab {
+      color: #777A83;
+      background-color: #ECF0F9;
+      width: 100%;
     }
     
-    .unfinished-orders {
-      .unfinished-order-item {
-        margin-bottom: 5px;
-        background-color: white;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: black;
-        
-        .order-image {
-          margin: 5px;
-        }
+    .order-tab-active {
+      color: #FFFFFF;
+      background-color: #539EF9;
+      width: 100%;
+    }
+  }
+  
+  .order-list-wrapper {
+    overflow: hidden;
+    flex-grow: 1;
+    margin: 0 20px;
+    overflow: hidden;
+    font-size: 12px;
+    
+    .order-list {
+      .orders {
+        .order-item {
+          height: 100px;
+          margin-bottom: 15px;
+          background-color: white;
+          border-radius: 5px;
+          display: flex;
           
-        .order-info {
-          // height: 100px;
-          flex-grow: 1;
-          text-align: center;
-          margin-left: 5px;
-          margin-right: 10px;
-          
-          .order-number {
-            height: 50px;
-            line-height: 50px;
-            // font-size: 10px;
-            overflow: hidden;
-            border:  1px solid rgba(7,17,27,0.1);
+          .order-image {
+            margin-left: 10px;
+            margin-top: 15px;
+            height: 60px;
+            width: 60px;
             border-radius: 5px;
+          }
+          
+          .order-info {
+            flex-grow: 2;
+            margin-left: 10px;
+            margin-top: 15px;
+            color: #747881;
+            
+            .resturant-name {
+              font-weight: bold;
+              color: black;
+            }
+            
+            .order-date {
+              margin-top: 5px;
+            }
+            
+            .order-dishes-amouont {
+              
+            }            
           }
           
           .order-price {
-            // span {
-            //   font-size: 20px;
-            // }
-            overflow: hidden;
-            height: 50px;
-            line-height: 50px;
-            // font-size: 15px;
-            border:  1px solid rgba(7,17,27,0.1);
-          }
-        }
-        
-        .order-state {
-          // position: absolute;
-          // right: 15px;
-          // align-self: auto;
-          margin-right: 15px;
-          box-sizing: border-box;
-          height: 50px;
-          
-          line-height: 50px;
-          color: white;
-          font-size: 15px;
-          padding: 0 12px;
-          border-radius: 4px;
-          background-color: orange;
-        }
-      }
-    }
-    
-    .history-orders {
-      .history-order-item {
-        margin-bottom: 5px;
-        background-color: white;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        text-align: center;
-        color: black;
-        
-        .order-image {
-          margin: 5px;
-        }
-          
-        .order-info {
-          // height: 100px;
-          flex-grow: 1;
-          margin-left: 5px;
-          margin-right: 10px;
-          
-          .order-number {
-            height: 50px;
-            line-height: 50px;
-            // font-size: 10px;
-            overflow: hidden;
-            border:  1px solid rgba(7,17,27,0.1);
-            border-radius: 5px;
+            vertical-align: middle;
+            align-self: flex-end;
+            color: #747881;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            
+            span {
+              vertical-align: middle;
+              margin-left: 2px;
+              color: #4D4D4E;
+              font-size: 16px;
+              font-weight: bold;
+            }
           }
           
-          .order-date {
-            overflow: hidden;
-            height: 50px;
-            line-height: 50px;
-            font-size: 15px;
-            border:  1px solid rgba(7,17,27,0.1);
-          }
-        }
-        
-        .order-price {          
-          flex-grow: 0;
-          margin-right: 15px;
-          box-sizing: border-box;
-          height: 50px;
-          
-          line-height: 50px;
-          color: white;
-          font-size: 15px;
-          padding: 0 12px;
-          border-radius: 4px;
-          background: rgb(0, 160, 220);
         }
       }
     }
   }
 }
-
 </style>

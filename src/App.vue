@@ -40,4 +40,9 @@ body {
 #app .footer {
   position: fixed;
 }
+
+#app {
+  height: 100%;
+}
+
 </style>
