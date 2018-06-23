@@ -20,6 +20,8 @@
                   <div class="order-date">下单时间: {{ order.date }}</div>
                   <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
                 </div>
+                
+                
                 <div class="order-price">
                   实付<span>¥{{ order.price }}</span>
                 </div>
@@ -250,6 +252,11 @@ export default {
     overflow: hidden;
     font-size: 12px;
     
+    .order-list::after {
+      content: '';
+      display: block;
+      height: 20px;
+    }
     .order-list {
       .orders {
         .order-item {
