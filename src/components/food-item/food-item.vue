@@ -2,13 +2,13 @@
   <div class="food-item-inner">
     <div class="left">
       <div class="food-img">
-        <img :src="food.icon"/>
+        <img :src="food.img"/>
       </div>
     </div>
 
     <div class="right">
       <h2 class="food-name">{{food.name}}</h2>
-      <p class="food-discription">{{food.discription}}</p>
+      <p class="food-description">{{food.description}}</p>
 
       <div class="price-wrapper">
         <span class="price"><span class="unit">￥</span>{{food.price}}</span>
@@ -94,7 +94,7 @@ export default {
       font-size: 13px;
     }
 
-    .food-discription {
+    .food-description {
       font-size: 13px;
       color: rgb(147, 153, 159);
       line-height: 14px;

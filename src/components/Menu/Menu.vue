@@ -5,12 +5,12 @@
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
-          <li v-for="(category, index) in menus" class="category-item" @click="categoryClick(index, $event)" :key="category.id" :class="index == categoryCurrentIndex ? 'category-item-selected' : ''">
+          <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, $event)" :key="category.id" :class="index == categoryCurrentIndex ? 'category-item-selected' : ''">
             <span class="text">
               {{category.name}}
             </span>
             <span class="num">
-              {{category.foods.length}}
+              {{category.dishes.length}}
             </span>
           </li>
         </ul>
@@ -22,7 +22,7 @@
             <!-- <h1 class="title">{{category.name}}</h1> -->
 
             <ul>
-              <li v-for="food in category.foods" class="food-item" :key="food.id" @click="showDialog(food)">
+              <li v-for="food in category.dishes" class="food-item" :key="food.id" @click="showDialog(food)">
                 <food-item :food="food" @update="showCart(food, category.id)"></food-item>
               </li>
             </ul>
@@ -68,7 +68,7 @@ export default {
   data () {
     return {
       swiper_list: swiperList,
-      // menus: menusData,
+      // menus: [],
       listHeight: [],
       foodsScrollY: 0,
       image: '',
@@ -92,18 +92,11 @@ export default {
     }
   },
   created () {
-    this.$ajax.get('/rstr')
-      .then(function (responce) {
-        console.log(responce)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    this.$store.dispatch('getMenus')
     this.$nextTick(() => {
       this._initScroll()
       this._calculateHeight()
     })
-    // this.synatic()
   },
   computed: {
     categoryCurrentIndex () {
@@ -116,6 +109,11 @@ export default {
       }
       return 0
     },
+    // menus () {
+    //   console.log(this.$store.dispatch('getMenus'))
+    //   return this.$store.dispatch('getMenus')
+    //   // return this.$store.getters.menus
+    // }
     ...mapState({
       menus: 'menus'
     })
@@ -145,9 +143,6 @@ export default {
       }
     },
     categoryClick (index, event) {
-      if (!event._constructed) {
-        return
-      }
       this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
     },
     showCart (food, cid) {
@@ -178,10 +173,10 @@ export default {
     showDialog (food) {
       this.foodInfo.name = food.name
       this.foodInfo.price = food.price
-      this.foodInfo.icon = food.icon
+      this.foodInfo.icon = food.img
       this.foodInfo.show = true
       this.foodInfo.description = food.description
-      this.foodInfo.like = food.like
+      this.foodInfo.like = food.likes
       this.foodInfo.count = food.count
       console.log('showDialog', this.foodInfo)
     }
@@ -199,19 +194,20 @@ export default {
   .content {
     position: absolute;
     top: 140px;
+    background-color: rgba(246, 249, 255, 1);
     overflow: hidden;
     display: flex;
     // bottom: 46px;
     justify-content: space-around;
     width: 100%;
-    height: 75%;
+    height: 78%;
     ul, li {
       margin-top: -5px;
       list-style-type: none;
     }
 
     ul {
-      background: #f3f5f7;
+      background: rgba(246, 249, 255, 1);
       margin-top: 1px;
     }
 
@@ -226,6 +222,7 @@ export default {
       width: 80px;
       // flex: 0 0 80px;
       background: #f3f5f7;
+      background-color: rgba(246, 249, 255, 1);
       margin-top: 1px;
       overflow: hidden;
       .category-item {

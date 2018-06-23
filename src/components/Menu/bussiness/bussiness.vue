@@ -1,7 +1,7 @@
 
 <template>
-  <div class="bussiness">
-    <div class="bg" id="qq">
+  <div class="bussiness" id="qq">
+    <div class="bg">
     </div>
     <div class="first-section">
       <img :src="bussiness.image"/>
@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     toOrder () {
+      console.log('to order')
       this.$router.push('/my-order')
     }
   }
@@ -53,19 +54,24 @@ export default {
 .bussiness {
   // background-color: black;
   // background: url('/src/assets/bs.jpeg') no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
+  // background-size: 100% 100%;
+  background-size: cover;
+  z-index: 0;
   .bg {
     position: absolute;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    z-index: -1;
+    z-index: 0;
+    background-color: rgba(97, 97, 97, 1);
     height: 141px;
     width: 100%;
-    opacity: 0.8;
+    opacity: 0.44;
   }
   width: 100%;
   color: white;
   .first-section {
+    position: relative;
+    z-index: 20;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-left: 10px;
@@ -75,6 +81,8 @@ export default {
     justify-content: space-around;
   }
   .second-section {
+    position: relative;
+    z-index: 20;
     display: flex;
     justify-content: space-between;
     font-size: 13px;
@@ -85,14 +93,15 @@ export default {
   }
   button {
     align-self: center;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0);
     border-color: white;
     border-width: 2px;
     border-style: solid;
     font-size: 15px;
+    margin-right: 2px;
     color: white;
-    width: 65px;
-    height: 40px;
+    width: 60px;
+    height: 38px;
   }
   div {
     width: 95%;
@@ -109,21 +118,22 @@ export default {
     }
     .description {
       font-size: 10px;
-      // color: rgba(227, 227, 227, 1);
-      color: white;
+      color: rgba(227, 227, 227, 1);
+      // color: white;
     }
   }
   img {
     height: 60px;
     width: 60px;
     border-color: white;
-    border-radius: 6%;
+    border-radius: 5px;
   }
   .line {
+    z-index: 20;
     margin-left: 10px;
     margin-right: 10px;
     height: 1px;
-    background-color: gray;
+    background-color: rgb(245,245,245);
   }
 }
 </style>
