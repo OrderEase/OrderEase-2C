@@ -25,7 +25,7 @@
       <div class="contents" @click.stop.prevent="showList">
         <div class="content-left">
           <div class="icon">
-            <img>
+            <img class="cart" src="/src/assets/menu/cart.svg">
           </div>
           <div class="price">￥{{totalPrice}}</div>
         </div>
@@ -177,6 +177,13 @@ export default {
       margin-top: -6px;
       border-radius: 50%;
       background-color: rgba(83, 158, 249, 1);
+      .cart {
+        position: relative;
+        left: 9px;
+        top: 10px;
+        height: 28px;
+        width: 28px;
+      }
     }
     .price {
       color: white;
