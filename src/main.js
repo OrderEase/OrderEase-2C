@@ -62,7 +62,7 @@ const store = new Vuex.Store({
     //   console.log('check', state.menus)
     // },
     increaseCart (state, payload) {
-      if (!payload.food.count) {
+      if (!('count' in payload.food)) {
         state.selectFoods.push(payload.food)
         for (let i = 0; i < state.menus.length; ++i) {
           if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {

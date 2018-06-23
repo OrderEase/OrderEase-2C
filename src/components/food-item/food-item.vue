@@ -91,13 +91,16 @@ export default {
 
     .food-name {
       margin-top: 14px;
-      font-size: 13px;
+      font-size: 12px;
+      height: 23px;
+      line-height: 17px;
     }
 
     .food-description {
-      font-size: 13px;
+      font-size: 12px;
       color: rgb(147, 153, 159);
-      line-height: 14px;
+      line-height: 17px;
+      height: 23px;
       margin-top: 2px;
       margin-right: 3px;
       width: 150px;

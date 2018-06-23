@@ -79,6 +79,38 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    button {
+      align-self: center;
+      background-color: rgba(255, 255, 255, 0);
+      border-color: white;
+      border-width: 2px;
+      border-style: solid;
+      font-size: 15px;
+      margin-right: 2px;
+      color: white;
+      width: 60px;
+      height: 38px;
+    }
+    .text {
+      margin-left: 10px;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-size: 15px;
+      }
+      .description {
+        font-size: 10px;
+        color: rgba(227, 227, 227, 1);
+        // color: white;
+      }
+    }
+    img {
+      height: 60px;
+      width: 60px;
+      border-color: white;
+      border-radius: 5px;
+    }
   }
   .second-section {
     position: relative;
@@ -91,42 +123,10 @@ export default {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  button {
-    align-self: center;
-    background-color: rgba(255, 255, 255, 0);
-    border-color: white;
-    border-width: 2px;
-    border-style: solid;
-    font-size: 15px;
-    margin-right: 2px;
-    color: white;
-    width: 60px;
-    height: 38px;
-  }
   div {
     width: 95%;
     // margin-left: 10px;
     // margin-right: 10px;
-  }
-  .text {
-    margin-left: 10px;
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    .name {
-      font-size: 15px;
-    }
-    .description {
-      font-size: 10px;
-      color: rgba(227, 227, 227, 1);
-      // color: white;
-    }
-  }
-  img {
-    height: 60px;
-    width: 60px;
-    border-color: white;
-    border-radius: 5px;
   }
   .line {
     z-index: 20;

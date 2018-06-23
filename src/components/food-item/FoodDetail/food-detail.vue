@@ -15,8 +15,7 @@
             <span>{{food.like}}</span>
           </div>
           <div class="price-wrapper">
-            <span class="symbol">￥</span>
-            <span class="price">{{food.price}}</span>
+            ￥<span class="price">{{food.price}}</span>
           </div>
         </div>
         <div class="second-column">
@@ -85,8 +84,8 @@ export default {
         height: 100%;
 
         img {
-          width: 10px;
-          height: 10px;
+          width: 12px;
+          height: 12px;
         }
         .title {
           font-size: 14px;
@@ -97,14 +96,15 @@ export default {
         .likes {
           width: 50px;
           font-size: 12px;
+          margin-left: 15px;
+          text-align: left;
           color: rgba(116, 120, 129, 1);
         }
         .price-wrapper {
           color: rgba(116, 177, 249, 1);
-          .symbol {
-            font-weight: bold;
-            font-size: 12px;
-          }
+          // width: 60px;
+          margin-left: 12px;
+          text-align: left;
           .price {
             font-weight: bold;
             font-size: 20px;

@@ -8,7 +8,7 @@
             <div class="empty" @click.stop.prevent="empty">清空</div>
           </div>
           <div class="list-content" ref="shopWrapper">
-            <ul>
+            <ul class="food-ul">
               <li v-show="food.count > 0" class="food" v-for="food in foodsSelect" :key="food.id">
                 <div class="left-section">{{food.name}}</div>
                 <div class="right-section">
@@ -89,7 +89,7 @@ export default {
             })
             console.log('asdasd')
           } else {
-            // this.scroll.refresh()
+            this.scroll.refresh()
             // this.scroll.scrollTo(0, 0)
             // this.scroll.minScrollY = 0
           }
@@ -238,7 +238,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0);
   transform: translate3d(0, -100%, 0);
   &.fold-enter-active, &.fold-leave-active {
-    transition: all 0.5s linear;
+    transition: all 0.3s linear;
   }
   &.fold-enter, &.fold-leave-active {
     transform: translate3d(0, 0, 0);
@@ -285,12 +285,12 @@ export default {
       margin-left: 10px;
       margin-right: 10px;
       width: 355px;
-      height: 40px;
+      height: 50px;
       .left-section {
         margin-left: 19px;
         width: 57px;
-        height: 40px;
-        line-height: 40px;
+        height: 50px;
+        line-height: 50px;
         color: rgba(16, 16, 16, 1);
         font-size: 14px;
         text-align: left;
@@ -301,9 +301,9 @@ export default {
         flex-direction: row;
         .prices {
           width: 36px;
-          height: 40px;
+          height: 50px;
+          line-height: 50px;
           margin-right: 20px;
-          line-height: 40px;
           color: rgba(116, 177, 249, 1);
           font-size: 12px;
           font-weight: bold;
@@ -311,10 +311,15 @@ export default {
           font-family: Arial;
         }
         .control-wrapper {
-          margin-top: 10px;
+          margin-top: 12px;
           margin-right: 23px;
         }
       }
+    }
+    .food-ul::after {
+      content: '';
+      height: 40px;
+      display: block;
     }
   }
 }

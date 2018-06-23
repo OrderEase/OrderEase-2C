@@ -5,11 +5,11 @@
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
-          <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, $event)" :key="category.id" :class="index == categoryCurrentIndex ? 'category-item-selected' : ''">
+          <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, category.id, $event)" :key="category.id" :class="selected_id == category.id ? 'category-item-selected' : ''">
             <span class="text">
               {{category.name}}
             </span>
-            <span class="num">
+            <span :class="selected_id == category.id ? 'num-selected' : 'num'">
               {{category.dishes.length}}
             </span>
           </li>
@@ -21,7 +21,7 @@
           <li v-for="category in menus" class="food-list food-list-hook" :key="category.id">
             <!-- <h1 class="title">{{category.name}}</h1> -->
 
-            <ul>
+            <ul class="foods-ul" v-show="category.id == selected_id">
               <li v-for="food in category.dishes" class="food-item" :key="food.id" @click="showDialog(food)">
                 <food-item :food="food" @update="showCart(food, category.id)"></food-item>
               </li>
@@ -71,6 +71,7 @@ export default {
       // menus: [],
       listHeight: [],
       foodsScrollY: 0,
+      selected_id: 0,
       image: '',
       bs: {
         name: '肥宅快乐餐',
@@ -95,7 +96,7 @@ export default {
     this.$store.dispatch('getMenus')
     this.$nextTick(() => {
       this._initScroll()
-      this._calculateHeight()
+      // this._calculateHeight()
     })
   },
   computed: {
@@ -128,9 +129,9 @@ export default {
         probeType: 3
       })
       // 监控滚动事件
-      this.foodsScroll.on('scroll', (pos) => {
-        this.foodsScrollY = Math.abs(Math.round(pos.y))
-      })
+      // this.foodsScroll.on('scroll', (pos) => {
+      //   this.foodsScrollY = Math.abs(Math.round(pos.y))
+      // })
     },
     _calculateHeight () {
       let foodList = this.$refs.foodsWrapper.querySelectorAll('.food-list-hook')
@@ -142,8 +143,14 @@ export default {
         this.listHeight.push(height)
       }
     },
-    categoryClick (index, event) {
-      this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+    categoryClick (index, id, event) {
+      // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+      this.selected_id = id
+      // this.foodsScroll.scrollTo(0, 0, 300)
+      this.$nextTick(() => {
+        this.foodsScroll.refresh()
+      })
+      console.log('selected id:', id)
     },
     showCart (food, cid) {
       // let temp = this.menus.filter(menu => menu.id === cid)
@@ -198,7 +205,7 @@ export default {
     overflow: hidden;
     display: flex;
     // bottom: 46px;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
     height: 78%;
     ul, li {
@@ -219,7 +226,7 @@ export default {
     // }
 
     .category-wrapper {
-      width: 80px;
+      width: 120px;
       // flex: 0 0 80px;
       background: #f3f5f7;
       background-color: rgba(246, 249, 255, 1);
@@ -237,7 +244,7 @@ export default {
         border-radius: 5px;
         border-width: 1px;
         margin-top: 15px;
-        margin-left: 10px;
+        margin-left: 15px;
         .num {
           width: 55px;
           font-size: 25px;
@@ -257,15 +264,25 @@ export default {
           bottom: 0;
         }
       }
+      .num-selected {
+        width: 55px;
+        font-size: 25px;
+        text-align: right;
+        color: rgba(175, 212, 251, 1);
+      }
       .category-item-selected {
         background: rgba(83, 158, 249, 1);
-        color: rgba(255, 255, 255, 1);
+        color: white;
+        box-shadow: 0px 8px 16px 0px rgba(202, 225, 254, 1);        
       }
     }
     .foods-wrapper {
       // flex: 1;
       margin-top: 6px;
       overflow: hidden;
+      width: 100%;
+      margin-right: 15px;
+      margin-left: 3px;
       // .title {
       //   height: 26px;
       //   line-height: 26px;
@@ -275,9 +292,16 @@ export default {
       //   background: #f3f5f7;
       //   border-left: 2px solid #d9dde1;
       // }
+      .foods-ul::after {
+        content: '';
+        height: 30px;
+        display: block;
+        // width: 20px;
+      }
       .food-item {
         height: 100px;
-        width: 275px;
+        width: 100%;
+        margin-right: 15px;
         padding: 15px 8px 6px 6px;
         overflow: hidden;
         display: flex;

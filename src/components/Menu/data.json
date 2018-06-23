@@ -9,17 +9,17 @@
       "dishes": [{
           "id": 0,
           "name": "宫保鸡丁",
-          "price": 12,
+          "price": 123,
           "likes": 4,
           "stock": 99,
           "rank": 5,
           "img": "./src/assets/test.jpeg",
-          "description": "asddddddddddddddddddddddddddddddddddd"
+          "description": "二娃猪儿虫"
         },
         {
           "id": 1,
           "name": "小炒肉",
-          "price": 12,
+          "price": 1,
           "likes": 4,
           "stock": 99,
           "rank": 5,
@@ -132,8 +132,8 @@
       "id": 2,
       "name": "湘菜",
       "dishes": [{
-          "id": 6,
-          "name": "烧肉",
+          "id": 12,
+          "name": "烧肉2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -141,8 +141,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 7,
-          "name": "烧鸭",
+          "id": 13,
+          "name": "烧鸭2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -150,8 +150,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 8,
-          "name": "白切鸡",
+          "id": 14,
+          "name": "白切鸡2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -159,8 +159,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 9,
-          "name": "酱油鸡",
+          "id": 15,
+          "name": "酱油鸡2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -168,8 +168,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 10,
-          "name": "虫草花乌鸡汤",
+          "id": 16,
+          "name": "虫草花乌鸡汤2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -177,8 +177,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 11,
-          "name": "茶树菇排骨汤",
+          "id": 17,
+          "name": "茶树菇排骨汤2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -191,8 +191,8 @@
       "id": 3,
       "name": "鲁菜",
       "dishes": [{
-          "id": 6,
-          "name": "烧肉",
+          "id": 18,
+          "name": "烧肉2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -200,8 +200,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 7,
-          "name": "烧鸭",
+          "id": 19,
+          "name": "烧鸭2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -209,8 +209,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 8,
-          "name": "白切鸡",
+          "id": 20,
+          "name": "白切鸡2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -218,8 +218,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 9,
-          "name": "酱油鸡",
+          "id": 21,
+          "name": "酱油鸡2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -227,8 +227,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 10,
-          "name": "虫草花乌鸡汤",
+          "id": 22,
+          "name": "虫草花乌鸡汤2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -236,8 +236,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 11,
-          "name": "茶树菇排骨汤",
+          "id": 23,
+          "name": "茶树菇排骨汤2",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -245,8 +245,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 12,
-          "name": "烧肉",
+          "id": 24,
+          "name": "烧肉3",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -254,8 +254,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 13,
-          "name": "烧鸭",
+          "id": 25,
+          "name": "烧鸭4",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -263,8 +263,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 14,
-          "name": "白切鸡",
+          "id": 26,
+          "name": "白切鸡4",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -272,8 +272,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 15,
-          "name": "酱油鸡",
+          "id": 27,
+          "name": "酱油鸡4",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -281,8 +281,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 16,
-          "name": "虫草花乌鸡汤",
+          "id": 28,
+          "name": "虫草花乌鸡汤4",
           "price": 12,
           "likes": 4,
           "stock": 99,
@@ -290,8 +290,8 @@
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
         {
-          "id": 17,
-          "name": "茶树菇排骨汤",
+          "id": 29,
+          "name": "茶树菇排骨汤4",
           "price": 12,
           "likes": 4,
           "stock": 99,
