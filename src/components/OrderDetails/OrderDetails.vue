@@ -16,13 +16,13 @@
                 <div class="dish-name">{{ dish.name }}</div>
                 <div class="dish-amount">x{{ dish.amount }}</div>
               </div>
-              <div class="dish-price">¥{{ dish.price }}</div>
+              <div class="dish-price">¥<span>{{ dish.price }}</span></div>
               <div class="remind-button-container" @click="remind">
                 <x-circle
                 class="waiting-time"
                 :percent="dish.waitingPercent"
                 :stroke-width="5"
-                :stroke-color="['#36D1DC', '#5B86E5']"
+                :stroke-color="'#539EF9'"
                 anticlockwise>
                 <span>{{ dish.state }}</span>
               </x-circle>
@@ -238,7 +238,7 @@ export default {
     .order-details-body::after {
       content: '';
       display: block;
-      height: 40px;
+      height: 50px;
     }
     
     .dish-list {
@@ -275,7 +275,7 @@ export default {
           flex-grow: 2;
           
           .dish-name {
-            font-size: 12px;
+            font-size: 15px;
             font-weight: bold;
             letter-spacing: 0.5px;
             color: #1C1D25;
@@ -290,8 +290,13 @@ export default {
         .dish-price {
           margin-top: -3px;
           margin-right: 5px;
-          font-size: 16px;
           color: #101010;
+          font-size: 14px;
+          
+          span {
+            margin-left: 1.5px;
+            font-size: 16px;
+          }
         }
                  
         .remind-button-container {
@@ -329,7 +334,7 @@ export default {
       border-radius: 5px;
       padding: 12px 15px;
       background-color: white;
-      font-size: 12px;
+      font-size: 14px;
 
       .order-number-key, .order-date-key, .pay-method-key {
         margin-right: 15px;

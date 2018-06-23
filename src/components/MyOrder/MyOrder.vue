@@ -16,7 +16,7 @@
               <div class="order-item">
                 <img class="order-image" :src="order.img">
                 <div class="order-info">
-                  <div class="resturant-name">{{ resturantName }}</div>
+                  <div class="restaurant-name">{{ restaurantName }}</div>
                   <div class="order-date">下单时间: {{ order.date }}</div>
                   <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
                 </div>
@@ -33,7 +33,7 @@
               <div class="order-item">
                 <img class="order-image" :src="order.img">
                 <div class="order-info">
-                  <div class="resturant-name">{{ resturantName }}</div>
+                  <div class="restaurant-name">{{ restaurantName }}</div>
                   <div class="order-date">下单时间: {{ order.date }}</div>
                   <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
                 </div>
@@ -61,7 +61,7 @@ export default {
       chosedTabItem: 0,
       showUnfinishedOrder: true,
       showFinishedOrder: false,
-      resturantName: '肥宅快乐餐',
+      restaurantName: '肥宅快乐餐',
 
       unfinishedOrders: [
         {
@@ -257,10 +257,11 @@ export default {
       display: block;
       height: 20px;
     }
+    
     .order-list {
       .orders {
         .order-item {
-          height: 100px;
+          height: 115px;
           margin-bottom: 15px;
           background-color: white;
           border-radius: 5px;
@@ -269,8 +270,8 @@ export default {
           .order-image {
             margin-left: 10px;
             margin-top: 15px;
-            height: 60px;
-            width: 60px;
+            height: 70px;
+            width: 80px;
             border-radius: 5px;
           }
           
@@ -279,14 +280,15 @@ export default {
             margin-left: 10px;
             margin-top: 15px;
             color: #747881;
-            
-            .resturant-name {
+            font-size: 13px;
+            .restaurant-name {
+              font-size: 15px;
               font-weight: bold;
               color: black;
             }
             
             .order-date {
-              margin-top: 5px;
+              margin-top: 10px;
             }
             
             .order-dishes-amouont {
@@ -305,7 +307,7 @@ export default {
               vertical-align: middle;
               margin-left: 2px;
               color: #4D4D4E;
-              font-size: 16px;
+              font-size: 17px;
               font-weight: bold;
             }
           }
