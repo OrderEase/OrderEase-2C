@@ -100,7 +100,7 @@ export default {
         font-size: 15px;
       }
       .description {
-        font-size: 10px;
+        font-size: 12px;
         color: rgba(227, 227, 227, 1);
         // color: white;
       }

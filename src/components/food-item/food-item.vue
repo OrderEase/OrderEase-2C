@@ -11,7 +11,7 @@
       <p class="food-description">{{food.description}}</p>
 
       <div class="price-wrapper">
-        <span class="price"><span class="unit">￥</span>{{food.price}}</span>
+        ￥<span class="price">{{food.price}}</span>
       </div>
 
       <!-- <div class="like-wrapper">
@@ -91,7 +91,7 @@ export default {
 
     .food-name {
       margin-top: 14px;
-      font-size: 12px;
+      font-size: 15px;
       height: 23px;
       line-height: 17px;
     }
@@ -110,11 +110,13 @@ export default {
 
     .price-wrapper {
       position: absolute;
-      bottom: 12px;
+      bottom: 10px;
       left: 10px;
       font-size: 12px;
+      color:rgba(116, 177, 249, 1);
       .price {
-        color:rgba(116, 177, 249, 1);
+        font-size: 16px;
+        // color:rgba(116, 177, 249, 1);
       }
     }
 

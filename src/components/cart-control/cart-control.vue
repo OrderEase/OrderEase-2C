@@ -1,11 +1,15 @@
 <template>
   <div class="cart-control">
     <transition name="fade">
-      <span class="cart-minus" v-show="food.count > 0" @click.stop.prevent="decreaseCart($event)">-</span>
+      <span class="cart-minus" v-show="food.count > 0" @click.stop.prevent="decreaseCart($event)">
+        <img src="/src/assets/menu/minus-icon.svg" alt="" style="height: 24px; width: 24px;">
+      </span>
     </transition>
     
     <span class="cart-count" v-show="food.count > 0">{{food.count}}</span>
-    <span class="cart-plus" @click.stop.prevent="increaseCart($event)">+</span>
+    <span class="cart-plus" @click.stop.prevent="increaseCart($event)">
+      <img src="/src/assets/menu/plus-icon.svg" alt="" style="height: 24px; width: 24px;">
+    </span>
   </div>
 </template>
 
@@ -54,25 +58,29 @@
 
 <style lang="scss">
   .cart-control {
+    margin-right: 3px;
     .cart-count {
+      position: relative;
+      top: 3px;
+      left: 2px;
       display: inline-block;
-      width: 15px;
-      padding-right: 1px;
+      width: 16px;
       color: rgb(58, 59, 59);
       text-align: center;
     }
 
     .cart-minus, .cart-plus {
       display: inline-block;
+      vertical-align: middle;
       height: 20px;
       width: 20px;
       border-radius: 50%;
       text-align: center;
       font-size: 20px;
-      line-height: 20px;
+      line-height: 15px;
 
       &.fade-enter-active, &.fade-leave-active {
-        transition: all 0.4s linear;
+        transition: all 0.3s linear;
       }
       &.fade-enter, &.fade-leave-active {
         opacity: 0;
@@ -81,15 +89,13 @@
     }
 
     .cart-plus {
-      color: white;
-      background-color: rgba(83, 158, 249, 1);
+      position: relative;
+      z-index: 2;
     }
     .cart-minus {
-      color: rgba(18, 124, 245, 0.5);
-      background-color: white;
-      border: 1px solid rgba(18, 124, 245, 0.5);
-      // font-size: 20px;
-      // line-height: 20px;
+      position: relative;
+      top: 0px;
+      z-index: 1;
     }
   }
 </style>
