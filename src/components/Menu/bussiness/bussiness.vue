@@ -14,8 +14,8 @@
     <div class="line">
     </div>
     <div class="second-section">
-      <span class="introduction">{{bussiness.introduction}}</span>
-      <span class="activity">{{bussiness.num}}个活动></span>
+      <div class="introduction">{{bussiness.introduction}}</div>
+      <div class="activity">{{bussiness.num}}个活动></div>
     </div>
   </div>
 </template>
@@ -80,6 +80,7 @@ export default {
     flex-direction: row;
     justify-content: space-around;
     button {
+      // flex-grow: 1;
       align-self: center;
       background-color: rgba(255, 255, 255, 0);
       border-color: white;
@@ -92,20 +93,28 @@ export default {
       height: 38px;
     }
     .text {
+      flex-grow: 1;
       margin-left: 10px;
       width: 200px;
       display: flex;
       flex-direction: column;
       .name {
         font-size: 15px;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
       .description {
         font-size: 12px;
+        width: 200px;
         color: rgba(227, 227, 227, 1);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         // color: white;
       }
     }
     img {
+      // flex-grow: 1;
       height: 60px;
       width: 60px;
       border-color: white;
@@ -116,12 +125,26 @@ export default {
     position: relative;
     z-index: 20;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     font-size: 13px;
     margin-left: 10px;
     margin-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    .introduction {
+      flex-grow: 1;
+      width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .activity {
+      width: 70px;
+      flex-grow: 1;
+      text-align: right;
+      // margin-right: 15px;
+    }
   }
   div {
     width: 95%;

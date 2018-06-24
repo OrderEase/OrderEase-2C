@@ -76,7 +76,7 @@ export default {
       bs: {
         name: '肥宅快乐餐',
         description: '我知道这样不好，但这样真爽。',
-        introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！',
+        introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！ssssssssssssssss',
         image: './src/assets/image.jpeg',
         bg: 'url(\'/src/assets/bs.jpeg\')',
         num: 2
@@ -294,7 +294,7 @@ export default {
       // }
       .foods-ul::after {
         content: '';
-        height: 30px;
+        height: 40px;
         display: block;
         // width: 20px;
       }

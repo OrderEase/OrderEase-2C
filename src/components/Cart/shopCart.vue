@@ -295,7 +295,10 @@ export default {
       height: 50px;
       .left-section {
         margin-left: 19px;
-        width: 57px;
+        width: 40%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
         height: 50px;
         line-height: 50px;
         color: rgba(16, 16, 16, 1);

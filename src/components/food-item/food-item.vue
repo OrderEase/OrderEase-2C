@@ -93,6 +93,10 @@ export default {
       margin-top: 14px;
       font-size: 15px;
       height: 23px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 60%;
       line-height: 17px;
     }
 
@@ -103,7 +107,7 @@ export default {
       height: 23px;
       margin-top: 2px;
       margin-right: 3px;
-      width: 150px;
+      width: 80%;
       text-overflow: ellipsis;
       overflow: hidden;
     }

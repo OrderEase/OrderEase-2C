@@ -80,7 +80,8 @@ export default {
       justify-content: space-between;
       height: 90px;
       .first-column {
-        width: 80px;
+        flex-grow: 1;
+        width: 100px;
         height: 100%;
 
         img {
@@ -88,10 +89,15 @@ export default {
           height: 12px;
         }
         .title {
+          flex-grow: 1;
           font-size: 14px;
           margin-top: 5px;
           margin-left: 15px;
+          width: 60%;
           text-align: left;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         .likes {
           width: 50px;
