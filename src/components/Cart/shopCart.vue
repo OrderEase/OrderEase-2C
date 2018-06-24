@@ -289,6 +289,7 @@ export default {
     }
     .food {
       display: flex;
+      // flex-grow: 1;
       flex-direction: row;
       justify-content: space-between;
       background-color: rgba(255, 255, 255, 1);
@@ -300,7 +301,7 @@ export default {
       height: 50px;
       .left-section {
         margin-left: 19px;
-        width: 40%;
+        width: 50%;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
