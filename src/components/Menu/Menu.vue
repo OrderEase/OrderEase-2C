@@ -84,9 +84,9 @@ export default {
       foodInfo: {
         name: '宫保鸡丁',
         price: 12,
-        like: 4,
-        icon: './src/assets/test.jpeg',
-        discription: 'asddddddddddddddddddddddddddddddddddd',
+        likes: 4,
+        img: './src/assets/test.jpeg',
+        description: 'asddddddddddddddddddddddddddddddddddd',
         count: 0,
         show: false
       }
@@ -178,12 +178,13 @@ export default {
       }
     },
     showDialog (food) {
+      this.foodInfo.id = food.id
       this.foodInfo.name = food.name
       this.foodInfo.price = food.price
-      this.foodInfo.icon = food.img
+      this.foodInfo.img = food.img
       this.foodInfo.show = true
       this.foodInfo.description = food.description
-      this.foodInfo.like = food.likes
+      this.foodInfo.likes = food.likes
       this.foodInfo.count = food.count
       console.log('showDialog', this.foodInfo)
     }

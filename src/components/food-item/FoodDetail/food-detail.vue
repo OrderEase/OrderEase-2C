@@ -2,9 +2,9 @@
   <div>
     <x-dialog class="food-detail" v-model="food.show" hide-on-blur>
       <div class="top-section">
-        <img :src="food.icon" />
+        <img :src="food.img" />
         <p>
-          {{food.discription}}
+          {{food.description}}
         </p>
       </div>
       <div class="bottom-section">
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="second-column">
-          <button :class="food.count > 0 ? 'disabled' : 'able'" :disabled="food.count > 0">{{food.count > 0 ? '已加入购物车' : '加入购物车'}}</button>
+          <button @click.stop.prevent='addOne' :class="food.count > 0 ? 'disabled' : 'able'" :disabled="food.count > 0">{{food.count > 0 ? '已加入购物车' : '加入购物车'}}</button>
         </div>
       </div>
     </x-dialog>
@@ -39,6 +39,14 @@ export default {
   },
   data () {
     return {
+    }
+  },
+  methods: {
+    addOne () {
+      this.$store.commit('increaseCart', {
+        food: this.food
+      })
+      this.food.count = 1
     }
   }
 }

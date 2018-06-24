@@ -62,11 +62,12 @@ const store = new Vuex.Store({
     //   console.log('check', state.menus)
     // },
     increaseCart (state, payload) {
-      if (!('count' in payload.food)) {
-        state.selectFoods.push(payload.food)
+      if (!('count' in payload.food) || payload.food.count === undefined) {
+        // state.selectFoods.push(payload.food)
         for (let i = 0; i < state.menus.length; ++i) {
           if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
             Vue.set(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0], 'count', 1)
+            state.selectFoods.push(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0])
             break
           }
         }
@@ -96,6 +97,8 @@ const store = new Vuex.Store({
       }
       console.log('selected foods delete', state.selectFoods)
       return payload.food
+    },
+    addOne (state, payload) {
     }
   },
   actions: {

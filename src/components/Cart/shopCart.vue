@@ -280,9 +280,13 @@ export default {
     }
   }
   .list-content {
-    width: 375px;
+    // width: 375px;
+    width: 100%;
     max-height: 217px;
     overflow: hidden;
+    .food-ul {
+      width: 100%;
+    }
     .food {
       display: flex;
       flex-direction: row;
@@ -291,7 +295,8 @@ export default {
       margin-top: 13px;
       margin-left: 10px;
       margin-right: 10px;
-      width: 355px;
+      // width: 355px;
+      width: 100%;
       height: 50px;
       .left-section {
         margin-left: 19px;
@@ -328,7 +333,7 @@ export default {
     }
     .food-ul::after {
       content: '';
-      height: 40px;
+      height: 30px;
       display: block;
     }
   }
