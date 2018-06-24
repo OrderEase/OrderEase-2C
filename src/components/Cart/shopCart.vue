@@ -280,22 +280,29 @@ export default {
     }
   }
   .list-content {
-    width: 375px;
+    // width: 375px;
+    // width: 100%;
     max-height: 217px;
     overflow: hidden;
+    display: flex;
+    .food-ul {
+      width: 100%;
+    }
     .food {
       display: flex;
+      // flex-grow: 1;
       flex-direction: row;
       justify-content: space-between;
       background-color: rgba(255, 255, 255, 1);
       margin-top: 13px;
       margin-left: 10px;
       margin-right: 10px;
-      width: 355px;
+      // width: 100%;
+      // width: 355px;
       height: 50px;
       .left-section {
         margin-left: 19px;
-        width: 40%;
+        width: 50%;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
@@ -328,7 +335,7 @@ export default {
     }
     .food-ul::after {
       content: '';
-      height: 40px;
+      height: 30px;
       display: block;
     }
   }

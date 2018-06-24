@@ -146,9 +146,9 @@ export default {
     categoryClick (index, id, event) {
       // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
       this.selected_id = id
-      // this.foodsScroll.scrollTo(0, 0, 300)
       this.$nextTick(() => {
         this.foodsScroll.refresh()
+        this.foodsScroll.scrollTo(0, 0, 300)
       })
       console.log('selected id:', id)
     },
