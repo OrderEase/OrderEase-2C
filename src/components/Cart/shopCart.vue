@@ -317,7 +317,7 @@ export default {
           color: rgba(116, 177, 249, 1);
           font-size: 12px;
           font-weight: bold;
-          text-align: center;
+          text-align: left;
           font-family: Arial;
         }
         .control-wrapper {
