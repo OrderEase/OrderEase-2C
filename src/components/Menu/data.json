@@ -12,7 +12,7 @@
           "price": 123,
           "likes": 4,
           "stock": 99,
-          "rank": 5,
+          "rank": 4,
           "img": "./src/assets/test.jpeg",
           "description": "二娃猪儿虫"
         },
@@ -22,7 +22,7 @@
           "price": 1,
           "likes": 4,
           "stock": 99,
-          "rank": 5,
+          "rank": 3,
           "img": "./src/assets/test.jpeg",
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
@@ -32,7 +32,7 @@
           "price": 12,
           "likes": 4,
           "stock": 99,
-          "rank": 5,
+          "rank": 2,
           "img": "./src/assets/test.jpeg",
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
@@ -42,7 +42,7 @@
           "price": 12,
           "likes": 4,
           "stock": 99,
-          "rank": 5,
+          "rank": 1,
           "img": "./src/assets/test.jpeg",
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
@@ -52,7 +52,7 @@
           "price": 12,
           "likes": 4,
           "stock": 99,
-          "rank": 5,
+          "rank": 6,
           "img": "./src/assets/test.jpeg",
           "description": "asddddddddddddddddddddddddddddddddddd"
         },
