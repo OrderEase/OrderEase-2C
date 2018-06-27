@@ -39,24 +39,10 @@
 import BScroll from 'better-scroll'
 import { Swiper } from 'vux'
 import { mapState } from 'vuex'
-// import menusData from './data.json'
 import Bussiness from './bussiness/bussiness'
 import FoodItem from '../food-item/food-item'
 import FoodDetail from '../food-item/FoodDetail/food-detail'
 import ShopCart from '../Cart/shopCart'
-const swiperList = [{
-  url: 'javascript:',
-  img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
-  title: '送你一朵fua'
-}, {
-  url: 'javascript:',
-  img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg',
-  title: '送你一辆车'
-}, {
-  url: 'javascript:',
-  img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg', // 404
-  title: '送你一次旅行'
-}]
 export default {
   components: {
     Swiper,
@@ -67,26 +53,24 @@ export default {
   },
   data () {
     return {
-      swiper_list: swiperList,
-      // menus: [],
       listHeight: [],
       foodsScrollY: 0,
-      selected_id: 0,
+      // selected_id: 0,
       image: '',
-      bs: {
-        name: '肥宅快乐餐',
-        description: '我知道这样不好，但这样真爽。',
-        introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！ssssssssssssssss',
-        image: './src/assets/image.jpeg',
-        bg: 'url(\'/src/assets/bs.jpeg\')',
-        num: 2
-      },
+      // bs: {
+      //   name: '肥宅快乐餐',
+      //   description: '我知道这样不好，但这样真爽。',
+      //   introduction: '只要购买肥宅快乐餐，即送肥宅快乐水！ssssssssssssssss',
+      //   img: './src/assets/image.jpeg',
+      //   bg: 'url(\'/src/assets/bs.jpeg\')',
+      //   num: 2
+      // },
       foodInfo: {
         name: '宫保鸡丁',
         price: 12,
-        like: 4,
-        icon: './src/assets/test.jpeg',
-        discription: 'asddddddddddddddddddddddddddddddddddd',
+        likes: 4,
+        img: './src/assets/test.jpeg',
+        description: 'asddddddddddddddddddddddddddddddddddd',
         count: 0,
         show: false
       }
@@ -94,6 +78,8 @@ export default {
   },
   created () {
     this.$store.dispatch('getMenus')
+    this.$store.dispatch('getRestaurant')
+    this.$store.dispatch('getPromotions')
     this.$nextTick(() => {
       this._initScroll()
       // this._calculateHeight()
@@ -116,7 +102,9 @@ export default {
     //   // return this.$store.getters.menus
     // }
     ...mapState({
-      menus: 'menus'
+      menus: 'menus',
+      selected_id: 'selected_id',
+      bs: 'restaurant'
     })
   },
   methods: {
@@ -145,10 +133,13 @@ export default {
     },
     categoryClick (index, id, event) {
       // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
-      this.selected_id = id
-      // this.foodsScroll.scrollTo(0, 0, 300)
+      // this.selected_id = id
+      this.$store.commit('changeSelectedId', {
+        id: id
+      })
       this.$nextTick(() => {
         this.foodsScroll.refresh()
+        this.foodsScroll.scrollTo(0, 0, 300)
       })
       console.log('selected id:', id)
     },
@@ -167,23 +158,24 @@ export default {
       // console.log('count', temp2, temp2[0].name)
       // })
     },
-    synatic () {
-      console.log('synatic start')
-      for (let i = 0; i < this.$store.state.orders.length; ++i) {
-        let temp = this.$store.state.orders[i]
-        let tempMenu = this.menus.filter(menu => menu.id === temp.cid)[0].foods
-        console.log('synatic', tempMenu)
-        tempMenu.filter(food => food.id === temp.id)[0].count = temp.num
-        console.log('synatic food', tempMenu.filter(food => food.id === temp.id)[0])
-      }
-    },
+    // synatic () {
+    //   console.log('synatic start')
+    //   for (let i = 0; i < this.$store.state.orders.length; ++i) {
+    //     let temp = this.$store.state.orders[i]
+    //     let tempMenu = this.menus.filter(menu => menu.id === temp.cid)[0].foods
+    //     console.log('synatic', tempMenu)
+    //     tempMenu.filter(food => food.id === temp.id)[0].count = temp.num
+    //     console.log('synatic food', tempMenu.filter(food => food.id === temp.id)[0])
+    //   }
+    // },
     showDialog (food) {
+      this.foodInfo.id = food.id
       this.foodInfo.name = food.name
       this.foodInfo.price = food.price
-      this.foodInfo.icon = food.img
+      this.foodInfo.img = food.img
       this.foodInfo.show = true
       this.foodInfo.description = food.description
-      this.foodInfo.like = food.likes
+      this.foodInfo.likes = food.likes
       this.foodInfo.count = food.count
       console.log('showDialog', this.foodInfo)
     }
@@ -255,6 +247,9 @@ export default {
           width: 45px;
           margin-left: 6px;
           font-size: 14px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
         &:after {
           position: absolute;

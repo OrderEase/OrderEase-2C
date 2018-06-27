@@ -110,6 +110,7 @@ export default {
       width: 80%;
       text-overflow: ellipsis;
       overflow: hidden;
+      white-space: nowrap;
     }
 
     .price-wrapper {

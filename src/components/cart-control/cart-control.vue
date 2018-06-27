@@ -37,7 +37,7 @@
         // } else {
         //   this.food.count++
         // }
-        console.log('"add"')
+        console.log('"add"', this.food.count > 0)
         this.$emit('update', event.target)
       },
       decreaseCart (event) {

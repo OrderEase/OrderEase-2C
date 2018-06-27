@@ -1,10 +1,10 @@
 
 <template>
-  <div class="bussiness" id="qq">
+  <div class="bussiness" :style="{'background-image': bussiness.bg}">
     <div class="bg">
     </div>
     <div class="first-section">
-      <img :src="bussiness.image"/>
+      <img :src="bussiness.img"/>
       <div class="text">
         <div class="name">{{bussiness.name}}</div>
         <div class="description">{{bussiness.description}}</div>
@@ -37,7 +37,8 @@ export default {
   },
   created () {
     this.$nextTick(() => {
-      document.getElementById('qq').style.backgroundImage = this.bussiness.bg
+      console.log(this.bussiness.bg)
+      // document.getElementById('qq').style.backgroundImage = this.bussiness.bg
       console.log(this.bussiness.bg)
     })
   },

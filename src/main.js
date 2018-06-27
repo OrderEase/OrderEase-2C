@@ -6,22 +6,24 @@ import FastClick from 'fastclick'
 import axios from 'axios'
 // import VueRouter from 'vue-router'
 import App from './App'
-import menuData from './components/Menu/data.json'
+// import menuData from './components/Menu/data.json'
 // import selectData from './components/Cart/data.json'
 import router from './router/index.js'
 
 FastClick.attach(document.body)
 
 Vue.config.productionTip = false
-Vue.prototype.$ajax = axios.create({
-  baseURL: 'https://orderease.ml/v1/'
+const Axios = axios.create({
+  baseURL: 'http://172.18.157.176:5000/api/'
 })
 
 const store = new Vuex.Store({
   state: {
     // menus: new Array(0),
     menus: [],
-    selectFoods: new Array(0)
+    selectFoods: new Array(0),
+    restaurant: {},
+    selected_id: 0
   },
   getters: {
     totalPrice: (state, getters) => {
@@ -33,40 +35,13 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    // check (state, payload) {
-    //   let exist = false
-    //   for (let i = 0; i < state.menus.length; i = i + 1) {
-    //     if (state.menus[i].id === payload.id) {
-    //       state.menus[i].count = payload.count
-    //       exist = true
-    //       break
-    //     }
-    //   }
-    //   if (exist === false) {
-    //     state.menus.push({
-    //       id: payload.id,
-    //       name: payload.name,
-    //       price: payload.price,
-    //       num: payload.count
-    //     })
-    //   } else {
-    //     for (let i = 0; i < state.menus.length; i = i + 1) {
-    //       if (state.menus[i].num === -1) {
-    //         while (i < state.menus.length - 1) {
-    //           state.menus[i] = state.menus[i + 1]
-    //         }
-    //         state.menus.pop()
-    //       }
-    //     }
-    //   }
-    //   console.log('check', state.menus)
-    // },
     increaseCart (state, payload) {
-      if (!('count' in payload.food)) {
-        state.selectFoods.push(payload.food)
+      if (!('count' in payload.food) || payload.food.count === undefined) {
+        // state.selectFoods.push(payload.food)
         for (let i = 0; i < state.menus.length; ++i) {
           if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
             Vue.set(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0], 'count', 1)
+            state.selectFoods.push(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0])
             break
           }
         }
@@ -96,13 +71,58 @@ const store = new Vuex.Store({
       }
       console.log('selected foods delete', state.selectFoods)
       return payload.food
+    },
+    changeSelectedId (state, payload) {
+      state.selected_id = payload.id
     }
   },
   actions: {
     getMenus ({state}) {
-      let responce = menuData
-      state.menus = responce.content
-      console.log('"menus:"', state.menus)
+      Axios.get('/menus/cuser')
+        .then(function (responce) {
+          console.log('menu responce', responce)
+          // let responce = JSON.stringify(menuData)
+          // console.log('string responce', JSON.stringify(menuData))
+          // responce = JSON.parse(responce.data)
+          // console.log('json responce', responce)
+          responce = responce.data
+          responce.content.sort((a, b) => {
+            return a.rank >= b.rank
+          })
+          for (let i = 0; i < responce.content.length; ++i) {
+            responce.content[i].dishes.sort((a, b) => {
+              return a.rank >= b.rank
+            })
+          }
+          state.menus = responce.content
+          state.selected_id = state.menus[0].id
+          console.log('"menus:"', state.menus)
+        })
+        .catch(function (error) {
+          console.log(error.request)
+        })
+    },
+    getRestaurant ({state}) {
+      Axios.get('/restrt')
+        .then(function (responce) {
+          console.log('restaurant', responce.data)
+          state.restaurant = responce.data
+          Vue.set(state.restaurant, 'bg', 'url(\'/src/assets/bs.jpeg\')')
+          // state.restaurant.num = 2
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    getPromotions ({state}) {
+      Axios.get('/promotions')
+        .then(function (responce) {
+          console.log('promotions', responce.data)
+          Vue.set(state.restaurant, 'num', responce.data.length)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
 })
