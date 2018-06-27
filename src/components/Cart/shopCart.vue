@@ -285,7 +285,7 @@ export default {
     max-height: 217px;
     overflow: hidden;
     .food-ul {
-      width: 100%;
+      width: 95%;
     }
     .food {
       display: flex;
@@ -294,8 +294,9 @@ export default {
       justify-content: space-between;
       background-color: rgba(255, 255, 255, 1);
       margin-top: 13px;
-      margin-left: 10px;
-      margin-right: 10px;
+      // width: 95%;
+      margin-left: 2.5%;
+      // margin-right: auto;
       // width: 355px;
       width: 100%;
       height: 50px;

@@ -8,7 +8,8 @@ import MyOrder from '@/components/MyOrder/MyOrder'
 import Pay from '@/components/Pay/Pay'
 import Shake from '@/components/Shake/Shake'
 import OrderDetails from '@/components/OrderDetails/OrderDetails'
-import bussiness from '@/components/Menu/bussiness/bussiness'
+// import bussiness from '@/components/Menu/bussiness/bussiness'
+import Login from '@/components/Login/login'
 
 Vue.use(Router)
 Vue.use(Vuex)
@@ -55,9 +56,9 @@ export default new Router({
       component: OrderDetails
     },
     {
-      path: '/menu-bussiness',
-      name: 'bussiness',
-      component: bussiness
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })

@@ -37,6 +37,9 @@ export default {
       Object
     }
   },
+  created () {
+    console.log('food-detail show', this.food.show)
+  },
   data () {
     return {
     }

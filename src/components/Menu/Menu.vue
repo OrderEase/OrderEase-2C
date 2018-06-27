@@ -1,7 +1,7 @@
 
 <template>
   <div class="menu">
-    <bussiness class="bussiness" :bussiness='bs'></bussiness>
+    <bussiness class="bussiness" @show-detail='showDetail' :bussiness='bs'></bussiness>
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
@@ -23,7 +23,7 @@
 
             <ul class="foods-ul" v-show="category.id == selected_id">
               <li v-for="food in category.dishes" class="food-item" :key="food.id" @click="showDialog(food)">
-                <food-item :food="food" @update="showCart(food, category.id)"></food-item>
+                <food-item :food="food"></food-item>
               </li>
             </ul>
           </li>
@@ -32,6 +32,7 @@
     </div>
     <shop-cart class="cart"></shop-cart>
     <food-detail :food="foodInfo" />
+    <bs-detail :bus="showBS" />
   </div>
 </template>
 
@@ -43,11 +44,13 @@ import Bussiness from './bussiness/bussiness'
 import FoodItem from '../food-item/food-item'
 import FoodDetail from '../food-item/FoodDetail/food-detail'
 import ShopCart from '../Cart/shopCart'
+import BsDetail from './bussiness/bs-detail'
 export default {
   components: {
     Swiper,
     FoodItem,
     Bussiness,
+    BsDetail,
     FoodDetail,
     ShopCart
   },
@@ -57,6 +60,9 @@ export default {
       foodsScrollY: 0,
       // selected_id: 0,
       image: '',
+      showBS: {
+        show: false
+      },
       // bs: {
       //   name: '肥宅快乐餐',
       //   description: '我知道这样不好，但这样真爽。',
@@ -131,6 +137,10 @@ export default {
         this.listHeight.push(height)
       }
     },
+    showDetail () {
+      console.log('show detail', this.showBS.show)
+      this.showBS.show = true
+    },
     categoryClick (index, id, event) {
       // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
       // this.selected_id = id
@@ -143,32 +153,8 @@ export default {
       })
       console.log('selected id:', id)
     },
-    showCart (food, cid) {
-      // let temp = this.menus.filter(menu => menu.id === cid)
-      console.log('food', food)
-      // this.$nextTick(() => {
-      //   this.$store.commit('check', {
-      //     id: food.id,
-      //     name: food.name,
-      //     price: food.price,
-      //     count: temp[0].foods.filter(f => f.id === food.id)[0].count,
-      //     cid: cid
-      //   })
-      // let temp2 = temp[0].foods.filter(f => f.id === food.id)
-      // console.log('count', temp2, temp2[0].name)
-      // })
-    },
-    // synatic () {
-    //   console.log('synatic start')
-    //   for (let i = 0; i < this.$store.state.orders.length; ++i) {
-    //     let temp = this.$store.state.orders[i]
-    //     let tempMenu = this.menus.filter(menu => menu.id === temp.cid)[0].foods
-    //     console.log('synatic', tempMenu)
-    //     tempMenu.filter(food => food.id === temp.id)[0].count = temp.num
-    //     console.log('synatic food', tempMenu.filter(food => food.id === temp.id)[0])
-    //   }
-    // },
     showDialog (food) {
+      console.log('food show', this.foodInfo.show)
       this.foodInfo.id = food.id
       this.foodInfo.name = food.name
       this.foodInfo.price = food.price

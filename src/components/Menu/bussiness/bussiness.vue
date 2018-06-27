@@ -4,8 +4,8 @@
     <div class="bg">
     </div>
     <div class="first-section">
-      <img :src="bussiness.img"/>
-      <div class="text">
+      <img :src="bussiness.img" @click.stop.prevent="changeShow" />
+      <div class="text" @click.stop.prevent="changeShow">
         <div class="name">{{bussiness.name}}</div>
         <div class="description">{{bussiness.description}}</div>
       </div>
@@ -13,7 +13,7 @@
     </div>
     <div class="line">
     </div>
-    <div class="second-section">
+    <div class="second-section" @click.stop.prevent="changeShow">
       <div class="introduction">{{bussiness.introduction}}</div>
       <div class="activity">{{bussiness.num}}个活动></div>
     </div>
@@ -38,14 +38,16 @@ export default {
   created () {
     this.$nextTick(() => {
       console.log(this.bussiness.bg)
-      // document.getElementById('qq').style.backgroundImage = this.bussiness.bg
-      console.log(this.bussiness.bg)
     })
   },
   methods: {
     toOrder () {
       console.log('to order')
       this.$router.push('/my-order')
+    },
+    changeShow () {
+      this.$emit('show-detail')
+      console.log('change show')
     }
   }
 }
@@ -153,6 +155,7 @@ export default {
     // margin-right: 10px;
   }
   .line {
+    position: relative;
     z-index: 20;
     margin-left: 10px;
     margin-right: 10px;

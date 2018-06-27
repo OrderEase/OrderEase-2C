@@ -14,12 +14,25 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 const Axios = axios.create({
-  baseURL: 'http://172.18.157.176:5000/api/'
+  baseURL: 'http://172.18.158.105:5000/api/'
 })
 
 const store = new Vuex.Store({
   state: {
     // menus: new Array(0),
+    promotions: [
+      {
+        id: 0,
+        type: '减',
+        data: '满19减6；满40减9；满60减10'
+      },
+      {
+        id: 1,
+        type: '折',
+        data: '满20打8.5折'
+      }
+    ],
+    username: '',
     menus: [],
     selectFoods: new Array(0),
     restaurant: {},
@@ -77,6 +90,22 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    login ({state}, payload) {
+      state.username = payload.username
+      router.push('/menu')
+      console.log('username:', payload.username)
+      Axios.post('/cusers/session', {
+        'username': payload.username
+      })
+      .then((responce) => {
+        if (responce.code === 200) {
+          this.$router.push('/menu')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
     getMenus ({state}) {
       Axios.get('/menus/cuser')
         .then(function (responce) {
@@ -134,4 +163,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-router.push('menu')
+router.push('login')
