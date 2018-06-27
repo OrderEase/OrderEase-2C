@@ -1,69 +1,67 @@
 <template>
-  <transition name="move">
-    <div class="order-wrapper">
-      <div class="order-details-header">
-        <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
-        <span>订单详情</span>
-      </div>
-      <div class="order-details-wrapper" ref="orderDetailsWrapper">
-        <div class="order-details-body">
-          <toast v-model="reminded" text="已催单" :time="1000"></toast>        
-          <div class="dish-list">
-            <div class="dish-list-header">已点菜品</div>
-            <div class="dish-item" v-for="dish in dishes">
-              <img class="dish-image" :src="dish.img">
-              <div class="dish-info">
-                <div class="dish-name">{{ dish.name }}</div>
-                <div class="dish-amount">x{{ dish.amount }}</div>
-              </div>
-              <div class="dish-price">¥<span>{{ dish.price }}</span></div>
-              <div class="remind-button-container" @click="remind">
-                <x-circle
-                class="waiting-time"
-                :percent="dish.waitingPercent"
-                :stroke-width="5"
-                :stroke-color="'#539EF9'"
-                anticlockwise>
-                <span>{{ dish.state }}</span>
-              </x-circle>
+  <div class="order-wrapper">
+    <toast v-model="reminded" text="已催单" :time="1000"></toast>        
+    <div class="order-details-header">
+      <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
+      <span>订单详情</span>
+    </div>
+    <div class="order-details-wrapper" ref="orderDetailsWrapper">
+      <div class="order-details-body">
+        <div class="dish-list">
+          <div class="dish-list-header">已点菜品</div>
+          <div class="dish-item" v-for="dish in dishes">
+            <img class="dish-image" :src="dish.img">
+            <div class="dish-info">
+              <div class="dish-name">{{ dish.name }}</div>
+              <div class="dish-amount">x{{ dish.amount }}</div>
             </div>
-          </div>
-          <div class="pay-bar">
-            <div class="price-container">
-              合计 <span class="total-price">¥{{ totalPrice }}</span>
-            </div>
-          </div>
-        </div>        
-          <div class="order-info">
-          <div class="order-number-container">
-            <span class="order-number-key">
-              订单号码
-            </span>
-            <span class="order-number-value">
-              {{ order.number }}
-            </span>  
-          </div>
-          <div class="order-date-container">
-            <span class="order-date-key">
-              下单日期
-            </span>
-            <span class="order-date-value">
-              {{ order.date }}
-            </span>
-          </div>
-          <div class="pay-method-container">
-            <span class="pay-method-key">
-              支付方式
-            </span>
-            <span class="pay-method-value">
-              {{ order.payMethod }}
-            </span>
+            <div class="dish-price">¥<span>{{ dish.price }}</span></div>
+            <div class="remind-button-container" @click="remind">
+              <x-circle
+              class="waiting-time"
+              :percent="dish.waitingPercent"
+              :stroke-width="5"
+              :stroke-color="'#539EF9'"
+              anticlockwise>
+              <span>{{ dish.state }}</span>
+            </x-circle>
           </div>
         </div>
+        <div class="total-price-container">
+          <div class="total-price">
+            合计 <span>¥{{ totalPrice }}</span>
+          </div>
+        </div>
+      </div>        
+      <div class="order-info">
+        <div class="order-number-container">
+          <span class="order-number-key">
+            订单号码
+          </span>
+          <span class="order-number-value">
+            {{ order.number }}
+          </span>  
+        </div>
+        <div class="order-date-container">
+          <span class="order-date-key">
+            下单日期
+          </span>
+          <span class="order-date-value">
+            {{ order.date }}
+          </span>
+        </div>
+        <div class="pay-method-container">
+          <span class="pay-method-key">
+            支付方式
+          </span>
+          <span class="pay-method-value">
+            {{ order.payMethod }}
+          </span>
         </div>
       </div>
     </div>
-  </transition>
+  </div>
+</div>
 </template>
 
 <script>
@@ -126,7 +124,7 @@ export default {
           price: 5,
           amount: 5,
           state: '制作中',
-          waitingPercent: 30
+          waitingPercent: 90
         },
         {
           img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
@@ -134,7 +132,7 @@ export default {
           price: 8,
           amount: 4,
           state: '制作中',
-          waitingPercent: 50
+          waitingPercent: 90
         }
       ]
     }
@@ -181,7 +179,7 @@ export default {
           scrollY: true,
           click: true
         })
-        console.log(this.scroll)
+        // console.log(this.scroll)
       } else {
         this.scroll.refresh()
       }
@@ -227,8 +225,7 @@ export default {
       align-self: center;      
     }
   }
-  
-  
+    
   .order-details-wrapper {
     margin: 0 20px;
     padding-top: 20px;
@@ -311,16 +308,16 @@ export default {
         }               
       }
       
-      .pay-bar {
+      .total-price-container {
         height: 30px;
         padding: 12px 15px 10px 15px;
         
-        .price-container {
+        .total-price {
           float: right;
           font-size: 12px;
           color: #101010;
                 
-          .total-price {
+          span {
             color: #323232;
             font-weight: bold;
             font-size: 18px;

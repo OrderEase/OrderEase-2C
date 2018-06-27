@@ -1,52 +1,50 @@
 <template>
-  <transition name="move">
-    <div class="my-order-wrapper">
-      <div class="my-order-header">
-        <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
-        <span>订单</span>
-      </div>
-      <div class="order-tab-wrapper">
-        <span class="order-tab" :class="showUnfinishedOrder ? 'order-tab-active' : ''" @click="unfinishedOrderTabClick">未完成订单</span>
-        <span class="order-tab" :class="showFinishedOrder ? 'order-tab-active' : ''" @click="finishedOrderTabClick">已完成订单</span>
-      </div>
-      <div class="order-list-wrapper" ref="orderListWrapper">
-        <div class="order-list">
-          <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
-            <router-link to="/order-details">
-              <div class="order-item">
-                <img class="order-image" :src="order.img">
-                <div class="order-info">
-                  <div class="restaurant-name">{{ restaurantName }}</div>
-                  <div class="order-date">下单时间: {{ order.date }}</div>
-                  <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
-                </div>
-                
-                
-                <div class="order-price">
-                  实付<span>¥{{ order.price }}</span>
-                </div>
-              </div>
-            </router-link>
-          </div>
-          <div class="orders" v-show="showFinishedOrder" v-for="order in finishedOrders">
-            <router-link to="/order-details">
-              <div class="order-item">
-                <img class="order-image" :src="order.img">
-                <div class="order-info">
-                  <div class="restaurant-name">{{ restaurantName }}</div>
-                  <div class="order-date">下单时间: {{ order.date }}</div>
-                  <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
-                </div>
-                <div class="order-price">
-                  实付<span>¥{{ order.price }}</span>
-                </div>
-              </div>
-            </router-link>
-          </div>
-        </div>
-      </div>    
+  <div class="my-order-wrapper">
+    <div class="my-order-header">
+      <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
+      <span>订单</span>
     </div>
-  </transition>
+    <div class="order-tab-wrapper">
+      <span class="order-tab" :class="showUnfinishedOrder ? 'order-tab-active' : ''" @click="unfinishedOrderTabClick">未完成订单</span>
+      <span class="order-tab" :class="showFinishedOrder ? 'order-tab-active' : ''" @click="finishedOrderTabClick">已完成订单</span>
+    </div>
+    <div class="order-list-wrapper" ref="orderListWrapper">
+      <div class="order-list">
+        <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
+          <router-link to="/order-details">
+            <div class="order-item">
+              <img class="order-image" :src="order.img">
+              <div class="order-info">
+                <div class="restaurant-name">{{ restaurantName }}</div>
+                <div class="order-date">下单时间: {{ order.date }}</div>
+                <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
+              </div>
+              
+              
+              <div class="order-price">
+                实付<span>¥{{ order.price }}</span>
+              </div>
+            </div>
+          </router-link>
+        </div>
+        <div class="orders" v-show="showFinishedOrder" v-for="order in finishedOrders">
+          <router-link to="/order-details">
+            <div class="order-item">
+              <img class="order-image" :src="order.img">
+              <div class="order-info">
+                <div class="restaurant-name">{{ restaurantName }}</div>
+                <div class="order-date">下单时间: {{ order.date }}</div>
+                <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
+              </div>
+              <div class="order-price">
+                实付<span>¥{{ order.price }}</span>
+              </div>
+            </div>
+          </router-link>
+        </div>
+      </div>
+    </div>    
+  </div>
 </template>
 
 <script>
