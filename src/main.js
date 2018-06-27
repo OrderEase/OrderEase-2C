@@ -10,11 +10,14 @@ import router from './router/index.js'
 FastClick.attach(document.body)
 
 Vue.config.productionTip = false
-const Axios = axios.create({
-  // baseURL: 'http://172.18.158.105:5000/api/'
-  baseURL: 'http://172.18.159.249:5000/api/',
-  withCredentials: true
-})
+// const Axios = axios.create({
+//   // baseURL: 'http://172.18.158.105:5000/api/'
+//   baseURL: 'http://172.18.159.249:5000/api/',
+//   withCredentials: true
+// })
+
+axios.defaults.baseURL = process.env.BASE_URL
+axios.defaults.withCredentials = true
 
 const store = new Vuex.Store({
   state: {
