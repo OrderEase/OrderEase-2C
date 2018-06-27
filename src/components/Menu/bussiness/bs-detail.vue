@@ -13,7 +13,7 @@
               {{bs.name}}
             </div>
             <div class="bs-time">
-              营业时间:
+              营业时间:{{bs.open}}-{{bs.close}}
             </div>
           </div>
         </div>

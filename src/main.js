@@ -4,10 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import axios from 'axios'
-// import VueRouter from 'vue-router'
 import App from './App'
-// import menuData from './components/Menu/data.json'
-// import selectData from './components/Cart/data.json'
 import router from './router/index.js'
 
 FastClick.attach(document.body)
@@ -15,12 +12,12 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 const Axios = axios.create({
   // baseURL: 'http://172.18.158.105:5000/api/'
-  baseURL: 'http://172.18.158.105/api/'
+  baseURL: 'http://172.18.159.249:5000/api/',
+  withCredentials: true
 })
 
 const store = new Vuex.Store({
   state: {
-    // menus: new Array(0),
     promotions: [
       {
         id: 0,
@@ -33,6 +30,8 @@ const store = new Vuex.Store({
         data: '满20打8.5折'
       }
     ],
+    isLogin: false,
+    isLoginFail: false,
     username: '',
     menus: [],
     selectDishes: new Array(0),
@@ -51,7 +50,6 @@ const store = new Vuex.Store({
   mutations: {
     increaseCart (state, payload) {
       if (!('count' in payload.dish) || payload.dish.count === undefined) {
-        // state.selectDishes.push(payload.dish)
         for (let i = 0; i < state.menus.length; ++i) {
           if (state.menus[i].dishes.filter(dish => dish.id === payload.dish.id).length > 0) {
             Vue.set(state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0], 'count', 1)
@@ -91,16 +89,23 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    login ({state}, payload) {
+    login ({state, dispatch}, payload) {
       state.username = payload.username
-      router.push('/menu')
+      state.isLogin = true
       console.log('username:', payload.username)
       Axios.post('/cusers/session', {
         'username': payload.username
       })
       .then((responce) => {
-        if (responce.code === 200) {
-          this.$router.push('/menu')
+        console.log('responce:', responce)
+        if (responce.status === 200) {
+          dispatch('getMenus')
+          dispatch('getRestaurant')
+          dispatch('getPromotions')
+          router.push('/menu')
+        } else {
+          state.isLogin = false
+          state.isLoginFail = true
         }
       })
       .catch((error) => {
@@ -111,10 +116,6 @@ const store = new Vuex.Store({
       Axios.get('/menus/cuser')
         .then(function (responce) {
           console.log('menu responce', responce)
-          // let responce = JSON.stringify(menuData)
-          // console.log('string responce', JSON.stringify(menuData))
-          // responce = JSON.parse(responce.data)
-          // console.log('json responce', responce)
           responce = responce.data
           responce.content.sort((a, b) => {
             return a.rank >= b.rank
