@@ -1,4 +1,5 @@
-import User from '@/api/api.js'
+import {User} from '@/api/api.js'
+import router from '@/router/index.js'
 
 const state = {
   isLogin: false,
@@ -7,39 +8,36 @@ const state = {
 }
 
 const actions = {
-  login ({state, dispatch}, payload) {
-    state.username = payload.username
-    state.isLogin = true
-    console.log('username:', payload.username)
-    Axios.post('/cusers/session', {
-      'username': payload.username
-    })
-    .then((responce) => {
-      console.log('responce:', responce)
-      if (responce.status === 200) {
-        dispatch('getMenus')
-        dispatch('getRestaurant')
-        dispatch('getPromotions')
-        router.push('/menu')
-      } else {
-        state.isLogin = false
-        state.isLoginFail = true
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  async login ({state, dispatch, commit}, payload) {
+    commit('changeUsername', payload)
+    commit('startLogin')
+    let status = User.login(payload)
+    if (status === 200) {
+      dispatch('/menu/getMenus', null, {root: true})
+      router.push('/menu')
+    } else {
+      commit('loginFail')
+    }
   }
 }
 
 const mutations = {
-
+  startLogin (state) {
+    state.isLogin = true
+  },
+  loginFail (state) {
+    state.isLoginFail = true
+    state.isLogin = false
+  },
+  changeUsername (state, payload) {
+    state.username = payload.username
+  }
 }
 
 export default {
-    namespaced: true,
-    state,
-    // getters,
-    actions,
-    mutations
+  namespaced: true,
+  state,
+  // getters,
+  actions,
+  mutations
 }

@@ -1,4 +1,4 @@
-import Promotion from '@/api/api.js'
+// import {Promotion} from '@/api/api.js'
 
 const state = {
   promotions: [
@@ -21,14 +21,14 @@ const getters = {
 
 const actions = {
   getPromotions ({state}) {
-    Axios.get('/promotions')
-      .then(function (responce) {
-        console.log('promotions', responce.data)
-        Vue.set(state.restaurant, 'num', responce.data.length)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    // Axios.get('/promotions')
+    // .then(function (responce) {
+    //   console.log('promotions', responce.data)
+    //   Vue.set(state.restaurant, 'num', responce.data.length)
+    // })
+    // .catch(function (error) {
+    //   console.log(error)
+    // })
   }
 }
 
@@ -37,9 +37,9 @@ const mutations = {
 }
 
 export default {
-    namespaced: true,
-    state,
-    getters,
-    actions,
-    mutations
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
 }
