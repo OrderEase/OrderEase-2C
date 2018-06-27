@@ -1,35 +1,35 @@
 <template>
-  <div class="food-item-inner">
+  <div class="dish-item-inner">
     <div class="left">
-      <div class="food-img">
-        <img :src="food.img"/>
+      <div class="dish-img">
+        <img :src="dish.img"/>
       </div>
     </div>
 
     <div class="right">
-      <h2 class="food-name">{{food.name}}</h2>
-      <p class="food-description">{{food.description}}</p>
+      <h2 class="dish-name">{{dish.name}}</h2>
+      <p class="dish-description">{{dish.description}}</p>
 
       <div class="price-wrapper">
-        ￥<span class="price">{{food.price}}</span>
+        ￥<span class="price">{{dish.price}}</span>
       </div>
 
       <!-- <div class="like-wrapper">
         <img class="like-icon" src="../../assets/menu/good.png">
-        <span class="like">{{food.like}}</span>
+        <span class="like">{{dish.like}}</span>
       </div> -->
 
       <div class="cart-control-wrapper">
-        <cart-control :food="food" @update="update"></cart-control>
+        <cart-control :dish="dish" @update="update"></cart-control>
       </div>
     </div>
-    <!-- <food-detail :food="food" :show="show" /> -->
+    <!-- <dish-detail :dish="dish" :show="show" /> -->
   </div>
 </template>
 
 <script>
 import CartControl from '../cart-control/cart-control'
-// import FoodDetail from './FoodDetail/food-detail'
+// import FoodDetail from './FoodDetail/dish-detail'
 
 export default {
   components: {
@@ -42,7 +42,7 @@ export default {
     }
   },
   props: {
-    food: {
+    dish: {
       type: Object
     }
   },
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.food-item-inner {
+.dish-item-inner {
   overflow: hidden;
   display: flex;
   flex: auto;
@@ -69,7 +69,7 @@ export default {
   .left {
     flex: 0 0 100px;
 
-    .food-img {
+    .dish-img {
       margin-top: 14px;
       margin-left: 14px;
       img {
@@ -89,7 +89,7 @@ export default {
     overflow: hidden;
     flex: 1;
 
-    .food-name {
+    .dish-name {
       margin-top: 14px;
       font-size: 15px;
       height: 23px;
@@ -100,7 +100,7 @@ export default {
       line-height: 17px;
     }
 
-    .food-description {
+    .dish-description {
       font-size: 12px;
       color: rgb(147, 153, 159);
       line-height: 17px;

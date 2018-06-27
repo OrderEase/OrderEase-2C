@@ -16,14 +16,14 @@
         </ul>
       </div>
 
-      <div class="foods-wrapper" ref="foodsWrapper">
+      <div class="dishes-wrapper" ref="dishesWrapper">
         <ul>
-          <li v-for="category in menus" class="food-list food-list-hook" :key="category.id">
+          <li v-for="category in menus" class="dish-list dish-list-hook" :key="category.id">
             <!-- <h1 class="title">{{category.name}}</h1> -->
 
-            <ul class="foods-ul" v-show="category.id == selected_id">
-              <li v-for="food in category.dishes" class="food-item" :key="food.id" @click="showDialog(food)">
-                <food-item :food="food"></food-item>
+            <ul class="dishes-ul" v-show="category.id == selected_id">
+              <li v-for="dish in category.dishes" class="dish-item" :key="dish.id" @click="showDialog(dish)">
+                <dish-item :dish="dish"></dish-item>
               </li>
             </ul>
           </li>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <shop-cart class="cart"></shop-cart>
-    <food-detail :food="foodInfo" />
+    <dish-detail :dish="dishInfo" />
     <bs-detail :bus="showBS" />
   </div>
 </template>
@@ -41,23 +41,23 @@ import BScroll from 'better-scroll'
 import { Swiper } from 'vux'
 import { mapState } from 'vuex'
 import Bussiness from './bussiness/bussiness'
-import FoodItem from '../food-item/food-item'
-import FoodDetail from '../food-item/FoodDetail/food-detail'
+import DishItem from '../dish-item/dish-item'
+import DishDetail from '../dish-item/DishDetail/dish-detail'
 import ShopCart from '../Cart/shopCart'
 import BsDetail from './bussiness/bs-detail'
 export default {
   components: {
     Swiper,
-    FoodItem,
+    DishItem,
     Bussiness,
     BsDetail,
-    FoodDetail,
+    DishDetail,
     ShopCart
   },
   data () {
     return {
       listHeight: [],
-      foodsScrollY: 0,
+      dishesScrollY: 0,
       // selected_id: 0,
       image: '',
       showBS: {
@@ -71,7 +71,7 @@ export default {
       //   bg: 'url(\'/src/assets/bs.jpeg\')',
       //   num: 2
       // },
-      foodInfo: {
+      dishInfo: {
         name: '宫保鸡丁',
         price: 12,
         likes: 4,
@@ -96,7 +96,7 @@ export default {
       for (let i = 0, l = this.listHeight.length; i < l; i++) {
         let topHeight = this.listHeight[i]
         let bottomHeight = this.listHeight[i + 1]
-        if (!bottomHeight || (this.foodsScrollY >= topHeight && this.foodsScrollY < bottomHeight)) {
+        if (!bottomHeight || (this.dishesScrollY >= topHeight && this.dishesScrollY < bottomHeight)) {
           return i
         }
       }
@@ -118,21 +118,21 @@ export default {
       this.categoryWrapper = new BScroll(this.$refs.categoryWrapper, {
         click: true
       })
-      this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+      this.dishesScroll = new BScroll(this.$refs.dishesWrapper, {
         click: true,
         probeType: 3
       })
       // 监控滚动事件
-      // this.foodsScroll.on('scroll', (pos) => {
-      //   this.foodsScrollY = Math.abs(Math.round(pos.y))
+      // this.dishesScroll.on('scroll', (pos) => {
+      //   this.dishesScrollY = Math.abs(Math.round(pos.y))
       // })
     },
     _calculateHeight () {
-      let foodList = this.$refs.foodsWrapper.querySelectorAll('.food-list-hook')
+      let dishList = this.$refs.dishesWrapper.querySelectorAll('.dish-list-hook')
       let height = 0
       this.listHeight.push(height)
-      for (let i = 0, l = foodList.length; i < l; i++) {
-        let item = foodList[i]
+      for (let i = 0, l = dishList.length; i < l; i++) {
+        let item = dishList[i]
         height += item.clientHeight
         this.listHeight.push(height)
       }
@@ -142,28 +142,28 @@ export default {
       this.showBS.show = true
     },
     categoryClick (index, id, event) {
-      // this.foodsScroll.scrollTo(0, -this.listHeight[index], 300)
+      // this.dishesScroll.scrollTo(0, -this.listHeight[index], 300)
       // this.selected_id = id
       this.$store.commit('changeSelectedId', {
         id: id
       })
       this.$nextTick(() => {
-        this.foodsScroll.refresh()
-        this.foodsScroll.scrollTo(0, 0, 300)
+        this.dishesScroll.refresh()
+        this.dishesScroll.scrollTo(0, 0, 300)
       })
       console.log('selected id:', id)
     },
-    showDialog (food) {
-      console.log('food show', this.foodInfo.show)
-      this.foodInfo.id = food.id
-      this.foodInfo.name = food.name
-      this.foodInfo.price = food.price
-      this.foodInfo.img = food.img
-      this.foodInfo.show = true
-      this.foodInfo.description = food.description
-      this.foodInfo.likes = food.likes
-      this.foodInfo.count = food.count
-      console.log('showDialog', this.foodInfo)
+    showDialog (dish) {
+      console.log('dish show', this.dishInfo.show)
+      this.dishInfo.id = dish.id
+      this.dishInfo.name = dish.name
+      this.dishInfo.price = dish.price
+      this.dishInfo.img = dish.img
+      this.dishInfo.show = true
+      this.dishInfo.description = dish.description
+      this.dishInfo.likes = dish.likes
+      this.dishInfo.count = dish.count
+      console.log('showDialog', this.dishInfo)
     }
   }
 }
@@ -257,7 +257,7 @@ export default {
         box-shadow: 0px 8px 16px 0px rgba(202, 225, 254, 1);        
       }
     }
-    .foods-wrapper {
+    .dishes-wrapper {
       // flex: 1;
       margin-top: 6px;
       overflow: hidden;
@@ -273,13 +273,13 @@ export default {
       //   background: #f3f5f7;
       //   border-left: 2px solid #d9dde1;
       // }
-      .foods-ul::after {
+      .dishes-ul::after {
         content: '';
         height: 40px;
         display: block;
         // width: 20px;
       }
-      .food-item {
+      .dish-item {
         height: 100px;
         width: 100%;
         margin-right: 15px;

@@ -1,12 +1,12 @@
 <template>
   <div class="cart-control">
     <transition name="fade">
-      <span class="cart-minus" v-show="food.count > 0" @click.stop.prevent="decreaseCart($event)">
+      <span class="cart-minus" v-show="dish.count > 0" @click.stop.prevent="decreaseCart($event)">
         <img src="/src/assets/menu/minus-icon.svg" alt="" style="height: 24px; width: 24px;">
       </span>
     </transition>
     
-    <span class="cart-count" v-show="food.count > 0">{{food.count}}</span>
+    <span class="cart-count" v-show="dish.count > 0">{{dish.count}}</span>
     <span class="cart-plus" @click.stop.prevent="increaseCart($event)">
       <img src="/src/assets/menu/plus-icon.svg" alt="" style="height: 24px; width: 24px;">
     </span>
@@ -18,7 +18,7 @@
 
   export default {
     props: {
-      food: {
+      dish: {
         type: Object
       }
     },
@@ -30,14 +30,14 @@
         //   return
         // }
         this.$store.commit('increaseCart', {
-          food: this.food
+          dish: this.dish
         })
-        // if (!this.food.count) {
-        //   Vue.set(this.food, 'count', 1)
+        // if (!this.dish.count) {
+        //   Vue.set(this.dish, 'count', 1)
         // } else {
-        //   this.food.count++
+        //   this.dish.count++
         // }
-        console.log('"add"', this.food.count > 0)
+        console.log('"add"', this.dish.count > 0)
         this.$emit('update', event.target)
       },
       decreaseCart (event) {
@@ -46,9 +46,9 @@
         //   return
         // }
         this.$store.commit('decreaseCart', {
-          food: this.food
+          dish: this.dish
         })
-        // this.food.count--
+        // this.dish.count--
         console.log('"delete"')
         this.$emit('update', event.target)
       }

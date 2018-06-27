@@ -1,25 +1,25 @@
 <template>
   <div>
-    <x-dialog class="food-detail" v-model="food.show" hide-on-blur>
+    <x-dialog class="dish-detail" v-model="dish.show" hide-on-blur>
       <div class="top-section">
-        <img :src="food.img" />
+        <img :src="dish.img" />
         <p>
-          {{food.description}}
+          {{dish.description}}
         </p>
       </div>
       <div class="bottom-section">
         <div class="first-column">
-          <div class="title">{{food.name}}</div>
+          <div class="title">{{dish.name}}</div>
           <div class="likes">
             <img src="../../../assets/menu/good.png" />
-            <span>{{food.like}}</span>
+            <span>{{dish.like}}</span>
           </div>
           <div class="price-wrapper">
-            ￥<span class="price">{{food.price}}</span>
+            ￥<span class="price">{{dish.price}}</span>
           </div>
         </div>
         <div class="second-column">
-          <button @click.stop.prevent='addOne' :class="food.count > 0 ? 'disabled' : 'able'" :disabled="food.count > 0">{{food.count > 0 ? '已加入购物车' : '加入购物车'}}</button>
+          <button @click.stop.prevent='addOne' :class="dish.count > 0 ? 'disabled' : 'able'" :disabled="dish.count > 0">{{dish.count > 0 ? '已加入购物车' : '加入购物车'}}</button>
         </div>
       </div>
     </x-dialog>
@@ -33,12 +33,12 @@ export default {
     XDialog
   },
   props: {
-    food: {
+    dish: {
       Object
     }
   },
   created () {
-    console.log('food-detail show', this.food.show)
+    console.log('dish-detail show', this.dish.show)
   },
   data () {
     return {
@@ -47,16 +47,16 @@ export default {
   methods: {
     addOne () {
       this.$store.commit('increaseCart', {
-        food: this.food
+        dish: this.dish
       })
-      this.food.count = 1
+      this.dish.count = 1
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .food-detail {
+  .dish-detail {
     display: flex;
     flex-direction: column;
     .top-section {

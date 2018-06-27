@@ -8,13 +8,13 @@
             <div class="empty" @click.stop.prevent="empty">清空</div>
           </div>
           <div class="list-content" ref="shopWrapper">
-            <ul class="food-ul">
-              <li v-show="food.count > 0" class="food" v-for="food in foodsSelect" :key="food.id">
-                <div class="left-section">{{food.name}}</div>
+            <ul class="dish-ul">
+              <li v-show="dish.count > 0" class="dish" v-for="dish in dishsSelect" :key="dish.id">
+                <div class="left-section">{{dish.name}}</div>
                 <div class="right-section">
-                  <div class="prices">￥{{food.price * food.count}}</div>
+                  <div class="prices">￥{{dish.price * dish.count}}</div>
                   <div class="control-wrapper">
-                    <cart-control :food="food" @update="shows"></cart-control>
+                    <cart-control :dish="dish" @update="shows"></cart-control>
                   </div>
                 </div>
               </li>
@@ -60,7 +60,7 @@ export default {
   // },
   data () {
     return {
-      // foodsSelect: data,
+      // dishsSelect: data,
       show: false,
       showToast: false
     }
@@ -98,7 +98,7 @@ export default {
       return this.show
     },
     ...mapState({
-      foodsSelect: 'selectFoods'
+      dishsSelect: 'selectDishes'
     })
   },
   methods: {
@@ -129,10 +129,10 @@ export default {
       }
     },
     empty () {
-      for (let i = 0; i < this.foodsSelect.length; ++i) {
-        while (this.foodsSelect[i].count > 0) {
+      for (let i = 0; i < this.dishsSelect.length; ++i) {
+        while (this.dishsSelect[i].count > 0) {
           this.$store.commit('decreaseCart', {
-            food: this.foodsSelect[i]
+            dish: this.dishsSelect[i]
           })
         }
       }
@@ -284,10 +284,10 @@ export default {
     width: 100%;
     max-height: 217px;
     overflow: hidden;
-    .food-ul {
+    .dish-ul {
       width: 95%;
     }
-    .food {
+    .dish {
       display: flex;
       // flex-grow: 1;
       flex-direction: row;
@@ -333,7 +333,7 @@ export default {
         }
       }
     }
-    .food-ul::after {
+    .dish-ul::after {
       content: '';
       height: 30px;
       display: block;

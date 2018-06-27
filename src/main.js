@@ -14,7 +14,8 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 const Axios = axios.create({
-  baseURL: 'http://172.18.158.105:5000/api/'
+  // baseURL: 'http://172.18.158.105:5000/api/'
+  baseURL: 'http://172.18.158.105/api/'
 })
 
 const store = new Vuex.Store({
@@ -34,56 +35,56 @@ const store = new Vuex.Store({
     ],
     username: '',
     menus: [],
-    selectFoods: new Array(0),
+    selectDishes: new Array(0),
     restaurant: {},
     selected_id: 0
   },
   getters: {
     totalPrice: (state, getters) => {
       let sum = 0
-      for (let i = 0; i < state.selectFoods.length; ++i) {
-        sum += state.selectFoods[i].price * state.selectFoods[i].count
+      for (let i = 0; i < state.selectDishes.length; ++i) {
+        sum += state.selectDishes[i].price * state.selectDishes[i].count
       }
       return sum
     }
   },
   mutations: {
     increaseCart (state, payload) {
-      if (!('count' in payload.food) || payload.food.count === undefined) {
-        // state.selectFoods.push(payload.food)
+      if (!('count' in payload.dish) || payload.dish.count === undefined) {
+        // state.selectDishes.push(payload.dish)
         for (let i = 0; i < state.menus.length; ++i) {
-          if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
-            Vue.set(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0], 'count', 1)
-            state.selectFoods.push(state.menus[i].dishes.filter(food => food.id === payload.food.id)[0])
+          if (state.menus[i].dishes.filter(dish => dish.id === payload.dish.id).length > 0) {
+            Vue.set(state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0], 'count', 1)
+            state.selectDishes.push(state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0])
             break
           }
         }
-        console.log('selected foods add 1', state.selectFoods)
-        return payload.food
+        console.log('selected dishes add 1', state.selectDishes)
+        return payload.dish
       }
-      let count = payload.food.count
-      state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count + 1
+      let count = payload.dish.count
+      state.selectDishes.filter(dish => dish.id === payload.dish.id)[0].count = count + 1
       for (let i = 0; i < state.menus.length; ++i) {
-        if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
-          console.log('add 2', state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count)
-          state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count = count + 1
+        if (state.menus[i].dishes.filter(dish => dish.id === payload.dish.id).length > 0) {
+          console.log('add 2', state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0].count)
+          state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0].count = count + 1
           break
         }
       }
-      console.log('selected foods add 2', state.selectFoods)
-      return payload.food
+      console.log('selected dishes add 2', state.selectDishes)
+      return payload.dish
     },
     decreaseCart (state, payload) {
-      let count = payload.food.count
-      state.selectFoods.filter(food => food.id === payload.food.id)[0].count = count - 1
+      let count = payload.dish.count
+      state.selectDishes.filter(dish => dish.id === payload.dish.id)[0].count = count - 1
       for (let i = 0; i < state.menus.length; ++i) {
-        if (state.menus[i].dishes.filter(food => food.id === payload.food.id).length > 0) {
-          state.menus[i].dishes.filter(food => food.id === payload.food.id)[0].count = count - 1
+        if (state.menus[i].dishes.filter(dish => dish.id === payload.dish.id).length > 0) {
+          state.menus[i].dishes.filter(dish => dish.id === payload.dish.id)[0].count = count - 1
           break
         }
       }
-      console.log('selected foods delete', state.selectFoods)
-      return payload.food
+      console.log('selected dishes delete', state.selectDishes)
+      return payload.dish
     },
     changeSelectedId (state, payload) {
       state.selected_id = payload.id
