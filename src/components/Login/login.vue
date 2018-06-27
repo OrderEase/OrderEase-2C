@@ -8,33 +8,39 @@
       <spinner></spinner>
       <span>登录中</span>
     </x-dialog>
+    <toast v-model="isLoginFail" type="cancel" position="middle">登录失败</toast>
   </div>
 </template>
 
 <script>
-import { Group, XInput, XButton, XDialog, Spinner } from 'vux'
+import { Group, XInput, XButton, XDialog, Spinner, Toast } from 'vux'
 export default {
   components: {
     Group,
     XInput,
     XButton,
     XDialog,
-    Spinner
+    Spinner,
+    Toast
   },
   data () {
     return {
-      username: '',
-      isLogin: false
+      username: ''
     }
   },
   computed: {
+    isLogin () {
+      return this.$store.state.isLogin
+    },
+    isLoginFail () {
+      return this.$store.state.isLoginFail
+    },
     isDisable () {
       return this.username === ''
     }
   },
   methods: {
     login () {
-      this.isLogin = true
       this.$store.dispatch('login', {
         username: this.username
       })
