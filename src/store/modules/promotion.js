@@ -1,4 +1,4 @@
-import Menu from '@/api/user.js'
+import Promotion from '@/api/api.js'
 
 const state = {
   promotions: [
