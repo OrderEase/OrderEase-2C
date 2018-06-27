@@ -245,7 +245,7 @@ export default {
   border: 1px solid rgba(255, 255, 255, 0);
   transform: translate3d(0, -100%, 0);
   &.fold-enter-active, &.fold-leave-active {
-    transition: all 0.3s linear;
+    transition: all 0.2s linear;
   }
   &.fold-enter, &.fold-leave-active {
     transform: translate3d(0, 0, 0);
