@@ -44,7 +44,6 @@
 
 <script>
 import CartControl from '../cart-control/cart-control'
-// import data from './data.json'
 import BScroll from 'better-scroll'
 import { Toast } from 'vux'
 import { mapState } from 'vuex'
@@ -53,14 +52,8 @@ export default {
     CartControl,
     Toast
   },
-  // created () {
-  //   this.$nextTick(() => {
-  //     this._initScroll()
-  //   })
-  // },
   data () {
     return {
-      // dishsSelect: data,
       show: false,
       showToast: false
     }
@@ -74,24 +67,16 @@ export default {
         this.$nextTick(() => {
           if (!this.scroll) {
             this.scroll = new BScroll(this.$refs.shopWrapper, {
-              // stopPropagation: true,
               startY: 0,
               click: true
             })
             this.scroll.minScrollY = 0
             this.scroll.on('scrollEnd', (payload) => {
               console.log(payload)
-              // if (payload.y < 0) {
-              //   this.scroll.minScrollY = 0
-              //   this.scroll.y = 0
-              //   console.log(this.scroll)
-              // }
             })
             console.log('asdasd')
           } else {
             this.scroll.refresh()
-            // this.scroll.scrollTo(0, 0)
-            // this.scroll.minScrollY = 0
           }
         })
       }
@@ -102,11 +87,6 @@ export default {
     })
   },
   methods: {
-    // _initScroll () {
-    //   this.boxScroll = new BScroll(this.$refs.shopWrapper, {
-    //     click: true
-    //   })
-    // },
     shows (target) {
       console.log(target)
     },
@@ -144,12 +124,6 @@ export default {
 
 <style lang="scss" scoped>
 
-// .cart-wrapper {
-//   position: fixed;
-//   // bottom: 43px;
-//   width: 100%;
-// }
-
 .cart-shop {
   position: fixed;
   left: 0;
@@ -164,7 +138,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   background-color: rgb(124, 124, 124);
-  // margin-top: 10px;
   opacity: 0.95;
   height: 43px;
   .content-left {
@@ -203,15 +176,10 @@ export default {
       background-color: rgba(83, 158, 249, 1);
       border-width: 0px;
     }
-    // .disable {
-    // }
   }
 }
 
 .list-mask{
-  // height: 300px;
-  // background-color: rgba(90, 90, 90, 1);
-  // opacity: 0.58;
   position: fixed;
   top: 0;
   left: 0;
@@ -230,12 +198,9 @@ export default {
 }
 
 .shop-list {
-  // display: flex;
-  // flex-direction: column;
   position: absolute;
   width: 100%;
   left: 0;
-  // max-height: 300px;
   top: 0px;
   z-index: -1;
   line-height: 20px;
@@ -250,8 +215,6 @@ export default {
   &.fold-enter, &.fold-leave-active {
     transform: translate3d(0, 0, 0);
   }
-  // &.fold-leave {
-  // }
   .list-header {
     display: flex;
     flex-direction: row;
@@ -280,7 +243,6 @@ export default {
     }
   }
   .list-content {
-    // width: 375px;
     width: 100%;
     max-height: 217px;
     overflow: hidden;
@@ -289,15 +251,11 @@ export default {
     }
     .dish {
       display: flex;
-      // flex-grow: 1;
       flex-direction: row;
       justify-content: space-between;
       background-color: rgba(255, 255, 255, 1);
       margin-top: 13px;
-      // width: 95%;
       margin-left: 2.5%;
-      // margin-right: auto;
-      // width: 355px;
       width: 100%;
       height: 50px;
       .left-section {
