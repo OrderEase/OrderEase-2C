@@ -17,7 +17,7 @@
               <div class="order-info">
                 <div class="restaurant-name">{{ restaurant.Name }}</div>
                 <div class="order-date">下单时间: {{ order.payDate }}</div>
-                <div class="order-dishes-count">共{{ dishesCount(order.Id) }}件菜品</div>
+                <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
               </div>            
               <div class="order-price">
                 实付<span>¥{{ order.due }}</span>
@@ -32,7 +32,7 @@
               <div class="order-info">
                 <div class="restaurant-name">{{ restaurant.Name }}</div>
                 <div class="order-date">下单时间: {{ order.payDate }}</div>
-                <div class="order-dishes-count">共{{ dishesCount(order.Id) }}件菜品</div>
+                <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
               </div>
               <div class="order-price">
                 实付<span>¥{{ order.due }}</span>
@@ -63,14 +63,16 @@ export default {
     ButtonTab,
     ButtonTabItem
   },
+  created () {
+    this.$store.dispatch('order/getOrdersList')
+  },
   computed: {
-    ...mapState('modules/restaurant', {
-      restaurant: 'restaurant'
+    ...mapState({
+      restaurant: state => state.restaurant.restaurant
     }),
-    ...mapGetters('modules/order', {
+    ...mapGetters('order', {
       unfinishedOrders: 'unfinishedOrdersList',
-      finishedOrders: 'finishedOrdersList',
-      dishesCount: 'dishesCount'
+      finishedOrders: 'finishedOrdersList'
     })
   },
   methods: {
