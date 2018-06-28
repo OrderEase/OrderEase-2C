@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-dialog class="dish-detail" v-model="dish.show" hide-on-blur>
+    <x-dialog class="dish-detail" v-model="showDD" @on-hide='hide' hide-on-blur>
       <div class="top-section">
         <img :src="dish.img" />
         <p>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="second-column">
-          <button @click.stop.prevent='addOne' :class="dish.count > 0 ? 'disabled' : 'able'" :disabled="dish.count > 0">{{dish.count > 0 ? '已加入购物车' : '加入购物车'}}</button>
+          <cart-control :dish='dish'></cart-control>
         </div>
       </div>
     </x-dialog>
@@ -28,13 +28,15 @@
 
 <script>
 import {XDialog} from 'vux'
+import cartControl from '@/components/cart-control/cart-control'
 export default {
   components: {
-    XDialog
+    XDialog,
+    cartControl
   },
   props: {
-    dish: {
-      Object
+    showDD: {
+      Boolean
     }
   },
   created () {
@@ -46,10 +48,18 @@ export default {
   },
   methods: {
     addOne () {
-      this.$store.commit('increaseCart', {
+      this.$store.commit('menu/increaseCart', {
         dish: this.dish
       })
       this.dish.count = 1
+    },
+    hide () {
+      this.$emit('hide')
+    }
+  },
+  computed: {
+    dish () {
+      return this.$store.state.menu.selectedDish
     }
   }
 }
@@ -129,24 +139,9 @@ export default {
         }
       }
       .second-column {
-        width: 110px;
-        height: 75px;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: flex-end;
-        button {
-          width: 95px;
-          height: 24px;
-          border-radius: 15px;
-          border-style: solid;
-          border-width: 0px;
-          font-size: 13px;
-          color: white;
-          background-color: rgba(83, 158, 249, 1);
-        }
-        .disabled {
-          background-color: gray;
-        }
+        position: absolute;
+        right: 10px;
+        top: 89%;
       }
     }
   }
