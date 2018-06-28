@@ -1,6 +1,6 @@
 <template>
   <div class="order-wrapper">
-    <toast v-model="reminded" text="已催单" :time="1000"></toast>        
+    <toast v-model="urged" text="已催单" :time="1000"></toast>        
     <div class="order-details-header">
       <x-icon class="back" type="ios-arrow-left" size="25" @click="back"></x-icon>
       <span>订单详情</span>
@@ -9,21 +9,23 @@
       <div class="order-details-body">
         <div class="dish-list">
           <div class="dish-list-header">已点菜品</div>
-          <div class="dish-item" v-for="dish in dishes">
+          <div class="dish-item" v-for="(dish, index) in order.dishes">
             <img class="dish-image" :src="dish.img">
             <div class="dish-info">
               <div class="dish-name">{{ dish.name }}</div>
-              <div class="dish-amount">x{{ dish.amount }}</div>
+              <div class="dish-count">x{{ order.orderItems[index].quantity }}</div>
             </div>
             <div class="dish-price">¥<span>{{ dish.price }}</span></div>
-            <div class="remind-button-container" @click="remind">
+            <div class="urge-button-container" 
+                @click="urge(order.id, dish.id)" 
+                v-show="!order.finished">
               <x-circle
               class="waiting-time"
-              :percent="dish.waitingPercent"
+              :percent="calculateWaitingPercent(order.payDate)"
               :stroke-width="5"
               :stroke-color="'#539EF9'"
               anticlockwise>
-              <span>{{ dish.state }}</span>
+              <span>{{ getCurrentOrderItemState(order.orderItems[index]) }}</span>
             </x-circle>
           </div>
         </div>
@@ -39,7 +41,7 @@
             订单号码
           </span>
           <span class="order-number-value">
-            {{ order.number }}
+            {{ order.id }}
           </span>  
         </div>
         <div class="order-date-container">
@@ -47,7 +49,7 @@
             下单日期
           </span>
           <span class="order-date-value">
-            {{ order.date }}
+            {{ order.payDate }}
           </span>
         </div>
         <div class="pay-method-container">
@@ -55,7 +57,7 @@
             支付方式
           </span>
           <span class="pay-method-value">
-            {{ order.payMethod }}
+            {{ order.payWay }}
           </span>
         </div>
       </div>
@@ -66,82 +68,84 @@
 
 <script>
 import BScroll from 'better-scroll'
-import { Toast, XButton, XCircle } from 'vux'
+import { Toast, XCircle } from 'vux'
+import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    Toast,
+    XCircle
+  },
+  
   data () {
     return {
-      reminded: false,
-      order: {
-        date: '2018-5-6',
-        number: 'dfsd125368',
-        payMethod: '微信支付'
-      },
-      dishes: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 30
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 30
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 90
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '瘦肉粥',
-          price: 8,
-          amount: 4,
-          state: '制作中',
-          waitingPercent: 90
-        }
-      ]
+      urged: false,
+            
+      // order: {
+      //   date: '2018-5-6',
+      //   number: 'dfsd125368',
+      //   payMethod: '微信支付'
+      // },
+      
+      // dishes: [
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋瘦肉粥',
+      //     price: 10,
+      //     count: 3,
+      //     state: '制作中',
+      //     waitingPercent: 80
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋粥',
+      //     price: 5,
+      //     count: 5,
+      //     state: '制作中',
+      //     waitingPercent: 30
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋瘦肉粥',
+      //     price: 10,
+      //     count: 3,
+      //     state: '制作中',
+      //     waitingPercent: 80
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋粥',
+      //     price: 5,
+      //     count: 5,
+      //     state: '制作中',
+      //     waitingPercent: 30
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋瘦肉粥',
+      //     price: 10,
+      //     count: 3,
+      //     state: '制作中',
+      //     waitingPercent: 80
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '皮蛋粥',
+      //     price: 5,
+      //     count: 5,
+      //     state: '制作中',
+      //     waitingPercent: 90
+      //   },
+      //   {
+      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
+      //     name: '瘦肉粥',
+      //     price: 8,
+      //     count: 4,
+      //     state: '制作中',
+      //     waitingPercent: 90
+      //   }
+      // ]
     }
-  },
-
-  components: {
-    XButton,
-    XCircle,
-    Toast
   },
 
   computed: {
@@ -149,26 +153,42 @@ export default {
       let total = 0
       for (let i in this.dishes) {
         let price = this.dishes[i].price
-        let amount = this.dishes[i].amount
-        total += price * amount
+        let count = this.dishes[i].count
+        total += price * count
       }
       return total
-    }
+    },
+    ...mapGetters({
+      order: state => state.order.getOrderById(this.$route.params.orderId)    
+    }),
   },
 
   methods: {
     back () {
       this.$router.back(-1)
     },
-    remind (event) {
+    async urge (event, orderId, dishId) {
       if (event.target.innerText === '催单') {
-        this.reminded = true
+        this.urged = true
+        await this.$store.dispatch('order/urgeOrder', orderId, dishId)
         event.target.innerText = '已催单'
       }
-      // if (event) {
-      //   // alert(event)
-      //   console.log(event)
-      // }
+    },
+    calculateWaitingPercent (payDate) {
+      return 80
+    }
+    getCurrentOrderItemState (orderItem) {
+      if (orderItem.finished) {
+        return '已上菜'
+      }
+      if (orderItem.urge) {
+        return '已催单'
+      }
+      let currentPercent = calculateWaitingPercent(this.order.payDate)
+      if (!orderItem.urge && currentPercent === 100) {
+        return '催单'
+      }  
+      return '制作中'
     }
   },
 
@@ -179,7 +199,6 @@ export default {
           scrollY: true,
           click: true
         })
-        // console.log(this.scroll)
       } else {
         this.scroll.refresh()
       }
@@ -278,7 +297,7 @@ export default {
             color: #1C1D25;
           }
           
-          .dish-amount {
+          .dish-count {
             font-size: 15px;
             color: #747881;
           }  
@@ -296,7 +315,7 @@ export default {
           }
         }
                  
-        .remind-button-container {
+        .urge-button-container {
           position: absolute;
           right: 0px;
           bottom: 15px;
