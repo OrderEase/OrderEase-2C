@@ -89,9 +89,9 @@ export default {
   computed: {
     totalPrice: function () {
       let total = 0
-      for (let i in this.dishes) {
-        let price = this.dishes[i].price
-        let count = this.dishes[i].count
+      for (let i in this.order.dishes) {
+        let price = this.order.dishes[i].price
+        let count = this.order.orderItems[i].quantity
         total += price * count
       }
       return total
@@ -140,13 +140,13 @@ export default {
         this.scroll.refresh()
       }
     })
-    for (let i in this.dishes) {
+    for (let i in this.order.dishes) {
       let time = setInterval(() => {
-        if (this.dishes[i].waitingPercent === 100) {
+        if (this.order.dishes[i].waitingPercent === 100) {
           clearInterval(time)
-          this.dishes[i].state = '催单'
+          this.order.dishes[i].state = '催单'
         }
-        this.dishes[i].waitingPercent++
+        this.order.dishes[i].waitingPercent++
       }, 1000)
     }
   }
