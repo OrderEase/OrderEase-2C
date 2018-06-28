@@ -111,7 +111,7 @@ export default {
     empty () {
       for (let i = 0; i < this.dishsSelect.length; ++i) {
         while (this.dishsSelect[i].count > 0) {
-          this.$store.commit('decreaseCart', {
+          this.$store.commit('menu/decreaseCart', {
             dish: this.dishsSelect[i]
           })
         }
