@@ -1,4 +1,4 @@
-// import {Order} from '@/api/api.js'
+import {Order} from '@/api/api.js'
 
 const state = {
   ordersList: []
@@ -20,7 +20,7 @@ const getters = {
     )
   },
   getOrderById: (state) => (orderId) => {
-    return state.orderList.find(order => )
+    return state.orderList.find(order => orderId === order.id)
   },
   dishesCount: (state, getters) => (orderId) => {
     return getters.getOrderById(orderId).dishes.length
@@ -33,14 +33,9 @@ const actions = {
     commit('setOrdersList', ordersList)
   },
   async urgeOrder ({ commit }, orderId, dishId) {
-    let orderInfo = { "dishId": dishId, "like": 0, "urge": 1 }
+    let orderInfo = { 'dishId': dishId, 'like': 0, 'urge': 1 }
     await Order.modifyOrderInfo(orderId, orderInfo)
-    
-    commit('setOrdersList', ordersList)
-  },
-  async getOrdersList ({ commit }) {
-    let ordersList = await Order.getAll()
-    commit('setOrdersList', ordersList)
+    // commit('setOrdersList', ordersList)
   }
 }
 

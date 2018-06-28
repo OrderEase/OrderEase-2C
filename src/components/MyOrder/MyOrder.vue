@@ -55,94 +55,6 @@ export default {
     return {
       showUnfinishedOrder: true,
       showFinishedOrder: false
-      unfinishedOrders: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        }
-      ],
-      finishedOrders: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesCount: 3
-        }
-      ]
     }
   },
   components: {
@@ -160,7 +72,7 @@ export default {
       finishedOrders: 'finishedOrdersList',
       dishesCount: 'dishesCount'
     })
-  }
+  },
   methods: {
     unfinishedOrderTabClick () {
       this.showUnfinishedOrder = true

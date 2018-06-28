@@ -43,7 +43,7 @@ Menu.getMenus = () => {
   })
 }
 
-// 用户获取全部订单 
+// 用户获取全部订单
 Order.getAll = () => {
   return new Promise((resolve, reject) => {
     axios.get('/orders/cuser/')

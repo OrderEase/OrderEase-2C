@@ -76,78 +76,11 @@ export default {
     Toast,
     XCircle
   },
-  
   data () {
     return {
-      urged: false,
-            
-      // order: {
-      //   date: '2018-5-6',
-      //   number: 'dfsd125368',
-      //   payMethod: '微信支付'
-      // },
-      
-      // dishes: [
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋瘦肉粥',
-      //     price: 10,
-      //     count: 3,
-      //     state: '制作中',
-      //     waitingPercent: 80
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋粥',
-      //     price: 5,
-      //     count: 5,
-      //     state: '制作中',
-      //     waitingPercent: 30
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋瘦肉粥',
-      //     price: 10,
-      //     count: 3,
-      //     state: '制作中',
-      //     waitingPercent: 80
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋粥',
-      //     price: 5,
-      //     count: 5,
-      //     state: '制作中',
-      //     waitingPercent: 30
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋瘦肉粥',
-      //     price: 10,
-      //     count: 3,
-      //     state: '制作中',
-      //     waitingPercent: 80
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '皮蛋粥',
-      //     price: 5,
-      //     count: 5,
-      //     state: '制作中',
-      //     waitingPercent: 90
-      //   },
-      //   {
-      //     img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-      //     name: '瘦肉粥',
-      //     price: 8,
-      //     count: 4,
-      //     state: '制作中',
-      //     waitingPercent: 90
-      //   }
-      // ]
+      urged: false
     }
   },
-
   computed: {
     totalPrice: function () {
       let total = 0
@@ -159,8 +92,8 @@ export default {
       return total
     },
     ...mapGetters({
-      order: state => state.order.getOrderById(this.$route.params.orderId)    
-    }),
+      order: state => state.order.getOrderById(this.$route.params.orderId)
+    })
   },
 
   methods: {
@@ -176,7 +109,7 @@ export default {
     },
     calculateWaitingPercent (payDate) {
       return 80
-    }
+    },
     getCurrentOrderItemState (orderItem) {
       if (orderItem.finished) {
         return '已上菜'
@@ -184,10 +117,10 @@ export default {
       if (orderItem.urge) {
         return '已催单'
       }
-      let currentPercent = calculateWaitingPercent(this.order.payDate)
+      let currentPercent = this.calculateWaitingPercent(this.order.payDate)
       if (!orderItem.urge && currentPercent === 100) {
         return '催单'
-      }  
+      }
       return '制作中'
     }
   },
