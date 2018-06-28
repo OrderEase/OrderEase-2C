@@ -29,7 +29,7 @@
         //   // 去掉自带click事件的点击
         //   return
         // }
-        this.$store.commit('increaseCart', {
+        this.$store.commit('menu/increaseCart', {
           dish: this.dish
         })
         // if (!this.dish.count) {
@@ -45,7 +45,7 @@
         //   // 去掉自带click事件的点击
         //   return
         // }
-        this.$store.commit('decreaseCart', {
+        this.$store.commit('menu/decreaseCart', {
           dish: this.dish
         })
         // this.dish.count--

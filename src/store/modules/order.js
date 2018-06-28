@@ -1,4 +1,4 @@
-import Order from '@/api/api.js'
+// import {Order} from '@/api/api.js'
 
 const state = {
   ordersList: []

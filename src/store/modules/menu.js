@@ -1,9 +1,10 @@
-import Menu from '@/api/api.js'
+import {Menu} from '@/api/api.js'
+import Vue from 'vue'
 
 const state = {
-    menus: [],
-    selectDishes: new Array(0),
-    selected_id: 0
+  menus: [],
+  selectDishes: new Array(0),
+  selected_id: 0
 }
 
 const getters = {
@@ -17,26 +18,12 @@ const getters = {
 }
 
 const actions = {
-  getMenus ({state}) {
-    Axios.get('/menus/cuser')
-      .then(function (responce) {
-        console.log('menu responce', responce)
-        responce = responce.data
-        responce.content.sort((a, b) => {
-          return a.rank >= b.rank
-        })
-        for (let i = 0; i < responce.content.length; ++i) {
-          responce.content[i].dishes.sort((a, b) => {
-            return a.rank >= b.rank
-          })
-        }
-        state.menus = responce.content
-        state.selected_id = state.menus[0].id
-        console.log('"menus:"', state.menus)
-      })
-      .catch(function (error) {
-        console.log(error.request)
-      })
+  async getMenus ({state, commit}) {
+    let responce = await Menu.getMenus()
+    commit('changeMenus', responce.content)
+    commit('changeSelectedId', {
+      id: state.menus[0].id
+    })
   }
 }
 
@@ -79,13 +66,16 @@ const mutations = {
   },
   changeSelectedId (state, payload) {
     state.selected_id = payload.id
+  },
+  changeMenus (state, payload) {
+    state.menus = payload.menus
   }
 }
 
 export default {
-    namespaced: true,
-    state,
-    getters,
-    actions,
-    mutations
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
 }

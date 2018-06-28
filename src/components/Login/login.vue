@@ -14,6 +14,7 @@
 
 <script>
 import { Group, XInput, XButton, XDialog, Spinner, Toast } from 'vux'
+import { mapState } from 'vuex'
 export default {
   components: {
     Group,
@@ -29,19 +30,23 @@ export default {
     }
   },
   computed: {
-    isLogin () {
-      return this.$store.state.isLogin
-    },
-    isLoginFail () {
-      return this.$store.state.isLoginFail
-    },
+    // isLogin () {
+    //   return this.$store.state.user.isLogin
+    // },
+    // isLoginFail () {
+    //   return this.$store.state.user.isLoginFail
+    // },
     isDisable () {
       return this.username === ''
-    }
+    },
+    ...mapState({
+      isLogin: state => state.user.isLogin,
+      isLoginFail: state => state.user.isLoginFail
+    })
   },
   methods: {
     login () {
-      this.$store.dispatch('login', {
+      this.$store.dispatch('user/login', {
         username: this.username
       })
     }

@@ -51,7 +51,7 @@ export default new Router({
       component: Pay
     },
     {
-      path: '/order-details/:orderIndex',
+      path: '/order-details/:orderId',
       name: 'OrderDetails',
       component: OrderDetails
     },

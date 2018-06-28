@@ -152,10 +152,10 @@ export default {
     ButtonTabItem
   },
   computed: {
-    ...mapState({
-      restaurant: 'restaurant/restaurant'
+    ...mapState('modules/restaurant', {
+      restaurant: 'restaurant'
     }),
-    ...mapGetters('order', {
+    ...mapGetters('modules/order', {
       unfinishedOrders: 'unfinishedOrdersList',
       finishedOrders: 'finishedOrdersList',
       dishesCount: 'dishesCount'

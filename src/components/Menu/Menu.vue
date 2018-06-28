@@ -89,7 +89,7 @@ export default {
       }
       return 0
     },
-    ...mapState({
+    ...mapState('modules/menu', {
       menus: 'menus',
       selected_id: 'selected_id',
       bs: 'restaurant'
@@ -120,7 +120,7 @@ export default {
       this.showBS.show = true
     },
     categoryClick (index, id, event) {
-      this.$store.commit('changeSelectedId', {
+      this.$store.commit('menu/changeSelectedId', {
         id: id
       })
       this.$nextTick(() => {
