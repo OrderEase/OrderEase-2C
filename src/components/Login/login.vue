@@ -30,12 +30,6 @@ export default {
     }
   },
   computed: {
-    // isLogin () {
-    //   return this.$store.state.user.isLogin
-    // },
-    // isLoginFail () {
-    //   return this.$store.state.user.isLoginFail
-    // },
     isDisable () {
       return this.username === ''
     },

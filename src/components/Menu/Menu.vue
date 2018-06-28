@@ -5,11 +5,11 @@
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
-          <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, category.id, $event)" :key="category.id" :class="selected_id == category.id ? 'category-item-selected' : ''">
+          <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, category.id, $event)" :key="category.id" :class="selectedId == category.id ? 'category-item-selected' : ''">
             <span class="text">
               {{category.name}}
             </span>
-            <span :class="selected_id == category.id ? 'num-selected' : 'num'">
+            <span :class="selectedId == category.id ? 'num-selected' : 'num'">
               {{category.dishes.length}}
             </span>
           </li>
@@ -19,9 +19,7 @@
       <div class="dishes-wrapper" ref="dishesWrapper">
         <ul>
           <li v-for="category in menus" class="dish-list dish-list-hook" :key="category.id">
-            <!-- <h1 class="title">{{category.name}}</h1> -->
-
-            <ul class="dishes-ul" v-show="category.id == selected_id">
+            <ul class="dishes-ul" v-show="category.id == selectedId">
               <li v-for="dish in category.dishes" class="dish-item" :key="dish.id" @click="showDialog(dish)">
                 <dish-item :dish="dish"></dish-item>
               </li>
@@ -31,7 +29,7 @@
       </div>
     </div>
     <shop-cart class="cart"></shop-cart>
-    <dish-detail :dish="dishInfo" />
+    <dish-detail @hide='hide' @update='update' :showDD="showDD"/>
     <bs-detail :bus="showBS" />
   </div>
 </template>
@@ -62,15 +60,7 @@ export default {
       showBS: {
         show: false
       },
-      dishInfo: {
-        name: '宫保鸡丁',
-        price: 12,
-        likes: 4,
-        img: './src/assets/test.jpeg',
-        description: 'asddddddddddddddddddddddddddddddddddd',
-        count: 0,
-        show: false
-      }
+      showDD: false
     }
   },
   created () {
@@ -92,11 +82,14 @@ export default {
     },
     ...mapState({
       menus: state => state.menu.menus,
-      selected_id: state => state.menu.selected_id,
+      selectedId: state => state.menu.selectedId,
       bs: state => state.restaurant.restaurant
     })
   },
   methods: {
+    hide () {
+      this.showDD = false
+    },
     _initScroll () {
       this.categoryWrapper = new BScroll(this.$refs.categoryWrapper, {
         click: true
@@ -131,16 +124,15 @@ export default {
       console.log('selected id:', id)
     },
     showDialog (dish) {
-      console.log('dish show', this.dishInfo.show)
-      this.dishInfo.id = dish.id
-      this.dishInfo.name = dish.name
-      this.dishInfo.price = dish.price
-      this.dishInfo.img = dish.img
-      this.dishInfo.show = true
-      this.dishInfo.description = dish.description
-      this.dishInfo.likes = dish.likes
-      this.dishInfo.count = dish.count
-      console.log('showDialog', this.dishInfo)
+      console.log('dish show')
+      this.$store.commit('menu/changeSelectedDish', {
+        id: dish.id
+      })
+      this.showDD = true
+    },
+    update (value) {
+      console.log('update dish in detail', value)
+      this.dishInfo.count = value
     }
   }
 }

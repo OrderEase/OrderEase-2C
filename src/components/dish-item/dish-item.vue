@@ -14,27 +14,19 @@
         ￥<span class="price">{{dish.price}}</span>
       </div>
 
-      <!-- <div class="like-wrapper">
-        <img class="like-icon" src="../../assets/menu/good.png">
-        <span class="like">{{dish.like}}</span>
-      </div> -->
-
       <div class="cart-control-wrapper">
         <cart-control :dish="dish" @update="update"></cart-control>
       </div>
     </div>
-    <!-- <dish-detail :dish="dish" :show="show" /> -->
   </div>
 </template>
 
 <script>
 import CartControl from '../cart-control/cart-control'
-// import FoodDetail from './FoodDetail/dish-detail'
 
 export default {
   components: {
     CartControl
-    // FoodDetail
   },
   data () {
     return {
@@ -48,7 +40,6 @@ export default {
   },
   methods: {
     update (target) {
-      // console.log(1)
       this.$emit('update', target)
     },
     showDialog () {
@@ -121,21 +112,8 @@ export default {
       color:rgba(116, 177, 249, 1);
       .price {
         font-size: 16px;
-        // color:rgba(116, 177, 249, 1);
       }
     }
-
-    // .like-wrapper {
-    //   display: inline-block;
-    //   position: absolute;
-    //   bottom: 4px;
-    //   left: 60px;
-      
-    //   .like-icon {
-    //     height: 14px;
-    //     width: 14px;
-    //   }
-    // }
 
     .cart-control-wrapper {
       position: absolute;
