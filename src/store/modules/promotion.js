@@ -1,17 +1,18 @@
 import {Promotion} from '@/api/api.js'
+import testPromotions from '@/api/promotions.json'
 
 const state = {
   promotions: [
-    {
-      id: 0,
-      type: '减',
-      data: '满19减6；满40减9；满60减10'
-    },
-    {
-      id: 1,
-      type: '折',
-      data: '满20打8.5折'
-    }
+    // {
+    //   id: 0,
+    //   type: '减',
+    //   data: '满19减6；满40减9；满60减10'
+    // },
+    // {
+    //   id: 1,
+    //   type: '折',
+    //   data: '满20打8.5折'
+    // }
   ]
 }
 
@@ -24,14 +25,50 @@ const actions = {
     let promotions = await Promotion.getPromotions()
     console.log('getPromotions', promotions)
     commit('changePromotions', {
-      promotions: promotions
+      promotions: testPromotions
     })
   }
 }
 
 const mutations = {
   changePromotions (state, payload) {
-    // let temp = payload.promotions
+    let temp = payload.promotions.promotions
+    let tempMinus = []
+    let tempDiv = []
+    for (let i = 0; i < temp.length; ++i) {
+      tempMinus = tempMinus.concat(temp[i].rules.filter((rule) => {
+        return rule.mode === 1
+      }))
+      tempDiv = tempDiv.concat(temp[i].rules.filter((rule) => {
+        return rule.mode === 2
+      }))
+    }
+    console.log('changePromotions', tempMinus)
+    let id = 0
+    for (let i = 0; i < tempMinus.length; ++i) {
+      if (i % 3 === 0) {
+        state.promotions.push({
+          id: id,
+          type: '减',
+          data: ''
+        })
+        id = id + 1
+      }
+      let string = '满' + tempMinus[i].requirement + '减' + tempMinus[i].discount + ';'
+      state.promotions[state.promotions.length - 1].data = state.promotions[state.promotions.length - 1].data + string
+    }
+    for (let i = 0; i < tempDiv.length; ++i) {
+      if (i % 3 === 0) {
+        state.promotions.push({
+          id: id,
+          type: '折',
+          data: ''
+        })
+        id = id + 1
+      }
+      let string = '满' + tempDiv[i].requirement + '打' + tempDiv[i].discount + '折;'
+      state.promotions[state.promotions.length - 1].data = state.promotions[state.promotions.length - 1].data + string
+    }
   }
 }
 

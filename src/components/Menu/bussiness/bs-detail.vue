@@ -18,27 +18,31 @@
           </div>
         </div>
         <div class="bottom-section" ref="bottomWrapper">
-          <div class="activity-wrapper">
-            <div class="activity-name">
-              活动
-            </div>
-            <div v-for="promotion in promotions" :key="promotion.id" class="activity-intro">
-              <div class="activity-type">
-                {{promotion.type}}
+          <div class="content">
+            <div class="activity-wrapper">
+              <div class="activity-name">
+                活动
               </div>
-              <div class="activity-details">
-                {{promotion.data}}
+              <div class="activity-list">
+                <div v-for="promotion in promotions" :key="promotion.id" class="activity-intro">
+                  <div class="activity-type">
+                    {{promotion.type}}
+                  </div>
+                  <div class="activity-details">
+                    {{promotion.data}}
+                  </div>
+                </div>
+              </div>
+              <div class="divide-line">
               </div>
             </div>
-            <div class="divide-line">
-            </div>
-          </div>
-          <div class="description-wrapper">
-            <div class="description-name">
-              公告
-            </div>
-            <div class="description">
-              {{bs.description}}
+            <div class="description-wrapper">
+              <div class="description-name">
+                公告
+              </div>
+              <div class="description">
+                {{bs.description}}
+              </div>
             </div>
           </div>
         </div>
@@ -74,7 +78,11 @@ export default {
   },
   methods: {
     _initScroll () {
-      this.bottomWrapper = new BScroll(this.$refs.bottomWrapper)
+      this.introductionWrapper = new BScroll(this.$refs.introductionWrapper, {
+        scrollY: true,
+        click: true
+      })
+      console.log('bottom wrapper', this.introductionWrapper)
     }
   }
 }
@@ -159,7 +167,8 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 112px;
+      overflow: hidden;
+      height: 50%;
       .activity-name {
         // left: 59px;
         // top: 231px;
@@ -181,6 +190,7 @@ export default {
         display: flex;
         flex-direction: row;
         margin-top: 17px;
+        height: 30px;
         .activity-type {
           margin-left: 21px;
           width: 16px;
@@ -197,7 +207,7 @@ export default {
         }
         .activity-details {
           margin-left: 10px;
-          width: 100%;
+          // width: 100%;
           height: 23px;
           line-height: 23px;
           vertical-align: middle;
@@ -219,6 +229,7 @@ export default {
       display: flex;
       flex-direction: column;
       margin-top: 19px;
+      height: 50%;
       .description-name {
         margin-left: 19px;
         width: 46px;

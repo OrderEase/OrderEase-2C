@@ -23,7 +23,6 @@ const actions = {
         commit('loginFail')
       }
     } catch (error) {
-      router.push('/menu')
       commit('loginFail')
     }
   }
