@@ -2,8 +2,8 @@
   <div class="pay-wrapper">
     <div v-transfer-dom>
       <popup v-model="showPayMethodSelection" 
-             @on-show="current_check_pay_method_id = current_pay_method_id"
-             @on-first-show="current_check_pay_method_id = current_pay_method_id"
+             @on-show="currentCheckPayMethod = currentPayMethod"
+             @on-first-show="currentCheckPayMethod = currentPayMethod"
              height="50%" style="overflow-y: hidden">
         <div class="pay-method-selection-container">
           <div class="pay-method-selection-header">
@@ -12,12 +12,12 @@
             <x-icon class="confirm" type="ios-checkmark-empty" size="30" @click="confirmPayMethodSelection"></x-icon>
           </div>
           <div class="pay-method-item" 
-              :class="pay_method.id == current_check_pay_method_id ? 'pay-method-item-active' : ''" 
-               v-for="pay_method in pay_methods"
-              @click="selectPayMethod(pay_method.id)">
-            <img class="pay-method-icon" :src="pay_method.icon">
-            <span class="pay-method-name">{{ pay_method.name }}</span>
-            <check-icon :value.sync="pay_method.id == current_check_pay_method_id" class="pay-method-checker"></check-icon>
+              :class="payMethod.name == currentCheckPayMethod ? 'pay-method-item-active' : ''" 
+               v-for="payMethod in payMethods"
+              @click="selectPayMethod(payMethod.name)">
+            <img class="pay-method-icon" :src="payMethod.icon">
+            <span class="pay-method-name">{{ payMethod.name }}</span>
+            <check-icon :value.sync="payMethod.name == currentCheckPayMethod" class="pay-method-checker"></check-icon>
           </div>
         </div>
       </popup>
@@ -29,15 +29,15 @@
     <div class="pay-details-wrapper" ref="payDetailsWrapper">
       <div class="pay-details">
         <div class="pay-method-picker" @click="showPayMethodSelection=true">
-          <span class="pay-method">{{ current_pay_method }}</span>
+          <span class="pay-method">{{ currentPayMethod }}</span>
           <span class="pay-hint">更换支付方式 ></span>
         </div>
         <div class="pay-order-info">
           <divider class="pay-order-header">{{ restaurantName }}</divider>
-          <div class="dish-item" v-for="dish in dishes">
+          <div class="dish-item" v-for="dish in dishes" v-show="dish.count > 0">
             <img class="dish-image" :src="dish.img">
             <div class="dish-name">{{ dish.name }}</div>
-            <div class="dish-amount">x{{ dish.amount }}</div>
+            <div class="dish-count">x{{ dish.count }}</div>
           <div class="dish-price">¥<span>{{ dish.price }}</span></div>
         </div>
         <div class="total-price-container">
@@ -59,35 +59,31 @@
 <script>
 import BScroll from 'better-scroll'
 import {Toast, Divider, Checklist, Popup, TransferDom, CheckIcon} from 'vux'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   directives: {
     TransferDom
   },
   components: {
-    // Swiper,
     Divider,
-    // XHeader,
-    // CellBox,
-    // Group,
     Checklist,
     CheckIcon,
-    // XButton,
     Popup,
     Toast
-  },
-  created () {
   },
   methods: {
     closePayMethodSelection () {
       this.showPayMethodSelection = false
     },
     confirmPayMethodSelection () {
-      this.current_pay_method_id = this.current_check_pay_method_id
+      this.$store.commit('user/changePayMethod', {
+        payMethod: this.currentCheckPayMethod
+      })
       this.showPayMethodSelection = false
     },
-    selectPayMethod (id) {
-      this.current_check_pay_method_id = id
+    selectPayMethod (payMethod) {
+      this.currentCheckPayMethod = payMethod
     },
     back () {
       this.$router.back(-1)
@@ -99,86 +95,29 @@ export default {
   data () {
     return {
       showPayMethodSelection: false,
-      current_check_pay_method_id: 0,
-      current_pay_method_id: 0,
-      restaurantName: '肥宅快乐餐',
+      currentCheckPayMethod: '微信支付',
+      // currentPayMethod: '微信支付',
       confirmPayment: false,
-      pay_methods: [
+      payMethods: [
         {id: '0', name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
         {id: '1', name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
         {id: '2', name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
         {id: '3', name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
-      ],
-      dishes: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 30
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 30
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋瘦肉粥',
-          price: 10,
-          amount: 3,
-          state: '制作中',
-          waitingPercent: 80
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '皮蛋粥',
-          price: 5,
-          amount: 5,
-          state: '制作中',
-          waitingPercent: 30
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          name: '瘦肉粥',
-          price: 8,
-          amount: 4,
-          state: '制作中',
-          waitingPercent: 50
-        }
       ]
     }
   },
   computed: {
-    totalPrice () {
-      return this.$store.getters.totalPrice
-    },
-    current_pay_method () {
-      return this.pay_methods[this.current_pay_method_id].name
-    },
     confirmPaymentHint () {
-      return this.pay_methods[this.current_pay_method_id].hint
-    }
+      return this.payMethods.find(payMethod => payMethod.name === this.currentPayMethod).hint
+    },
+    ...mapState({
+      dishes: state => state.menu.selectDishes,
+      restaurantName: state => state.restaurant.restaurant.name,
+      currentPayMethod: state => state.user.payMethod
+    }),
+    ...mapGetters({
+      totalPrice: 'menu/totalPrice'
+    })
   },
   mounted () {
     this.$nextTick(() => {
@@ -187,8 +126,6 @@ export default {
           scrollY: true,
           click: true
         })
-        // console.log(this.scroll)
-        // console.log(this.$refs)
       } else {
         this.scroll.refresh()
       }
@@ -209,17 +146,12 @@ export default {
     font-size: 16px;
     text-align: center;
     position: relative;
-    // background-color: white;
     margin-bottom: 10px;
     padding-top: 8px;
-    // padding-bottom: 10px;
-    // border-bottom: 1px solid #EBEBEB;
     .close {
-      // height: 100%;
       align-self: center;
       position: absolute;
       left: 15px;
-      // padding-bottom: 2px;
     }
     .confirm {
       align-self: center;
@@ -227,7 +159,6 @@ export default {
       right: 15px;
     }
     span {
-      // height: 100%;
       align-self: center;     
     }
   }
@@ -249,7 +180,6 @@ export default {
       align-self: center;
     }
     .pay-method-name {
-      // font-size: 90%;
       flex-grow: 1;
       font-size: 15px;
       align-self: center;
@@ -352,7 +282,7 @@ export default {
           color: #1C1D25;
         }
         
-        .dish-amount {
+        .dish-count {
           width: 40%;
           text-align: center;
           font-size: 14px;

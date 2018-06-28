@@ -4,7 +4,8 @@ import router from '@/router/index.js'
 const state = {
   isLogin: false,
   isLoginFail: false,
-  username: ''
+  username: '',
+  payMethod: '微信支付'
 }
 
 const actions = {
@@ -38,6 +39,9 @@ const mutations = {
   },
   changeUsername (state, payload) {
     state.username = payload.username
+  },
+  changePayMethod (state, payload) {
+    state.payMethod = payload.payMethod
   }
 }
 

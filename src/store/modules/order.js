@@ -5,14 +5,14 @@ const state = {
 }
 
 const getters = {
-  uninishedOrdersList: state => {
+  unfinishedOrdersList (state) {
     return state.ordersList.filter(
       order => {
         return order.isPay === 1 && order.finished === 0
       }
     )
   },
-  finishedOrdersList: state => {
+  finishedOrdersList (state) {
     return state.ordersList.filter(
       order => {
         return order.isPay === 1 && order.finished === 1
@@ -21,19 +21,18 @@ const getters = {
   },
   getOrderById: (state) => (orderId) => {
     return state.orderList.find(order => orderId === order.id)
-  },
-  dishesCount: (state, getters) => (orderId) => {
-    return getters.getOrderById(orderId).dishes.length
   }
 }
 
 const actions = {
   async getOrdersList ({ commit }) {
+    console.log('getOrderList')
     let ordersList = await Order.getAll()
     commit('setOrdersList', ordersList)
   },
   async urgeOrder ({ commit }, orderId, dishId) {
-    let orderInfo = { 'dishId': dishId, 'like': 0, 'urge': 1 }
+    let orderInfo = { 'dishId': dishId, 'urge': 1 }
+    console.log('urgeOrder')
     await Order.modifyOrderInfo(orderId, orderInfo)
     // commit('setOrdersList', ordersList)
   }

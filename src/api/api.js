@@ -72,7 +72,9 @@ Order.getAll = () => {
   return new Promise((resolve, reject) => {
     axios.get('/orders/cuser/')
         .then(response => {
-          resolve(response.data)
+          console.log('api: getAll')
+          console.log('orders: ', response.data.orders)
+          resolve(response.data.orders)
         })
         .catch(error => {
           if (error.response) {
