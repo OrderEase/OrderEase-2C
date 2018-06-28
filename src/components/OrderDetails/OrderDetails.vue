@@ -78,8 +78,13 @@ export default {
   },
   data () {
     return {
+      order: {},
       urged: false
     }
+  },
+  created () {
+    console.log('OrderDetails ', this.getOrderById(this.$route.params.orderId))
+    this.order = this.getOrderById(this.$route.params.orderId)
   },
   computed: {
     totalPrice: function () {
@@ -91,11 +96,10 @@ export default {
       }
       return total
     },
-    ...mapGetters({
-      order: state => state.order.getOrderById(this.$route.params.orderId)
+    ...mapGetters('order', {
+      getOrderById: 'getOrderById'
     })
   },
-
   methods: {
     back () {
       this.$router.back(-1)

@@ -19,8 +19,10 @@ const getters = {
       }
     )
   },
-  getOrderById: (state) => (orderId) => {
-    return state.orderList.find(order => orderId === order.id)
+  getOrderById (state) {
+    return (orderId) => {
+      return state.ordersList.find(order => orderId === order.id)
+    }
   }
 }
 
