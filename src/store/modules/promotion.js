@@ -27,6 +27,9 @@ const actions = {
     commit('changePromotions', {
       promotions: testPromotions
     })
+    commit('restaurant/addNumberOfActivity', {
+      num: promotions.length
+    })
   }
 }
 

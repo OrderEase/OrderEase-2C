@@ -1,6 +1,6 @@
 <template>
   <div>
-    <x-dialog v-model="bus.show" hide-on-blur>
+    <x-dialog v-model="bus.show" @on-show='changeBScroll' hide-on-blur>
       <div class="detail-wrapper">
         <div class="bg">
         </div>
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="bottom-section" ref="bottomWrapper">
-          <div class="content">
+          <div class="contents">
             <div class="activity-wrapper">
               <div class="activity-name">
                 活动
@@ -77,12 +77,25 @@ export default {
     })
   },
   methods: {
+    changeBScroll () {
+      if (this.bus.show) {
+        this.$nextTick(() => {
+          if (!this.bottomWrapper) {
+            this._initScroll()
+          } else {
+            this.bottomWrapper.refresh()
+            console.log('bottom wrapper', this.bottomWrapper)
+          }
+        })
+      }
+      return this.bus.show
+    },
     _initScroll () {
-      this.introductionWrapper = new BScroll(this.$refs.introductionWrapper, {
+      this.bottomWrapper = new BScroll(this.$refs.bottomWrapper, {
         scrollY: true,
         click: true
       })
-      console.log('bottom wrapper', this.introductionWrapper)
+      console.log('bottom wrapper', this.bottomWrapper)
     }
   }
 }
@@ -163,16 +176,17 @@ export default {
     display: flex;
     flex-direction: column;
     height: 310px;
+    overflow: hidden;
     .activity-wrapper {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow: hidden;
-      height: 50%;
+      // overflow: hidden;
       .activity-name {
         // left: 59px;
         // top: 231px;
         margin-top: 13px;
+        margin-bottom: 19px;
         margin-left: 19px;
         width: 46px;
         height: 21px;
@@ -189,8 +203,8 @@ export default {
       .activity-intro {
         display: flex;
         flex-direction: row;
-        margin-top: 17px;
-        height: 30px;
+        // margin-top: 17px;
+        // height: 30px;
         .activity-type {
           margin-left: 21px;
           width: 16px;
@@ -229,7 +243,7 @@ export default {
       display: flex;
       flex-direction: column;
       margin-top: 19px;
-      height: 50%;
+      // height: 50%;
       .description-name {
         margin-left: 19px;
         width: 46px;
