@@ -74,6 +74,7 @@ export default {
     }
   },
   created () {
+    console.log('menu:', this.$store.state.menu.menus)
     this.$nextTick(() => {
       this._initScroll()
     })
@@ -89,10 +90,10 @@ export default {
       }
       return 0
     },
-    ...mapState('modules/menu', {
-      menus: 'menus',
-      selected_id: 'selected_id',
-      bs: 'restaurant'
+    ...mapState({
+      menus: state => state.menu.menus,
+      selected_id: state => state.menu.selected_id,
+      bs: state => state.restaurant.restaurant
     })
   },
   methods: {

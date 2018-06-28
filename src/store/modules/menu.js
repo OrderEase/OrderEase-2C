@@ -1,5 +1,6 @@
-import {Menu} from '@/api/api.js'
+// import {Menu} from '@/api/api.js'
 import Vue from 'vue'
+import menuData from '@/components/Menu/data.json'
 
 const state = {
   menus: [],
@@ -18,11 +19,16 @@ const getters = {
 }
 
 const actions = {
-  async getMenus ({state, commit}) {
-    let responce = await Menu.getMenus()
-    commit('changeMenus', responce.content)
+  async getMenus ({commit}) {
+    // let responce = await Menu.getMenus()
+    let responce = menuData
+    // commit('changeMenus', responce.content)
+    commit('changeMenus', {
+      menus: responce.content
+    })
+    console.log('menu data:', menuData.content)
     commit('changeSelectedId', {
-      id: state.menus[0].id
+      id: responce.content[0].id
     })
   }
 }

@@ -38,7 +38,29 @@ Menu.getMenus = () => {
   })
 }
 let Promotion = {}
+Promotion.getPromotions = () => {
+  return new Promise((resolve, reject) => {
+    axios.get('/promotions')
+    .then((responce) => {
+      resolve(responce.data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
+  })
+}
 let Order = {}
 let Restaurant = {}
+Restaurant.getRestaurant = () => {
+  return new Promise((resolve, reject) => {
+    axios.get('/restrt')
+    .then((responce) => {
+      resolve(responce.data)
+    })
+    .catch((error) => {
+      reject(error)
+    })
+  })
+}
 
 export { User, Menu, Promotion, Order, Restaurant }

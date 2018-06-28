@@ -1,5 +1,5 @@
-// import {Restaurant} from '@/api/api.js'
-// import Vue from 'vue'
+import {Restaurant} from '@/api/api.js'
+import Vue from 'vue'
 
 const state = {
   restaurant: {}
@@ -10,22 +10,24 @@ const getters = {
 }
 
 const actions = {
-  getRestaurant ({state}) {
-    // Axios.get('/restrt')
-    // .then(function (responce) {
-    //   console.log('restaurant', responce.data)
-    //   state.restaurant = responce.data
-    //   Vue.set(state.restaurant, 'bg', 'url(\'/src/assets/bs.jpeg\')')
-    //   // state.restaurant.num = 2
-    // })
-    // .catch(function (error) {
-    //   console.log(error)
-    // })
+  async getRestaurant ({commit}) {
+    let restaurant = await Restaurant.getRestaurant()
+    restaurant.bg = 'url(\'/src/assets/bs.jpeg\')'
+    console.log('restaurant', restaurant)
+    commit('changeRestaurant', {
+      restaurant: restaurant
+    })
   }
 }
 
 const mutations = {
-
+  changeRestaurant (state, payload) {
+    state.restaurant = payload.restaurant
+    // Vue.set(state.restaurant, 'bg', 'url(\'/src/assets/bs.jpeg\')')
+  },
+  addNumberOfActivity ({state}, payload) {
+    Vue.set(state.restaurant, 'num', payload.num)
+  }
 }
 
 export default {

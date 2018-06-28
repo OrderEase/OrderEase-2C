@@ -1,4 +1,4 @@
-// import {Promotion} from '@/api/api.js'
+import {Promotion} from '@/api/api.js'
 
 const state = {
   promotions: [
@@ -20,20 +20,19 @@ const getters = {
 }
 
 const actions = {
-  getPromotions ({state}) {
-    // Axios.get('/promotions')
-    // .then(function (responce) {
-    //   console.log('promotions', responce.data)
-    //   Vue.set(state.restaurant, 'num', responce.data.length)
-    // })
-    // .catch(function (error) {
-    //   console.log(error)
-    // })
+  async getPromotions ({commit}) {
+    let promotions = await Promotion.getPromotions()
+    console.log('getPromotions', promotions)
+    commit('changePromotions', {
+      promotions: promotions
+    })
   }
 }
 
 const mutations = {
-
+  changePromotions (state, payload) {
+    // let temp = payload.promotions
+  }
 }
 
 export default {

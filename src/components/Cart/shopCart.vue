@@ -46,7 +46,7 @@
 import CartControl from '../cart-control/cart-control'
 import BScroll from 'better-scroll'
 import { Toast } from 'vux'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   components: {
     CartControl,
@@ -59,9 +59,9 @@ export default {
     }
   },
   computed: {
-    totalPrice () {
-      return this.$store.getters.totalPrice
-    },
+    ...mapGetters({
+      totalPrice: 'menu/totalPrice'
+    }),
     listshow () {
       if (this.show) {
         this.$nextTick(() => {
@@ -83,7 +83,7 @@ export default {
       return this.show
     },
     ...mapState({
-      dishsSelect: 'selectDishes'
+      dishsSelect: state => state.menu.selectDishes
     })
   },
   methods: {

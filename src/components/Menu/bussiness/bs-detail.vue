@@ -68,8 +68,8 @@ export default {
   },
   computed: {
     ...mapState({
-      bs: 'restaurant',
-      promotions: 'promotions'
+      bs: state => state.restaurant.restaurant,
+      promotions: state => state.promotion.promotions
     })
   },
   methods: {
