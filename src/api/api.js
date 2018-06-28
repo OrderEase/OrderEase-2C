@@ -88,7 +88,7 @@ Order.getAll = () => {
 }
 
 // 用户修改订单消息
-Order.modifyOrderInfo = (orderId, orderInfo) => {
+Order.modify = (orderId, orderInfo) => {
   return new Promise((resolve, reject) => {
     axios.put('/orders/cuser/oid/' + orderId, orderInfo)
         .then(response => {
@@ -105,11 +105,12 @@ Order.modifyOrderInfo = (orderId, orderInfo) => {
   })
 }
 
-Order.submitOrder = (orderInfo) => {
+// 用户提交订单
+Order.submit = (orderInfo) => {
   return new Promise((resolve, reject) => {
     axios.post('/orders/cuser/', orderInfo)
         .then(response => {
-          resolve(response.data)
+          resolve(response.data.orderId)
         })
         .catch(error => {
           if (error.response) {

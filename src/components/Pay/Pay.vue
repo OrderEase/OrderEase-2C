@@ -106,6 +106,9 @@ export default {
       ]
     }
   },
+  created () {
+    this.$store.dispatch('order/submitOrder')
+  },
   computed: {
     confirmPaymentHint () {
       return this.payMethods.find(payMethod => payMethod.name === this.currentPayMethod).hint
