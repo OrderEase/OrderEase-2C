@@ -19,7 +19,6 @@ const actions = {
       router.push('/menu')
     } else {
       commit('loginFail')
-      // router.push('/menu')
     }
   }
 }

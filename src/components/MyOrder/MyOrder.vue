@@ -13,31 +13,29 @@
         <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
           <router-link to="/order-details">
             <div class="order-item">
-              <img class="order-image" :src="order.img">
+              <img class="order-image" :src="restaurant.img">
               <div class="order-info">
-                <div class="restaurant-name">{{ restaurantName }}</div>
-                <div class="order-date">下单时间: {{ order.date }}</div>
-                <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
-              </div>
-              
-              
+                <div class="restaurant-name">{{ restaurant.Name }}</div>
+                <div class="order-date">下单时间: {{ order.payDate }}</div>
+                <div class="order-dishes-count">共{{ dishesCount(order.Id) }}件菜品</div>
+              </div>            
               <div class="order-price">
-                实付<span>¥{{ order.price }}</span>
+                实付<span>¥{{ order.due }}</span>
               </div>
             </div>
           </router-link>
         </div>
         <div class="orders" v-show="showFinishedOrder" v-for="order in finishedOrders">
-          <router-link to="/order-details">
+          <router-link :to="{ name: 'OrderDetails', params: { orderId: order.id } }">
             <div class="order-item">
-              <img class="order-image" :src="order.img">
+              <img class="order-image" :src="restaurant.img">
               <div class="order-info">
-                <div class="restaurant-name">{{ restaurantName }}</div>
-                <div class="order-date">下单时间: {{ order.date }}</div>
-                <div class="order-dishes-amount">共{{ order.dishesAmount }}件菜品</div>
+                <div class="restaurant-name">{{ restaurant.Name }}</div>
+                <div class="order-date">下单时间: {{ order.payDate }}</div>
+                <div class="order-dishes-count">共{{ dishesCount(order.Id) }}件菜品</div>
               </div>
               <div class="order-price">
-                实付<span>¥{{ order.price }}</span>
+                实付<span>¥{{ order.due }}</span>
               </div>
             </div>
           </router-link>
@@ -50,116 +48,31 @@
 <script>
 import BScroll from 'better-scroll'
 import { Tab, ButtonTab, ButtonTabItem, XButton } from 'vux'
-
-// let totalPrice = 0
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
-      chosedTabItem: 0,
       showUnfinishedOrder: true,
-      showFinishedOrder: false,
-      restaurantName: '肥宅快乐餐',
-
-      unfinishedOrders: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        }
-      ],
-
-      finishedOrders: [
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        },
-        {
-          img: 'http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/750/h/750',
-          number: '123456',
-          price: 100,
-          date: '2018-5-6 11:00',
-          dishesAmount: 3
-        }
-      ]
+      showFinishedOrder: false
     }
   },
-
   components: {
     XButton,
     Tab,
     ButtonTab,
     ButtonTabItem
   },
-
+  computed: {
+    ...mapState('modules/restaurant', {
+      restaurant: 'restaurant'
+    }),
+    ...mapGetters('modules/order', {
+      unfinishedOrders: 'unfinishedOrdersList',
+      finishedOrders: 'finishedOrdersList',
+      dishesCount: 'dishesCount'
+    })
+  },
   methods: {
     unfinishedOrderTabClick () {
       this.showUnfinishedOrder = true
@@ -173,7 +86,6 @@ export default {
       this.$router.back(-1)
     }
   },
-
   mounted () {
     this.$nextTick(() => {
       if (!this.scroll) {
@@ -181,8 +93,6 @@ export default {
           scrollY: true,
           click: true
         })
-        // console.log(this.scroll)
-        // console.log(this.$refs)
       } else {
         this.scroll.refresh()
       }
@@ -289,7 +199,7 @@ export default {
               margin-top: 10px;
             }
             
-            .order-dishes-amouont {
+            .order-dishes-count {
               
             }            
           }
@@ -308,8 +218,7 @@ export default {
               font-size: 17px;
               font-weight: bold;
             }
-          }
-          
+          }          
         }
       }
     }

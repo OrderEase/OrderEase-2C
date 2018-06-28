@@ -20,11 +20,11 @@ const store = new Vuex.Store({
 
   },
   modules: {
-    user: user,
-    menu: menu,
-    promotion: promotion,
-    order: order,
-    restaurant: restaurant
+    user,
+    menu,
+    promotion,
+    order,
+    restaurant
   }
 })
 
