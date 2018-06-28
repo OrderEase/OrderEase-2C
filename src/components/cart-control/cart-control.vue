@@ -14,8 +14,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-  // import Vue from 'vue'
-
   export default {
     props: {
       dish: {
@@ -25,32 +23,14 @@
     methods: {
       increaseCart (event) {
         console.log('asdasd')
-        // if (!event._constructed) {
-        //   // 去掉自带click事件的点击
-        //   return
-        // }
         this.$store.commit('menu/increaseCart', {
           dish: this.dish
         })
-        // if (!this.dish.count) {
-        //   Vue.set(this.dish, 'count', 1)
-        // } else {
-        //   this.dish.count++
-        // }
-        console.log('"add"', this.dish.count > 0)
-        this.$emit('update', event.target)
       },
       decreaseCart (event) {
-        // if (!event._constructed) {
-        //   // 去掉自带click事件的点击
-        //   return
-        // }
         this.$store.commit('menu/decreaseCart', {
           dish: this.dish
         })
-        // this.dish.count--
-        console.log('"delete"')
-        this.$emit('update', event.target)
       }
     }
   }
