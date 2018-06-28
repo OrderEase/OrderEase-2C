@@ -280,6 +280,9 @@ export default {
           margin-left: 10px;
           letter-spacing: 0.5px;
           color: #1C1D25;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
         
         .dish-count {
