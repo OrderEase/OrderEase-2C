@@ -110,7 +110,8 @@ Order.submit = (orderInfo) => {
   return new Promise((resolve, reject) => {
     axios.post('/orders/cuser/', orderInfo)
         .then(response => {
-          resolve(response.data.orderId)
+          // console.log('order submit response ', response.data)
+          resolve(response.data.id)
         })
         .catch(error => {
           if (error.response) {

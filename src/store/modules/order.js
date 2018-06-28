@@ -30,24 +30,41 @@ const getters = {
 const actions = {
   async getOrdersList ({ commit }) {
     console.log('getOrderList')
-    let ordersList = await Order.getAll()
-    commit('setOrdersList', ordersList)
+    try {
+      let ordersList = await Order.getAll()
+      commit('setOrdersList', ordersList)
+    } catch (error) {
+      console.log('GetOrdersList [fail] ', error)
+    }
   },
   async placeOrder ({ commit }, orderInfo) {
     console.log('placeOrder')
-    let orderId = await Order.submit(orderInfo)
-    commit('setUnpaidOrderId', orderId)
+    try {
+      let orderId = await Order.submit(orderInfo)
+      console.log('return orderId ', orderId)
+      commit('setUnpaidOrderId', orderId)
+    } catch (error) {
+      console.log('PlaceOrder [fail] ', error)
+    }
   },
   async payOrder ({ commit }, payId) {
     console.log('placeOrder')
-    let orderId = await Order.pay(payId)
-    commit('setUnpaidOrderId', orderId)
+    try {
+      await Order.pay(payId)
+      commit('setUnpaidOrderId', null)
+    } catch (error) {
+      console.log('PayOrder [fail] ', error)
+    }
   },
-  async urgeOrder ({ commit }, orderId, dishId) {
+  async urgeOrder ({ commit }, orderId, orderItemId) {
     console.log('urgeOrder')
-    let orderInfo = { 'dishId': dishId, 'urge': 1 }
-    await Order.modify(orderId, orderInfo)
-    // commit('', )
+    let orderInfo = { 'orderItemId': orderItemId, 'urge': 1 }
+    try {
+      await Order.modify(orderId, orderInfo)
+      // commit('', )
+    } catch (error) {
+      console.log('UrgeOrder [fail] ', error)
+    }
   }
 }
 

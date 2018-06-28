@@ -50,7 +50,7 @@
     </div>
     <div class="pay-bar">
       <span class="total-price">¥{{ totalPrice }}</span>
-      <span class="pay-confirm" @click="submitPayRequest">确认支付</span>
+      <span class="pay-confirm" @click="pay">确认支付</span>
     </div>  
     <toast v-model="confirmPayment" width="9em" :text="confirmPaymentHint" :time="1000"></toast>
   </div>
@@ -88,26 +88,46 @@ export default {
     back () {
       this.$router.back(-1)
     },
-    submitPayRequest () {
+    pay () {
+      this.$store.dispatch('order/payOrder', this.getPayId())
       this.confirmPayment = true
+    },
+    getPayId () {
+      return 1024
     }
   },
   data () {
     return {
       showPayMethodSelection: false,
       currentCheckPayMethod: '微信支付',
-      // currentPayMethod: '微信支付',
       confirmPayment: false,
       payMethods: [
-        {id: '0', name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
-        {id: '1', name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
-        {id: '2', name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
-        {id: '3', name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
+        {name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
+        {name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
+        {name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
+        {name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
       ]
     }
   },
   created () {
-    this.$store.dispatch('order/submitOrder')
+    console.log('Pay created')
+    if (this.unpaidOrderId != null) {
+      console.log('have submitted order')
+      return
+    }
+    let content = []
+    let due = this.totalPrice
+    for (let i in this.dishes) {
+      content.push({ 'dish': this.dishes[i].id, 'quantity': this.dishes[i].count })
+    }
+    let orderInfo = {
+      'tableId': '23E',
+      'total': this.totalPrice,
+      'due': due,
+      'content': content
+    }
+    console.log('orderInfo ', orderInfo)
+    this.$store.dispatch('order/placeOrder', orderInfo)
   },
   computed: {
     confirmPaymentHint () {
@@ -115,6 +135,7 @@ export default {
     },
     ...mapState({
       dishes: state => state.menu.selectDishes,
+      unpaidOrderId: state => state.order.unpaidOrderId,
       restaurantName: state => state.restaurant.restaurant.name,
       currentPayMethod: state => state.user.payMethod
     }),
