@@ -13,12 +13,14 @@
         <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
           <router-link to="/order-details">
             <div class="order-item">
-              <img class="order-image" :src="restaurant.img">
-              <div class="order-info">
-                <div class="restaurant-name">{{ restaurant.Name }}</div>
-                <div class="order-date">下单时间: {{ order.payDate }}</div>
-                <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
-              </div>            
+              <div class="order-body">
+                <img class="order-image" :src="restaurant.img">
+                <div class="order-info">
+                  <div class="restaurant-name">{{ restaurant.name }}</div>
+                  <div class="order-date">下单时间: {{ order.payDate }}</div>
+                  <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
+                </div>            
+              </div>
               <div class="order-price">
                 实付<span>¥{{ order.due }}</span>
               </div>
@@ -28,11 +30,13 @@
         <div class="orders" v-show="showFinishedOrder" v-for="order in finishedOrders">
           <router-link :to="{ name: 'OrderDetails', params: { orderId: order.id } }">
             <div class="order-item">
-              <img class="order-image" :src="restaurant.img">
-              <div class="order-info">
-                <div class="restaurant-name">{{ restaurant.Name }}</div>
-                <div class="order-date">下单时间: {{ order.payDate }}</div>
-                <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
+              <div class="order-body">
+                <img class="order-image" :src="restaurant.img">
+                <div class="order-info">
+                  <div class="restaurant-name">{{ restaurant.name }}</div>
+                  <div class="order-date">下单时间: {{ order.payDate }}</div>
+                  <div class="order-dishes-count">共{{ order.dishes.length }}件菜品</div>
+                </div>
               </div>
               <div class="order-price">
                 实付<span>¥{{ order.due }}</span>
@@ -171,39 +175,40 @@ export default {
     .order-list {
       .orders {
         .order-item {
-          height: 115px;
+          height: 120px;
           margin-bottom: 15px;
           background-color: white;
           border-radius: 5px;
           display: flex;
+          flex-direction: column;
           
-          .order-image {
-            margin-left: 10px;
-            margin-top: 15px;
-            height: 70px;
-            width: 80px;
-            border-radius: 5px;
-          }
-          
-          .order-info {
-            flex-grow: 2;
-            margin-left: 10px;
-            margin-top: 15px;
-            color: #747881;
-            font-size: 13px;
-            .restaurant-name {
-              font-size: 15px;
-              font-weight: bold;
-              color: black;
+          .order-body {
+            display: flex;
+            
+            .order-image {
+              margin-left: 10px;
+              margin-top: 15px;
+              height: 70px;
+              width: 80px;
+              border-radius: 5px;
             }
             
-            .order-date {
-              margin-top: 10px;
-            }
-            
-            .order-dishes-count {
+            .order-info {
+              color: #747881;
+              margin-left: 10px;
+              margin-top: 15px;
+              font-size: 13px;
               
-            }            
+              .restaurant-name {
+                font-size: 15px;
+                font-weight: bold;
+                color: black;
+              }
+              
+              .order-date {
+                margin-top: 10px;
+              }         
+            }
           }
           
           .order-price {
