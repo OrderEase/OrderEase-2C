@@ -5,7 +5,8 @@ import menuData from '@/components/Menu/data.json'
 const state = {
   menus: [],
   selectDishes: new Array(0),
-  selected_id: 0
+  selectedId: 0,
+  selectedDish: {}
 }
 
 const getters = {
@@ -20,9 +21,7 @@ const getters = {
 
 const actions = {
   async getMenus ({commit}) {
-    // let responce = await Menu.getMenus()
     let responce = menuData
-    // commit('changeMenus', responce.content)
     commit('changeMenus', {
       menus: responce.content
     })
@@ -71,10 +70,20 @@ const mutations = {
     return payload.dish
   },
   changeSelectedId (state, payload) {
-    state.selected_id = payload.id
+    state.selectedId = payload.id
   },
   changeMenus (state, payload) {
     state.menus = payload.menus
+  },
+  changeSelectedDish (state, payload) {
+    for (let i = 0; i < state.menus.length; ++i) {
+      let temp = state.menus[i].dishes.filter((dish) => {
+        return dish.id === payload.id
+      })
+      if (temp.length !== 0) {
+        state.selectedDish = temp[0]
+      }
+    }
   }
 }
 
