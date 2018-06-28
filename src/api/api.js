@@ -42,8 +42,7 @@ Menu.getMenus = () => {
       })
   })
 }
-<<<<<<< HEAD
-let Promotion = {}
+
 Promotion.getPromotions = () => {
   return new Promise((resolve, reject) => {
     axios.get('/promotions')
@@ -55,8 +54,7 @@ Promotion.getPromotions = () => {
     })
   })
 }
-let Order = {}
-let Restaurant = {}
+
 Restaurant.getRestaurant = () => {
   return new Promise((resolve, reject) => {
     axios.get('/restrt')
@@ -66,7 +64,8 @@ Restaurant.getRestaurant = () => {
     .catch((error) => {
       reject(error)
     })
-=======
+  })
+}
 
 // 用户获取全部订单
 Order.getAll = () => {
@@ -136,7 +135,6 @@ Order.pay = (modifiedOrderId, payId) => {
             reject(error)
           }
         })
->>>>>>> 13dcb33b08cb7b72dc2e7bdb3e99ec4355d1bfd9
   })
 }
 
