@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="bottom-section" ref="bottomWrapper">
-          <div class="content">
+          <div class="contents">
             <div class="activity-wrapper">
               <div class="activity-name">
                 活动
@@ -78,11 +78,11 @@ export default {
   },
   methods: {
     _initScroll () {
-      this.introductionWrapper = new BScroll(this.$refs.introductionWrapper, {
+      this.bottomWrapper = new BScroll(this.$refs.bottomWrapper, {
         scrollY: true,
         click: true
       })
-      console.log('bottom wrapper', this.introductionWrapper)
+      console.log('bottom wrapper', this.bottomWrapper)
     }
   }
 }
@@ -163,12 +163,16 @@ export default {
     display: flex;
     flex-direction: column;
     height: 310px;
+    .contents {
+      height: 310px;
+      overflow: hidden;
+    }
     .activity-wrapper {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      overflow: hidden;
-      height: 50%;
+      // overflow: hidden;
+      // height: 50%;
       .activity-name {
         // left: 59px;
         // top: 231px;
