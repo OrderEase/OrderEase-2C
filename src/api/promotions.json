@@ -1,0 +1,190 @@
+{
+    "promotions": [
+      {
+        "id": 1,
+        "theme": "端午节活动",
+        "begin": "2017-11-23 16:10:10",
+        "end": "2017-11-23 16:10:10",
+        "isend": 1,
+        "rules": [
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },{
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },{
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },{
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          },
+          {
+            "id": 1,
+            "mode": 1,
+            "requirement": 100,
+            "discount": 10
+          }
+        ]
+      }
+    ]
+  }
