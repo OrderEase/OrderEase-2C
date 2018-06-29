@@ -13,7 +13,8 @@ const state = {
     //   type: '折',
     //   data: '满20打8.5折'
     // }
-  ]
+  ],
+  promotionsRawData: []
 }
 
 const getters = {
@@ -28,6 +29,7 @@ const actions = {
       // promotions: testPromotions
       promotions: promotions
     })
+    commit('setPromotionsRawData', promotions)
     commit('restaurant/addNumberOfActivity', {
       num: promotions.length
     }, {root: true})
@@ -73,6 +75,9 @@ const mutations = {
       let string = '满' + tempDiv[i].requirement + '打' + 10 * (tempDiv[i].discount) + '折;'
       state.promotions[state.promotions.length - 1].data = state.promotions[state.promotions.length - 1].data + string
     }
+  },
+  setPromotionsRawData (state, promotions) {
+    state.promotionsRawData = promotions
   }
 }
 

@@ -15,7 +15,7 @@
               :class="payMethod.name == currentCheckPayMethod ? 'pay-method-item-active' : ''" 
                v-for="payMethod in payMethods"
               @click="selectPayMethod(payMethod.name)">
-            <img class="pay-method-icon" :src="payMethod.icon">
+            <img class="pay-method-icon" :src="payMethod.icon" >
             <span class="pay-method-name">{{ payMethod.name }}</span>
             <check-icon :value.sync="payMethod.name == currentCheckPayMethod" class="pay-method-checker"></check-icon>
           </div>
@@ -86,11 +86,12 @@ export default {
       this.currentCheckPayMethod = payMethod
     },
     back () {
+      this.$store.dispatch('order/deleteOrder', this.unpaidOrderId)
       this.$router.back(-1)
     },
     pay () {
       console.log('pay id ', this.getPayId())
-      // this.$store.dispatch('order/payOrder', this.getPayId())
+      this.$store.dispatch('order/payOrder', this.getPayId())
       this.confirmPayment = true
     },
     getPayId () {
@@ -98,7 +99,31 @@ export default {
       return currentDate.getTime()
     },
     calculateDue () {
-      return this.totalPrice
+      console.log('calculateDue')
+      let bestDue = this.totalPrice
+      // for each promotion
+      for (let i in this.promotions) {
+        let promotion = this.promotions[i]
+        // for each rule in current promotion
+        for (let j in promotion.rules) {
+          let rule = promotion.rules[j]
+          if (this.totalPrice < rule.requirement) {
+            continue
+          }
+          let currentDue = 0
+          if (rule.mode === 1) {
+            currentDue = this.totalPrice - rule.discount
+          } else if (rule.mode === 2) {
+            currentDue = this.totalPrice * rule.discount
+          }
+          if (currentDue < bestDue) {
+            bestDue = currentDue
+          }
+        }
+      }
+      console.log('promotions ', this.promotions)
+      console.log('bestDue ', bestDue)
+      return bestDue
     }
   },
   data () {
@@ -107,19 +132,19 @@ export default {
       currentCheckPayMethod: '微信支付',
       confirmPayment: false,
       payMethods: [
-        {id: 0, name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
-        {id: 1, name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
-        {id: 2, name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
-        {id: 3, name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
+        {id: 0, name: '微信支付', icon: '/src/assets/pay/微信支付.svg'},
+        {id: 1, name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg'},
+        {id: 2, name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg'},
+        {id: 3, name: '比特币', icon: '/src/assets/pay/比特币.svg'}
       ]
     }
   },
   created () {
     console.log('Pay created')
-    if (this.unpaidOrderId != null) {
-      console.log('have submitted order')
-      return
-    }
+    // if (this.unpaidOrderId != null) {
+    //   console.log('have submitted order')
+    //   return
+    // }
     let content = []
     let due = this.calculateDue()
     for (let i in this.dishes) {
@@ -139,9 +164,6 @@ export default {
       if (!this.paymentSuccess) {
         return '支付失败'
       }
-      if (this.currentPayMethod === '现金支付') {
-        return '请等待服务员结账'
-      }
       return '支付成功'
     },
     ...mapState({
@@ -149,7 +171,8 @@ export default {
       unpaidOrderId: state => state.order.unpaidOrderId,
       paymentSuccess: state => state.order.paymentSuccess,
       restaurantName: state => state.restaurant.restaurant.name,
-      currentPayMethod: state => state.user.payMethod
+      currentPayMethod: state => state.user.payMethod,
+      promotions: state => state.promotion.promotionsRawData
     }),
     ...mapGetters({
       totalPrice: 'menu/totalPrice'

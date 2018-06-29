@@ -58,6 +58,15 @@ const actions = {
       console.log('PayOrder [fail] ', error)
     }
   },
+  async deleteOrder ({ commit }, orderId) {
+    console.log('deleteOrder')
+    try {
+      await Order.delete(orderId)
+      commit('setUnpaidOrderId', null)
+    } catch (error) {
+      console.log('DeleteOrder [fail] ', error)
+    }
+  },
   async urgeOrder ({ commit }, orderId, orderItemId) {
     console.log('urgeOrder')
     let orderInfo = { 'orderItemId': orderItemId, 'urge': 1 }
@@ -66,7 +75,6 @@ const actions = {
       // commit('', )
     } catch (error) {
       console.log('UrgeOrder [fail] ', error)
-      commit('setPaymentSuccess', false)
     }
   }
 }

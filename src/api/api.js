@@ -142,4 +142,22 @@ Order.pay = (orderId, payId) => {
   })
 }
 
+// 删除订单
+Order.delete = (orderId) => {
+  return new Promise((resolve, reject) => {
+    axios.delete('/orders/cuser/oid/' + orderId)
+        .then(response => {
+          resolve(response.data)
+        })
+        .catch(error => {
+          if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            reject(new Error(error.response.data.message))
+          } else {
+            reject(error)
+          }
+        })
+  })
+}
+
 export { User, Menu, Promotion, Order, Restaurant }
