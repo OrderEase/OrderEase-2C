@@ -47,7 +47,7 @@ Promotion.getPromotions = () => {
   return new Promise((resolve, reject) => {
     axios.get('/promotions')
     .then((responce) => {
-      resolve(responce.data)
+      resolve(responce.data.promotions)
     })
     .catch((error) => {
       reject(error)

@@ -52,7 +52,7 @@
       <span class="total-price">¥{{ totalPrice }}</span>
       <span class="pay-confirm" @click="pay">确认支付</span>
     </div>  
-    <toast v-model="confirmPayment" width="9em" :text="confirmPaymentHint" :time="1000"></toast>
+    <toast v-model="confirmPayment" :type="paymentSuccess ? 'success' : 'cancel'" width="9em" :text="confirmPaymentHint" :time="1000"></toast>
   </div>
 </template>
 
@@ -90,11 +90,15 @@ export default {
     },
     pay () {
       console.log('pay id ', this.getPayId())
-      this.$store.dispatch('order/payOrder', this.getPayId())
+      // this.$store.dispatch('order/payOrder', this.getPayId())
       this.confirmPayment = true
     },
     getPayId () {
-      return this.payMethods.find(payMethod => payMethod.name === this.currentPayMethod).id
+      let currentDate = new Date()
+      return currentDate.getTime()
+    },
+    calculateDue () {
+      return this.totalPrice
     }
   },
   data () {
@@ -117,7 +121,7 @@ export default {
       return
     }
     let content = []
-    let due = this.totalPrice
+    let due = this.calculateDue()
     for (let i in this.dishes) {
       content.push({ 'dish': this.dishes[i].id, 'quantity': this.dishes[i].count })
     }
@@ -132,11 +136,18 @@ export default {
   },
   computed: {
     confirmPaymentHint () {
-      return this.payMethods.find(payMethod => payMethod.name === this.currentPayMethod).hint
+      if (!this.paymentSuccess) {
+        return '支付失败'
+      }
+      if (this.currentPayMethod === '现金支付') {
+        return '请等待服务员结账'
+      }
+      return '支付成功'
     },
     ...mapState({
       dishes: state => state.menu.selectDishes,
       unpaidOrderId: state => state.order.unpaidOrderId,
+      paymentSuccess: state => state.order.paymentSuccess,
       restaurantName: state => state.restaurant.restaurant.name,
       currentPayMethod: state => state.user.payMethod
     }),

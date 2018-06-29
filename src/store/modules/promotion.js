@@ -1,5 +1,5 @@
 import {Promotion} from '@/api/api.js'
-import testPromotions from '@/api/promotions.json'
+// import testPromotions from '@/api/promotions.json'
 
 const state = {
   promotions: [
@@ -25,7 +25,8 @@ const actions = {
     let promotions = await Promotion.getPromotions()
     console.log('getPromotions', promotions)
     commit('changePromotions', {
-      promotions: testPromotions
+      // promotions: testPromotions
+      promotions: promotions
     })
     commit('restaurant/addNumberOfActivity', {
       num: promotions.length
@@ -35,7 +36,7 @@ const actions = {
 
 const mutations = {
   changePromotions (state, payload) {
-    let temp = payload.promotions.promotions
+    let temp = payload.promotions
     let tempMinus = []
     let tempDiv = []
     for (let i = 0; i < temp.length; ++i) {
@@ -69,7 +70,7 @@ const mutations = {
         })
         id = id + 1
       }
-      let string = '满' + tempDiv[i].requirement + '打' + tempDiv[i].discount + '折;'
+      let string = '满' + tempDiv[i].requirement + '打' + 10 * (tempDiv[i].discount) + '折;'
       state.promotions[state.promotions.length - 1].data = state.promotions[state.promotions.length - 1].data + string
     }
   }

@@ -2,7 +2,8 @@ import {Order} from '@/api/api.js'
 
 const state = {
   ordersList: [],
-  unpaidOrderId: null
+  unpaidOrderId: null,
+  paymentSuccess: false
 }
 
 const getters = {
@@ -52,6 +53,7 @@ const actions = {
     try {
       await Order.pay(payId)
       commit('setUnpaidOrderId', null)
+      commit('setPaymentSuccess', true)
     } catch (error) {
       console.log('PayOrder [fail] ', error)
     }
@@ -64,6 +66,7 @@ const actions = {
       // commit('', )
     } catch (error) {
       console.log('UrgeOrder [fail] ', error)
+      commit('setPaymentSuccess', false)
     }
   }
 }
@@ -74,6 +77,9 @@ const mutations = {
   },
   setUnpaidOrderId (state, orderId) {
     state.unpaidOrderId = orderId
+  },
+  setPaymentSuccess (state, paymentSuccess) {
+    state.paymentSuccess = paymentSuccess
   }
 }
 
