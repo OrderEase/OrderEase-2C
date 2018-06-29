@@ -90,13 +90,22 @@ export default {
       this.currentCheckPayMethod = payMethod
     },
     back () {
-      this.$store.dispatch('order/deleteOrder', this.unpaidOrderId)
+      this.$store.dispatch('order/deleteOrder')
       this.$router.back(-1)
     },
     pay () {
+      if (this.isPaid) {
+        console.log('already paid')
+        return
+      }
+      this.isPaid = true
       console.log('pay id ', this.getPayId())
-      this.$store.dispatch('order/payOrder', this.getPayId())
+      let payId = {
+        'payId': this.getPayId()
+      }
+      this.$store.dispatch('order/payOrder', payId)
       this.confirmPayment = true
+      setTimeout(() => this.$router.push('menu'), 1500)
     },
     getPayId () {
       let currentDate = new Date()
@@ -132,6 +141,7 @@ export default {
   },
   data () {
     return {
+      isPaid: false,
       due: this.totalPrice,
       showPayMethodSelection: false,
       currentCheckPayMethod: '微信支付',
@@ -169,7 +179,6 @@ export default {
     },
     ...mapState({
       dishes: state => state.menu.selectDishes,
-      unpaidOrderId: state => state.order.unpaidOrderId,
       paymentSuccess: state => state.order.paymentSuccess,
       restaurantName: state => state.restaurant.restaurant.name,
       currentPayMethod: state => state.user.payMethod,

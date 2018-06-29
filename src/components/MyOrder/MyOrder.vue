@@ -11,7 +11,7 @@
     <div class="order-list-wrapper" ref="orderListWrapper">
       <div class="order-list">
         <div class="orders" v-show="showUnfinishedOrder" v-for="order in unfinishedOrders">
-          <router-link to="/order-details">
+          <router-link :to="{ name: 'OrderDetails', params: { orderId: order.id } }">
             <div class="order-item">
               <div class="order-body">
                 <img class="order-image" :src="restaurant.img">

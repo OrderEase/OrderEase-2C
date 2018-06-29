@@ -2,7 +2,7 @@ import {Order} from '@/api/api.js'
 
 const state = {
   ordersList: [],
-  unpaidOrderId: null,
+  currentOrderId: null,
   paymentSuccess: false
 }
 
@@ -43,26 +43,25 @@ const actions = {
     try {
       let orderId = await Order.submit(orderInfo)
       console.log('return orderId ', orderId)
-      commit('setUnpaidOrderId', orderId)
+      commit('setCurrentOrderId', orderId)
     } catch (error) {
       console.log('PlaceOrder [fail] ', error)
     }
   },
-  async payOrder ({ commit }, payId) {
+  async payOrder ({ state, commit }, payId) {
     console.log('payOrder')
     try {
-      await Order.pay(payId)
-      commit('setUnpaidOrderId', null)
+      await Order.pay(state.currentOrderId, payId)
       commit('setPaymentSuccess', true)
     } catch (error) {
       console.log('PayOrder [fail] ', error)
     }
   },
-  async deleteOrder ({ commit }, orderId) {
+  async deleteOrder ({ state, commit }, orderId) {
     console.log('deleteOrder')
     try {
-      await Order.delete(orderId)
-      commit('setUnpaidOrderId', null)
+      await Order.delete(state.currentOrderId)
+      commit('setCurrentOrderId', null)
     } catch (error) {
       console.log('DeleteOrder [fail] ', error)
     }
@@ -83,8 +82,8 @@ const mutations = {
   setOrdersList (state, ordersList) {
     state.ordersList = ordersList
   },
-  setUnpaidOrderId (state, orderId) {
-    state.unpaidOrderId = orderId
+  setCurrentOrderId (state, orderId) {
+    state.currentOrderId = orderId
   },
   setPaymentSuccess (state, paymentSuccess) {
     state.paymentSuccess = paymentSuccess
