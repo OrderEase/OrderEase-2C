@@ -29,7 +29,7 @@ const actions = {
     })
     commit('restaurant/addNumberOfActivity', {
       num: promotions.length
-    })
+    }, {root: true})
   }
 }
 

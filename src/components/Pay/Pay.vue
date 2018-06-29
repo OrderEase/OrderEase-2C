@@ -89,11 +89,12 @@ export default {
       this.$router.back(-1)
     },
     pay () {
+      console.log('pay id ', this.getPayId())
       this.$store.dispatch('order/payOrder', this.getPayId())
       this.confirmPayment = true
     },
     getPayId () {
-      return 1024
+      return this.payMethods.find(payMethod => payMethod.name === this.currentPayMethod).id
     }
   },
   data () {
@@ -102,10 +103,10 @@ export default {
       currentCheckPayMethod: '微信支付',
       confirmPayment: false,
       payMethods: [
-        {name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
-        {name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
-        {name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
-        {name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
+        {id: 0, name: '微信支付', icon: '/src/assets/pay/微信支付.svg', hint: '支付成功'},
+        {id: 1, name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg', hint: '支付成功'},
+        {id: 2, name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg', hint: '支付成功'},
+        {id: 3, name: '现金支付', icon: '/src/assets/pay/现金支付.svg', hint: '请等待服务员结账'}
       ]
     }
   },

@@ -48,7 +48,7 @@ const actions = {
     }
   },
   async payOrder ({ commit }, payId) {
-    console.log('placeOrder')
+    console.log('payOrder')
     try {
       await Order.pay(payId)
       commit('setUnpaidOrderId', null)
