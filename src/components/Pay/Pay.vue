@@ -41,15 +41,19 @@
           <div class="dish-price">¥<span>{{ dish.price }}</span></div>
         </div>
         <div class="total-price-container">
+          <div class="discount" v-show="this.totalPrice != this.due">
+            已优惠¥{{ totalPrice - due }}
+          </div>
           <div class="total-price">
-            小计 <span>¥{{ totalPrice }}</span>
+            小计 <span>¥{{ due }}</span>
           </div>
         </div>
       </div>
       </div>
     </div>
     <div class="pay-bar">
-      <span class="total-price">¥{{ totalPrice }}</span>
+      <span class="total-price">¥{{ due }}</span>
+      <span class="original-price" v-show="this.totalPrice != this.due">¥{{ totalPrice }}</span>
       <span class="pay-confirm" @click="pay">确认支付</span>
     </div>  
     <toast v-model="confirmPayment" :type="paymentSuccess ? 'success' : 'cancel'" width="9em" :text="confirmPaymentHint" :time="1000"></toast>
@@ -123,11 +127,12 @@ export default {
       }
       console.log('promotions ', this.promotions)
       console.log('bestDue ', bestDue)
-      return bestDue
+      this.due = bestDue
     }
   },
   data () {
     return {
+      due: this.totalPrice,
       showPayMethodSelection: false,
       currentCheckPayMethod: '微信支付',
       confirmPayment: false,
@@ -141,19 +146,15 @@ export default {
   },
   created () {
     console.log('Pay created')
-    // if (this.unpaidOrderId != null) {
-    //   console.log('have submitted order')
-    //   return
-    // }
     let content = []
-    let due = this.calculateDue()
+    this.calculateDue()
     for (let i in this.dishes) {
       content.push({ 'dish': this.dishes[i].id, 'quantity': this.dishes[i].count })
     }
     let orderInfo = {
       'tableId': '23E',
       'total': this.totalPrice,
-      'due': due,
+      'due': this.due,
       'content': content
     }
     console.log('orderInfo ', orderInfo)
@@ -367,10 +368,20 @@ export default {
       .total-price-container {
         height: 30px;
         padding: 10px 0;
+        font-size: 12px;
+        display: flex;
+        justify-content: flex-end;
+        
+        .discount {
+          align-self: center;
+          margin-right: 10px;
+          padding-bottom: 1px;
+          color: #747881;
+        }
                 
         .total-price {
-          float: right;
-          font-size: 12px;
+          align-self: center;
+          font-size: 14px;
           color: #101010;
           
           span {
@@ -392,13 +403,20 @@ export default {
     bottom: 0px;
     background-color: #7C7C7C;
     color: white;
-    font-weight: bold;
     line-height: 45px;
     opacity: 0.95;
     
     .total-price {
+      font-weight: bold;
       font-size: 20px;
       margin-left: 10px;
+    }
+    
+    .original-price {
+      color: #CECECE;
+      font-size: 14px;
+      text-decoration: line-through;
+      margin-left: 5px;
     }
     
     .pay-confirm {
