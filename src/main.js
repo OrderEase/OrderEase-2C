@@ -14,6 +14,7 @@ Vue.config.productionTip = false
 
 // axios.defaults.baseURL = 'http://172.18.159.249:5000/api/'
 axios.defaults.baseURL = 'http://172.18.157.176:5000/api/'
+axios.defaults.timeout = 3000
 axios.defaults.withCredentials = true
 
 /* eslint-disable no-new */
@@ -23,4 +24,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-router.push('login')
+router.push('login?tableId=e23')

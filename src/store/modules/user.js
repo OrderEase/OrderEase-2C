@@ -5,12 +5,13 @@ const state = {
   isLogin: false,
   isLoginFail: false,
   username: '',
-  payMethod: '微信支付'
+  payMethod: '微信支付',
+  tableId: ''
 }
 
 const actions = {
   async login ({state, dispatch, commit}, payload) {
-    commit('changeUsername', payload)
+    commit('initUserInfor', payload)
     commit('startLogin')
     try {
       let status = await User.login(payload)
@@ -36,8 +37,10 @@ const mutations = {
     state.isLoginFail = true
     state.isLogin = false
   },
-  changeUsername (state, payload) {
+  initUserInfor (state, payload) {
     state.username = payload.username
+    state.tableId = payload.tableId
+    console.log('tableId in state', state.tableId)
   },
   changePayMethod (state, payload) {
     state.payMethod = payload.payMethod

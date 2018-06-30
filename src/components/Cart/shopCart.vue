@@ -109,13 +109,7 @@ export default {
       }
     },
     empty () {
-      for (let i = 0; i < this.dishsSelect.length; ++i) {
-        while (this.dishsSelect[i].count > 0) {
-          this.$store.commit('menu/decreaseCart', {
-            dish: this.dishsSelect[i]
-          })
-        }
-      }
+      this.$store.commit('menu/emptySeletedDish')
       this.show = false
     }
   }
