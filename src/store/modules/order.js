@@ -66,11 +66,11 @@ const actions = {
       console.log('DeleteOrder [fail] ', error)
     }
   },
-  async urgeOrder ({ commit }, orderId, orderItemId) {
+  async urgeOrder ({ commit }, payload) {
     console.log('urgeOrder')
-    let orderInfo = { 'orderItemId': orderItemId, 'urge': 1 }
+    let orderInfo = { 'orderItemId': payload.orderItemId, 'urge': 1 }
     try {
-      await Order.modify(orderId, orderInfo)
+      await Order.modify(payload.orderId, orderInfo)
     } catch (error) {
       console.log('UrgeOrder [fail] ', error)
     }
