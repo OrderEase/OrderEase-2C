@@ -85,6 +85,15 @@ const mutations = {
         state.selectedDish = temp[0]
       }
     }
+  },
+  emptySeletedDish (state, payload) {
+    for (let i = 0; i < state.menus.length; ++i) {
+      state.menus[i].dishes.forEach((element, index, arr) => {
+        if ('count' in element) {
+          element.count = 0
+        }
+      })
+    }
   }
 }
 
