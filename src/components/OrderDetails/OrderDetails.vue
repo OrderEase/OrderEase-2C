@@ -9,58 +9,64 @@
       <div class="order-details-body">
         <div class="dish-list">
           <div class="dish-list-header">已点菜品</div>
-          <div class="dish-item" v-for="(dish, index) in order.dishes">
-            <img class="dish-image" :src="dish.img">
+          <div class="dish-item" v-for="orderItem in order.orderItems">
+            <img class="dish-image" :src="getDishImg(orderItem.dishId)">
             <div class="dish-info">
-              <div class="dish-name">{{ dish.name }}</div>
-              <div class="dish-count">x{{ order.orderItems[index].quantity }}</div>
+              <div class="dish-name">{{ getDishName(orderItem.dishId) }}</div>
+              <div class="dish-count">x{{ orderItem.quantity }}</div>
             </div>
-            <div class="dish-price">¥<span>{{ dish.price }}</span></div>
-            <div class="urge-button-container" 
-                @click="urge(order.id, dish.id)" 
+            <div class="dish-price">¥<span>{{ getDishPrice(orderItem.dishId) }}</span></div>
+            <!-- <div class="urge-button-container" 
+                @click="urge(orderItem.id)"
                 v-show="!order.finished">
               <x-circle
-              class="waiting-time"
-              :percent="calculateWaitingPercent(order.payDate)"
-              :stroke-width="5"
-              :stroke-color="'#539EF9'"
-              anticlockwise>
-              <span>{{ getCurrentOrderItemState(order.orderItems[index]) }}</span>
-            </x-circle>
+                class="waiting-time"
+                :percent="waitingPercent"
+                :stroke-width="5"
+                :stroke-color="'#539EF9'"
+                anticlockwise>
+                <span>{{ orderItemState(orderItem) }}</span>
+              </x-circle>
+            </div> -->
+            <div class="like-button-container" 
+                @click="like(orderItem)" 
+                v-show="order.finished">
+              <img class="like-icon" :src="orderItem.like ? likeActiveIcon : likeUnactiveIcon">
+            </div>
+          </div>
+          <div class="total-price-container">
+            <div class="total-price">
+              合计 <span>¥{{ totalPrice }}</span>
+            </div>
           </div>
         </div>
-        <div class="total-price-container">
-          <div class="total-price">
-            合计 <span>¥{{ totalPrice }}</span>
+        <div class="order-info">
+          <div class="order-number-container">
+            <span class="order-number-key">
+              订单号码
+            </span>
+            <span class="order-number-value">
+              {{ order.id }}
+            </span>  
+          </div>
+          <div class="order-date-container">
+            <span class="order-date-key">
+              下单日期
+            </span>
+            <span class="order-date-value">
+              {{ order.payDate }}
+            </span>
+          </div>
+          <div class="pay-method-container">
+            <span class="pay-method-key">
+              支付方式
+            </span>
+            <span class="pay-method-value">
+              {{ order.payWay }}
+            </span>
           </div>
         </div>
       </div>        
-      <div class="order-info">
-        <div class="order-number-container">
-          <span class="order-number-key">
-            订单号码
-          </span>
-          <span class="order-number-value">
-            {{ order.id }}
-          </span>  
-        </div>
-        <div class="order-date-container">
-          <span class="order-date-key">
-            下单日期
-          </span>
-          <span class="order-date-value">
-            {{ order.payDate }}
-          </span>
-        </div>
-        <div class="pay-method-container">
-          <span class="pay-method-key">
-            支付方式
-          </span>
-          <span class="pay-method-value">
-            {{ order.payWay }}
-          </span>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -79,7 +85,10 @@ export default {
   data () {
     return {
       order: {},
-      urged: false
+      urged: false,
+      expectedMinutes: 1,
+      likeActiveIcon: '/src/assets/orderDetails/like_active.svg',
+      likeUnactiveIcon: '/src/assets/orderDetails/like_unactive.svg'
     }
   },
   created () {
@@ -96,6 +105,31 @@ export default {
       }
       return total
     },
+    // waitingPercent: function () {
+    //   if (orderItem.finished) {
+    //     return 100
+    //   }
+    //   let payTime = (new Date(orderItem.time)).getTime()
+    //   let currentTime = (new Date()).getTime()
+    //   let DiffMinutes = (currentTime - payTime) / (1000 * 60)
+    //   let waitingPercent = (DiffMinutes / this.expectedMinutes) * 100
+    //   if (waitingPercent > 100) {
+    //     waitingPercent = 100
+    //   }
+    //   return waitingPercent
+    // },
+    // orderItemState: function () {
+    //   if (orderItem.finished) {
+    //     return '已上菜'
+    //   }
+    //   if (orderItem.urge) {
+    //     return '已催单'
+    //   }
+    //   if (!orderItem.urge && this.waitingPercent(orderItem.dishId) === 100) {
+    //     return '催单'
+    //   }
+    //   return '制作中'
+    // },
     ...mapGetters('order', {
       getOrderById: 'getOrderById'
     })
@@ -104,31 +138,35 @@ export default {
     back () {
       this.$router.back(-1)
     },
-    async urge (event, orderId, dishId) {
+    async urge (event, orderItemId) {
       if (event.target.innerText === '催单') {
+        await this.$store.dispatch('order/urgeOrder', this.order.id, orderItemId)
         this.urged = true
-        await this.$store.dispatch('order/urgeOrder', orderId, dishId)
         event.target.innerText = '已催单'
       }
     },
-    calculateWaitingPercent (payDate) {
-      return 80
+    async like (orderItem) {
+      if (!orderItem.like) {
+        console.log('orderItemId ', orderItem.id)
+        console.log('dishId ', orderItem.dishId)
+        let orderInfo = { 'orderId': this.order.id, 'orderItemId': orderItem.id }
+        await this.$store.dispatch('order/likeOrder', orderInfo)
+        orderItem.like = true
+      }
     },
-    getCurrentOrderItemState (orderItem) {
-      if (orderItem.finished) {
-        return '已上菜'
-      }
-      if (orderItem.urge) {
-        return '已催单'
-      }
-      let currentPercent = this.calculateWaitingPercent(this.order.payDate)
-      if (!orderItem.urge && currentPercent === 100) {
-        return '催单'
-      }
-      return '制作中'
+    getDishImg (dishId) {
+      // console.log('dishImg')
+      // console.log('dishId ', dishId)
+      // console.log('find dish by dishId ', this.order.dishes.find(dish => dish.id === dishId))
+      return this.order.dishes.find(dish => dish.id === dishId).img
+    },
+    getDishName (dishId) {
+      return this.order.dishes.find(dish => dish.id === dishId).name
+    },
+    getDishPrice (dishId) {
+      return this.order.dishes.find(dish => dish.id === dishId).price
     }
   },
-
   mounted () {
     this.$nextTick(() => {
       if (!this.scroll) {
@@ -140,15 +178,6 @@ export default {
         this.scroll.refresh()
       }
     })
-    for (let i in this.order.dishes) {
-      let time = setInterval(() => {
-        if (this.order.dishes[i].waitingPercent === 100) {
-          clearInterval(time)
-          this.order.dishes[i].state = '催单'
-        }
-        this.order.dishes[i].waitingPercent++
-      }, 1000)
-    }
   }
 }
 </script>
@@ -260,6 +289,22 @@ export default {
           .waiting-time {          
             width: 45px;
             height: 45px;
+          }
+        }
+        
+        .like-button-container {
+          position: absolute;
+          right: 0px;
+          bottom: 15px;
+
+          .like-icon {          
+            width: 30px;
+            height: 30px;
+            fill: #dbdbdb;
+          }
+          
+          .like-active {
+            fill: #539EF9;
           }
         }               
       }

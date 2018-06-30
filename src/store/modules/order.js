@@ -71,9 +71,19 @@ const actions = {
     let orderInfo = { 'orderItemId': orderItemId, 'urge': 1 }
     try {
       await Order.modify(orderId, orderInfo)
-      // commit('', )
     } catch (error) {
       console.log('UrgeOrder [fail] ', error)
+    }
+  },
+  async likeOrder ({ commit }, payload) {
+    console.log('likeOrder')
+    console.log('orderItemId', payload.orderItemId)
+    let orderInfo = { 'orderItemId': payload.orderItemId, 'like': 1 }
+    console.log('orderInfo ', orderInfo)
+    try {
+      await Order.modify(payload.orderId, orderInfo)
+    } catch (error) {
+      console.log('LikeOrder [fail] ', error)
     }
   }
 }
