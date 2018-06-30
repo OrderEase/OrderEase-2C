@@ -24,6 +24,9 @@ export default {
     Spinner,
     Toast
   },
+  created () {
+    console.log('query id', this.$route.query.tableId)
+  },
   data () {
     return {
       username: ''
@@ -41,7 +44,8 @@ export default {
   methods: {
     login () {
       this.$store.dispatch('user/login', {
-        username: this.username
+        username: this.username,
+        tableId: this.$route.query.tableId
       })
     }
   }
