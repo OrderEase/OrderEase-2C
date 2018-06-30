@@ -23,7 +23,6 @@ const actions = {
 const mutations = {
   changeRestaurant (state, payload) {
     state.restaurant = payload.restaurant
-    // Vue.set(state.restaurant, 'bg', 'url(\'/src/assets/bs.jpeg\')')
   },
   addNumberOfActivity (state, payload) {
     Vue.set(state.restaurant, 'num', payload.num)
