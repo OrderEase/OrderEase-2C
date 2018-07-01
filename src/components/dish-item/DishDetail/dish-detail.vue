@@ -12,7 +12,7 @@
           <div class="title">{{dish.name}}</div>
           <div class="likes">
             <img src="../../../assets/menu/good.png" />
-            <span>{{dish.like}}</span>
+            <span>{{dish.likes}}</span>
           </div>
           <div class="price-wrapper">
             ￥<span class="price">{{dish.price}}</span>
