@@ -47,6 +47,7 @@ export default {
         username: this.username,
         tableId: this.$route.query.tableId
       })
+      console.log('tableId', this.$route.query.tableId)
     }
   }
 }

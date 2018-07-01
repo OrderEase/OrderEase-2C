@@ -162,7 +162,7 @@ export default {
       content.push({ 'dish': this.dishes[i].id, 'quantity': this.dishes[i].count })
     }
     let orderInfo = {
-      'tableId': '23E',
+      'tableId': this.$store.state.user.tableId,
       'total': this.totalPrice,
       'due': this.due,
       'content': content
