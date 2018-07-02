@@ -125,9 +125,9 @@ Order.submit = (orderInfo) => {
 }
 
 // 订单付款
-Order.pay = (orderId, payId) => {
+Order.pay = (orderId, payInfo) => {
   return new Promise((resolve, reject) => {
-    axios.post('/orders/cuser/oid/' + orderId, payId)
+    axios.post('/orders/cuser/oid/' + orderId, payInfo)
         .then(response => {
           resolve(response.data)
         })

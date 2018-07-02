@@ -48,10 +48,10 @@ const actions = {
       console.log('PlaceOrder [fail] ', error)
     }
   },
-  async payOrder ({ state, commit }, payId) {
+  async payOrder ({ state, commit }, payInfo) {
     console.log('payOrder')
     try {
-      await Order.pay(state.currentOrderId, payId)
+      await Order.pay(state.currentOrderId, payInfo)
       commit('setPaymentSuccess', true)
     } catch (error) {
       console.log('PayOrder [fail] ', error)

@@ -100,10 +100,11 @@ export default {
       }
       this.isPaid = true
       console.log('pay id ', this.getPayId())
-      let payId = {
-        'payId': this.getPayId()
+      let payInfo = {
+        'payId': this.getPayId(),
+        'payWay': this.currentPayMethod
       }
-      this.$store.dispatch('order/payOrder', payId)
+      this.$store.dispatch('order/payOrder', payInfo)
       this.confirmPayment = true
       setTimeout(() => this.$router.push('menu'), 1500)
     },
