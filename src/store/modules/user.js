@@ -44,6 +44,9 @@ const mutations = {
   },
   changePayMethod (state, payload) {
     state.payMethod = payload.payMethod
+  },
+  changeLoginState (state) {
+    state.isLoginFail = false
   }
 }
 

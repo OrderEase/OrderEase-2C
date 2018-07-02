@@ -1,25 +1,24 @@
 <template>
   <div class="login-wrapper">
-    <group>
-      <x-input v-model="username" placeholder="请输入测试用户ID" title="用户ID："></x-input>
-      <x-button :disabled="isDisable" type="primary" @click.native="login">确认</x-button>
-    </group>
+    <div class="login">
+      <div class="title">Order Ease</div>
+      <div class="descri">Sign in to your account!</div>
+      <input v-model="username" placeholder="username">
+      <button @click="login" :disabled="isDisable">Sign in</button>
+    </div>
     <x-dialog v-model="isLogin">
       <spinner></spinner>
       <span>登录中</span>
     </x-dialog>
-    <toast v-model="isLoginFail" type="cancel" position="middle">登录失败</toast>
+    <toast @on-hide="changeState" v-model="isLoginFail" type="cancel" position="middle">登录失败</toast>
   </div>
 </template>
 
 <script>
-import { Group, XInput, XButton, XDialog, Spinner, Toast } from 'vux'
+import { XDialog, Spinner, Toast } from 'vux'
 import { mapState } from 'vuex'
 export default {
   components: {
-    Group,
-    XInput,
-    XButton,
     XDialog,
     Spinner,
     Toast
@@ -48,6 +47,10 @@ export default {
         tableId: this.$route.query.tableId
       })
       console.log('tableId', this.$route.query.tableId)
+      console.log('isLoginFailed', this.isLoginFail)
+    },
+    changeState () {
+      this.$store.commit('user/changeLoginState')
     }
   }
 }
@@ -57,5 +60,53 @@ export default {
 .login-wrapper {
   height: 100%;
   width: 100%;
+  background: url('/src/assets/bs.jpeg') no-repeat;
+  .login {
+    position: fixed;
+    border-radius: 4px;
+    border-width: 1px;
+    background-color: rgba(248, 248, 255, 0.85);
+    border-color: rgba(248,248,255, 1);
+    width: 80%;
+    height: 40%;
+    top: 25%;
+    left: 10%;
+    input {
+      position: relative;
+      width: 65%;
+      height: 40px;
+      padding-left: 5%;
+      border-radius: 2px;
+      border-style: solid;
+      border-color: white;
+      left: 15%;
+      margin-top: 10%;
+      display: block;
+    }
+    button {
+      position: relative;
+      color: white;
+      background-color: rgba(83, 158, 249, 1);
+      border-color: rgba(83, 158, 249, 1);
+      border-style: solid;
+      border-radius: 2px;
+      width: 71%;
+      margin-top: 10%;
+      height: 40px;
+      left: 15%;
+    }
+    .title {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 3%;
+      font-weight: lighter;
+      font-family: Arial, Helvetica, sans-serif
+    }
+    .descri {
+      text-align: center;
+      font-size: 12px;
+      color: gray;
+    }
+  }
 }
 </style>
