@@ -106,6 +106,7 @@ export default {
       }
       this.$store.dispatch('order/payOrder', payInfo)
       this.confirmPayment = true
+      this.$store.commit('menu/emptySelectedDish')
       setTimeout(() => this.$router.push('menu'), 1500)
     },
     getPayId () {
