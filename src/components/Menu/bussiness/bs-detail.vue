@@ -24,8 +24,8 @@
                 活动
               </div>
               <div class="activity-list">
-                <div v-for="promotion in promotions" :key="promotion.id" class="activity-intro">
-                  <div class="activity-type">
+                <div v-for="promotion in promotions" :key="promotion.id" class="activity-intro" :class="promotion.show === true ? '' : 'not-first'">
+                  <div :class="promotion.show === true ? 'activity-type' : 'disappear'">
                     {{promotion.type}}
                   </div>
                   <div class="activity-details">
@@ -200,6 +200,9 @@ export default {
         font-family: Arial;
         border: 1px solid rgba(255, 255, 255, 0);
       }
+      .not-first {
+        margin-top: -4px;
+      }
       .activity-intro {
         display: flex;
         flex-direction: row;
@@ -218,6 +221,22 @@ export default {
           box-shadow: 0px 0px 0px 0px rgba(172, 90, 90, 1);
           font-family: Arial;
           border: 1px solid rgba(83, 158, 249, 1);
+        }
+        .disappear {
+          margin-left: 21px;
+          width: 16px;
+          height: 16px;
+          line-height: 17px;
+          
+          border-radius: 2px;
+          background-color: rgba(246, 249, 255, 1);
+          color: rgba(83, 158, 249, 1);
+          font-size: 12px;
+          text-align: center;
+          box-shadow: 0px 0px 0px 0px rgba(172, 90, 90, 1);
+          font-family: Arial;
+          border: 1px solid rgba(83, 158, 249, 1);
+          opacity: 0;
         }
         .activity-details {
           margin-left: 10px;

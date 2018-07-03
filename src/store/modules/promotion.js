@@ -56,7 +56,8 @@ const mutations = {
         state.promotions.push({
           id: id,
           type: '减',
-          data: ''
+          data: '',
+          show: i === 0
         })
         id = id + 1
       }
@@ -68,7 +69,8 @@ const mutations = {
         state.promotions.push({
           id: id,
           type: '折',
-          data: ''
+          data: '',
+          show: i === 0
         })
         id = id + 1
       }
