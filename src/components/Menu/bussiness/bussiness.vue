@@ -15,18 +15,13 @@
     </div>
     <div class="second-section" @click.stop.prevent="changeShow">
       <div class="introduction">{{bussiness.introduction}}</div>
-      <div class="activity">{{bussiness.num}}个活动></div>
+      <div class="activity">{{bussiness.num}}个活动 ></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    bussiness: {
-      Object
-    }
-  },
   data () {
     return {
       name: '肥宅快乐餐',
@@ -39,6 +34,11 @@ export default {
     this.$nextTick(() => {
       console.log(this.bussiness.bg)
     })
+  },
+  computed: {
+    bussiness () {
+      return this.$store.state.restaurant.restaurant
+    }
   },
   methods: {
     toOrder () {

@@ -1,7 +1,7 @@
 
 <template>
   <div class="menu">
-    <bussiness class="bussiness" @show-detail='showDetail' :bussiness='bs'></bussiness>
+    <bussiness class="bussiness" @show-detail='showDetail'></bussiness>
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
         <ul>
@@ -82,8 +82,7 @@ export default {
     },
     ...mapState({
       menus: state => state.menu.menus,
-      selectedId: state => state.menu.selectedId,
-      bs: state => state.restaurant.restaurant
+      selectedId: state => state.menu.selectedId
     })
   },
   methods: {
@@ -223,7 +222,7 @@ export default {
       margin-left: 3px;
       .dishes-ul::after {
         content: '';
-        height: 40px;
+        height: 65px;
         display: block;
       }
       .dish-item {
