@@ -109,7 +109,7 @@ export default {
       }
     },
     empty () {
-      this.$store.commit('menu/emptySeletedDish')
+      this.$store.commit('menu/emptySelectedDish')
       this.show = false
     }
   }

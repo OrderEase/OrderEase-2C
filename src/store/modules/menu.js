@@ -86,7 +86,7 @@ const mutations = {
       }
     }
   },
-  emptySeletedDish (state, payload) {
+  emptySelectedDish (state, payload) {
     for (let i = 0; i < state.menus.length; ++i) {
       state.menus[i].dishes.forEach((element, index, arr) => {
         if ('count' in element) {
