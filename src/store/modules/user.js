@@ -17,8 +17,8 @@ const actions = {
       let status = await User.login(payload)
       if (status === 200) {
         dispatch('menu/getMenus', null, {root: true})
-        dispatch('promotion/getPromotions', null, {root: true})
         dispatch('restaurant/getRestaurant', null, {root: true})
+        dispatch('promotion/getPromotions', null, {root: true})
         router.push('/menu')
       } else {
         commit('loginFail')

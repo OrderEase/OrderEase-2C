@@ -14,14 +14,21 @@
     <div class="line">
     </div>
     <div class="second-section" @click.stop.prevent="changeShow">
-      <div class="introduction">{{bussiness.introduction}}</div>
+      <marquee>
+        <marquee-item v-for="promotion in promotions" :key="promotion.id" class="introduction">{{promotion.data}}</marquee-item>
+      </marquee>
       <div class="activity">{{bussiness.num}}个活动 ></div>
     </div>
   </div>
 </template>
 
 <script>
+import { Marquee, MarqueeItem } from 'vux'
 export default {
+  components: {
+    Marquee,
+    MarqueeItem
+  },
   data () {
     return {
       name: '肥宅快乐餐',
@@ -32,12 +39,16 @@ export default {
   },
   created () {
     this.$nextTick(() => {
-      console.log(this.bussiness.bg)
+      console.log('bussiness num 1', this.bussiness.num)
     })
+    console.log('bussiness num 2', this.bussiness.num)
   },
   computed: {
     bussiness () {
       return this.$store.state.restaurant.restaurant
+    },
+    promotions () {
+      return this.$store.state.promotion.promotions
     }
   },
   methods: {

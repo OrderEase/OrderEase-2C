@@ -24,12 +24,14 @@ const getters = {
 const actions = {
   async getPromotions ({commit}) {
     let promotions = await Promotion.getPromotions()
+    // let promotions = testPromotions.promotions
     console.log('getPromotions', promotions)
     commit('changePromotions', {
       // promotions: testPromotions
       promotions: promotions
     })
     commit('setPromotionsRawData', promotions)
+    console.log('promotions is null?', promotions.length)
     commit('restaurant/addNumberOfActivity', {
       num: promotions.length
     }, {root: true})
