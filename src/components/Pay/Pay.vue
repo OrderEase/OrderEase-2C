@@ -93,7 +93,7 @@ export default {
       this.$store.dispatch('order/deleteOrder')
       this.$router.back(-1)
     },
-    pay () {
+    async pay () {
       if (this.isPaid) {
         console.log('already paid')
         return
@@ -104,10 +104,12 @@ export default {
         'payId': this.getPayId(),
         'payWay': this.currentPayMethod
       }
-      this.$store.dispatch('order/payOrder', payInfo)
+      await this.$store.dispatch('order/payOrder', payInfo)
       this.confirmPayment = true
-      this.$store.commit('menu/emptySelectedDish')
-      setTimeout(() => this.$router.push('menu'), 1500)
+      setTimeout(() => {
+        this.$store.commit('menu/emptySelectedDish')
+        this.$router.push('menu')
+      }, 1500)
     },
     getPayId () {
       let currentDate = new Date()
