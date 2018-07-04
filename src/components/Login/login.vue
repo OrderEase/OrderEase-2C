@@ -25,6 +25,7 @@ export default {
   },
   created () {
     console.log('query id', this.$route.query.tableId)
+    document.title = '桌号 ' + this.$route.query.tableId
   },
   data () {
     return {
