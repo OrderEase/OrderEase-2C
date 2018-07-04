@@ -52,7 +52,7 @@ const mutations = {
       }))
     }
     console.log('changePromotions', tempMinus)
-    let id = 0
+    let id = state.promotions.length === 0 ? 0 : state.promotions[state.promotions.length - 1].id + 1
     for (let i = 0; i < tempMinus.length; ++i) {
       if (i % 3 === 0) {
         state.promotions.push({
