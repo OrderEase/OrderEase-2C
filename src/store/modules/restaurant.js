@@ -12,7 +12,7 @@ const getters = {
 const actions = {
   async getRestaurant ({commit}) {
     let restaurant = await Restaurant.getRestaurant()
-    restaurant.bg = 'url(\'/src/assets/bs.jpeg\')'
+    // restaurant.bg = 'url(\'/src/assets/bs.jpeg\')'
     console.log('restaurant', restaurant)
     commit('changeRestaurant', {
       restaurant: restaurant

@@ -149,10 +149,10 @@ export default {
       currentCheckPayMethod: '微信支付',
       confirmPayment: false,
       payMethods: [
-        {id: 0, name: '微信支付', icon: '/src/assets/pay/微信支付.svg'},
-        {id: 1, name: '支付宝', icon: '/src/assets/pay/支付宝支付.svg'},
-        {id: 2, name: '银行卡支付', icon: '/src/assets/pay/银行卡支付.svg'},
-        {id: 3, name: '比特币', icon: '/src/assets/pay/比特币.svg'}
+        {id: 0, name: '微信支付', icon: require('../../assets/pay/微信支付.svg')},
+        {id: 1, name: '支付宝', icon: require('../../assets/pay/支付宝支付.svg')},
+        {id: 2, name: '银行卡支付', icon: require('../../assets/pay/银行卡支付.svg')},
+        {id: 3, name: '比特币', icon: require('../../assets/pay/比特币.svg')}
       ]
     }
   },

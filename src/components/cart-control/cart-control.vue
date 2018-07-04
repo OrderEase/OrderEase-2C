@@ -2,13 +2,13 @@
   <div class="cart-control">
     <transition name="fade">
       <span class="cart-minus" v-show="dish.count > 0" @click.stop.prevent="decreaseCart($event)">
-        <img src="/src/assets/menu/minus-icon.svg" alt="" style="height: 24px; width: 24px;">
+        <img src="../../assets/menu/minus-icon.svg" alt="" style="height: 24px; width: 24px;">
       </span>
     </transition>
     
     <span class="cart-count" v-show="dish.count > 0">{{dish.count}}</span>
     <span class="cart-plus" @click.stop.prevent="increaseCart($event)">
-      <img src="/src/assets/menu/plus-icon.svg" alt="" style="height: 24px; width: 24px;">
+      <img src="../../assets/menu/plus-icon.svg" alt="" style="height: 24px; width: 24px;">
     </span>
   </div>
 </template>

@@ -87,8 +87,8 @@ export default {
       order: {},
       urged: false,
       expectedMinutes: 1,
-      likeActiveIcon: '/src/assets/orderDetails/like_active.svg',
-      likeUnactiveIcon: '/src/assets/orderDetails/like_unactive.svg',
+      likeActiveIcon: require('../../assets/orderDetails/like_active.svg'),
+      likeUnactiveIcon: require('../../assets/orderDetails/like_unactive.svg'),
       time: null
     }
   },

@@ -4,7 +4,7 @@
       <div class="detail-wrapper">
         <div class="bg">
         </div>
-        <div class="top-section" :style="{'background-image': bs.bg}">
+        <div class="top-section">
           <div class="left-section">
             <img :src="bs.img">
           </div>
@@ -116,6 +116,7 @@ export default {
   .top-section {
     // left: 40px;
     // top: 138px;
+    background: url('../../../assets/bs.jpeg') no-repeat;
     width: 300px;
     height: 80px;
     background-repeat: no-repeat;

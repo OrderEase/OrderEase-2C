@@ -1,6 +1,6 @@
 
 <template>
-  <div class="bussiness" :style="{'background-image': bussiness.bg}">
+  <div class="bussiness">
     <div class="bg">
     </div>
     <div class="first-section">
@@ -56,7 +56,7 @@ export default {
 <style lang="scss">
 .bussiness {
   // background-color: black;
-  // background: url('/src/assets/bs.jpeg') no-repeat;
+  background: url('../../../assets/bs.jpeg') no-repeat;
   background-repeat: no-repeat;
   background-position: center;
   // background-size: 100% 100%;

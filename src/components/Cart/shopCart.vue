@@ -25,7 +25,7 @@
       <div class="contents" @click.stop.prevent="showList">
         <div class="content-left">
           <div class="icon">
-            <img class="cart" src="/src/assets/menu/cart.svg">
+            <img class="cart" src="../../assets/menu/cart.svg">
           </div>
           <div class="price">￥{{totalPrice}}</div>
         </div>
