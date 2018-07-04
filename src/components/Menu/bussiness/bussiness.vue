@@ -9,7 +9,10 @@
         <div class="name">{{bussiness.name}}</div>
         <div class="description">{{bussiness.description}}</div>
       </div>
-      <button @click.stop.prevent="toOrder">订单</button>
+      <button @click.stop.prevent="toOrder">
+        订单
+        <badge v-show="unfinishedOrdersCount > 0" class="unfinished-orders-count" :text="unfinishedOrdersCount"></badge>
+      </button>
     </div>
     <div class="line">
     </div>
@@ -23,11 +26,13 @@
 </template>
 
 <script>
-import { Marquee, MarqueeItem } from 'vux'
+import { Marquee, MarqueeItem, Badge } from 'vux'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Marquee,
-    MarqueeItem
+    MarqueeItem,
+    Badge
   },
   data () {
     return {
@@ -49,7 +54,10 @@ export default {
     },
     promotions () {
       return this.$store.state.promotion.promotions
-    }
+    },
+    ...mapGetters({
+      unfinishedOrdersCount: 'order/unfinishedOrdersCount'
+    })
   },
   methods: {
     toOrder () {
@@ -105,6 +113,15 @@ export default {
       color: white;
       width: 60px;
       height: 38px;
+      position: relative;
+      
+      .unfinished-orders-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        height: 16px;
+        width: 16px;
+      }
     }
     .text {
       flex-grow: 1;

@@ -108,6 +108,7 @@ export default {
       this.confirmPayment = true
       setTimeout(() => {
         this.$store.commit('menu/emptySelectedDish')
+        this.$store.dispatch('order/getOrdersList')
         this.$router.push('menu')
       }, 1500)
     },

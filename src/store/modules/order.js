@@ -25,6 +25,9 @@ const getters = {
     return (orderId) => {
       return state.ordersList.find(order => orderId === order.id)
     }
+  },
+  unfinishedOrdersCount (state, getters) {
+    return getters.unfinishedOrdersList.length
   }
 }
 
