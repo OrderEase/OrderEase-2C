@@ -1,10 +1,11 @@
 <template>
   <div class="login-wrapper">
+    <div class="mask"></div>
     <div class="login">
       <div class="title">Order Ease</div>
       <div class="descri">Sign in to your account!</div>
-      <input v-model="username" placeholder="username">
-      <button @click="login" :disabled="isDisable">Sign in</button>
+      <input v-model="username" placeholder="username" class="login-username">
+      <button @click="login" :disabled="isDisable" class="login-btn">Sign in</button>
     </div>
     <x-dialog v-model="isLogin">
       <spinner></spinner>
@@ -62,6 +63,12 @@ export default {
   height: 100%;
   width: 100%;
   background: url('../../assets/bs.jpeg') no-repeat center;
+  .mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
   .login {
     position: fixed;
     border-radius: 4px;
@@ -72,7 +79,7 @@ export default {
     height: 40%;
     top: 25%;
     left: 10%;
-    input {
+    .login-username {
       position: relative;
       width: 65%;
       height: 40px;
@@ -83,8 +90,9 @@ export default {
       left: 15%;
       margin-top: 10%;
       display: block;
+      font-size: 16px;
     }
-    button {
+    .login-btn {
       position: relative;
       color: white;
       background-color: rgba(83, 158, 249, 1);
@@ -95,6 +103,7 @@ export default {
       margin-top: 10%;
       height: 40px;
       left: 15%;
+      font-size: 16px;
     }
     .title {
       text-align: center;

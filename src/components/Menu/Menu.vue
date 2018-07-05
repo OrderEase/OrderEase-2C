@@ -91,7 +91,8 @@ export default {
     },
     _initScroll () {
       this.categoryWrapper = new BScroll(this.$refs.categoryWrapper, {
-        click: true
+        click: true,
+        bounceTime: 350
       })
       this.dishesScroll = new BScroll(this.$refs.dishesWrapper, {
         click: true,
