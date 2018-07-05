@@ -4,7 +4,7 @@
     <bussiness class="bussiness" @show-detail='showDetail'></bussiness>
     <div class="content">
       <div class="category-wrapper" ref="categoryWrapper">
-        <ul>
+        <ul class="category-ul">
           <li v-for="(category, index) in menus" class="category-item" @click.stop.prevent="categoryClick(index, category.id, $event)" :key="category.id" :class="selectedId == category.id ? 'category-item-selected' : ''">
             <span class="text">
               {{category.name}}
@@ -166,8 +166,13 @@ export default {
       width: 120px;
       background: #f3f5f7;
       background-color: rgba(246, 249, 255, 1);
-      margin-top: 1px;
+      margin-top: 15px;
       overflow: hidden;
+      .category-ul::after {
+        content: '';
+        height: 100px;
+        display: block;
+      }
       .category-item {
         display: flex;
         flex-direction: column;
@@ -194,13 +199,13 @@ export default {
           overflow: hidden;
           white-space: nowrap;
         }
-        &:after {
-          position: absolute;
-          content: '';
-          left: 12px;
-          width: 56px;
-          bottom: 0;
-        }
+        // &:after {
+        //   position: absolute;
+        //   content: '';
+        //   left: 12px;
+        //   width: 56px;
+        //   bottom: 0;
+        // }
       }
       .num-selected {
         width: 55px;

@@ -61,7 +61,7 @@ export default {
 .login-wrapper {
   height: 100%;
   width: 100%;
-  background: url('../../assets/bs.jpeg') no-repeat;
+  background: url('../../assets/bs.jpeg') no-repeat center;
   .login {
     position: fixed;
     border-radius: 4px;

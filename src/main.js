@@ -12,7 +12,7 @@ FastClick.attach(document.body)
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = 'http://172.18.158.105:8000/api'
 axios.defaults.timeout = 8000
 axios.defaults.withCredentials = true
 
